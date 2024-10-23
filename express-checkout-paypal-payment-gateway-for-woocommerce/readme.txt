@@ -1,11 +1,12 @@
+
 === Payment Gateway Plugin for PayPal WooCommerce ===
 Contributors: webtoffee
 Donate link: https://www.webtoffee.com/plugins/
 Tags: WooCommerce PayPal Payments, paylater, payment gateway, credit card, debit card
 Requires at least: 5.6
-Tested up to: 6.6.1
+Tested up to: 6.6.2
 Requires PHP: 5.6
-Stable tag: 1.8.6
+Stable tag: 1.8.7
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,16 +19,7 @@ Integrate PayPal with WooCommerce to accept payments through the secure PayPal p
 
 With this WooCommerce PayPal plugin, your customers can use their credit cards, debit cards, PayPal Credit, Pay Later offers (Pay in 4), or PayPal money to make an order from the cart page itself. With the WooCommerce PayPal smart button, you can also allow your customers to make payments using the preferred payment methods in their country/region auto-detected by PayPal.
 
-
 With PayPal Express Checkout or PayPal Smart Checkout enabled you can ensure a smoother experience for your users as they never have to leave your website for making payments. PayPal for WooCommerce makes the payment process quick, easy, and convenient.
-
-
-### Importance of PayPal Checkout for your WooCommerce Store ###
-[PayPal](https://www.paypal.com/us/webapps/mpp/home) is one of the faster and more secure options for online payments. It has millions of active users globally making it one of the leading payment platforms. By integrating the PayPal payment gateway with your WooCommerce store (using the PayPal checkout plugin), you will be able to increase conversions and reduce cart abandonment at a drastic rate.
-
-
-Payment Gateway Plugin for PayPal WooCommerce is one of the best WooCommerce PayPal plugins that facilitates integration with PayPal. The WooCommerce payment plugin is an easy-to-use tool that offers everything from faster checkout to recurring payment support (available in premium). 
-
 
 ### Major Features of the PayPal Express Checkout Payment Gateway Plugin for WooCommerce###
 
@@ -38,12 +30,10 @@ Payment Gateway Plugin for PayPal WooCommerce is one of the best WooCommerce Pay
 * Bancontact
 * BLIK
 * eps
-* giropay
 * iDEAL
 * MyBank
 * Pay upon Invoice
 * Przelewy24
-* SOFORT
 
 🔸 Smart checkout button customization - customize label, color, shape, layout, size, etc. [New]
 🔸 Option to enable PayPal Standard payment gateway
@@ -54,7 +44,12 @@ Payment Gateway Plugin for PayPal WooCommerce is one of the best WooCommerce Pay
 🔸 Customize  the PayPal payment options visible to customers with various settings and configurations. 
 🔸 Add invoice prefix to identify store order
 🔸 Faster checkout by skipping the order review page
-🔸 Tested OK with WooCommerce 9.1.4
+🔸 Tested OK with WooCommerce 9.3.3
+
+### Importance of PayPal Checkout for your WooCommerce Store ###
+[PayPal](https://www.paypal.com/us/webapps/mpp/home) is one of the faster and more secure options for online payments. It has millions of active users globally making it one of the leading payment platforms. By integrating the PayPal payment gateway with your WooCommerce store (using the PayPal checkout plugin), you will be able to increase conversions and reduce cart abandonment at a drastic rate.
+
+Payment Gateway Plugin for PayPal WooCommerce is one of the best WooCommerce PayPal plugins that facilitates integration with PayPal. The WooCommerce payment plugin is an easy-to-use tool that offers everything from faster checkout to recurring payment support (available in premium). 
 
 To learn about the installation and setup of this free WooCommerce PayPal plugin, visit the [plugin documentation](https://www.webtoffee.com/paypal-express-checkout-payment-gateway-woocommerce-user-guide/) page.
 
@@ -92,9 +87,20 @@ WebToffee is a reliable, efficient, and focused WooCommerce extension developer 
 
 == Installation ==
 
-1. Upload the plugin folder to the '/wp-content/plugins/' directory.
-2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. That's it! you can now configure the plugin.
+= Minimum Requirements =
+
+* PHP 5.6 or higher is recommended
+* WordPress 5.6 or higher is recommended
+
+= Steps to install the plugin =
+
+To install the plugin, follow the below steps:
+
+Step 1: Log in to your WordPress dashboard. 
+Step 2: Navigate to Plugins and select Add New. 
+Step 3: In the search bar, type “Payment Gateway Plugin for PayPal WooCommerce” and click Search Plugins. 
+Step 4: Once you find the PayPal Payment plugin by WebToffee, click on “Install Now”.
+Step 5: After installation, click “Activate” to activate the plugin. 
 
 == Frequently Asked Questions ==
 
@@ -132,6 +138,13 @@ PayPal is available in more than 200 countries/regions and supports 25 currencie
 
 
 == Changelog ==
+
+= 1.8.7 2024-08-14=
+* [Compatibility] - WooCommerce 9.3.3
+* [Compatibility] - WordPress 6.6.2
+* [Fix] - The total amount of the cart items doesn't match the order total.
+* [Fix] - No address or email was saved in the order details when a guest user completed a payment.
+* [Improvement] - Added support for Italian, Dutch, and Japanese translations.
 
 = 1.8.6 2024-08-14 =
 * [Compatibility] - WooCommerce 9.1.4
@@ -465,8 +478,10 @@ PayPal is available in more than 200 countries/regions and supports 25 currencie
 
 == Upgrade Notice ==
 
-= 1.8.6 =
-* [Compatibility] - WooCommerce 9.1.4
-* [Compatibility] - WordPress 6.6.1
-* [Enhancement] - Added the ability to add or remove extra line items to handle subtotal mismatches in the PayPal Express Checkout method.
-* [Fix] - Resolved an issue where address changes made on the review page were not reflected in the order within the PayPal Express Checkout method.
+= 1.8.7 =
+* [Compatibility] - WooCommerce 9.3.3
+* [Compatibility] - WordPress 6.6.2
+* [Fix] - The total amount of the cart items doesn't match the order total.
+* [Fix] - No address or email was saved in the order details when a guest user completed a payment.
+* [Improvement] - Added support for Italian, Dutch, and Japanese translations.
+

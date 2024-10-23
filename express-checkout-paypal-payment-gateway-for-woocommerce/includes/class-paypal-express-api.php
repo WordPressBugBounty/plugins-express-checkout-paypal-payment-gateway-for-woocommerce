@@ -840,9 +840,14 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
                         //set this session to exclude the stock held by the current order
                         WC()->session->set( 'order_awaiting_payment', $order_id );
 
+						$checkout_post = (isset(WC()->session->post_data) && !empty(WC()->session->post_data)) ? WC()->session->post_data : array();
+						do_action( 'woocommerce_checkout_order_processed', $order_id, $checkout_post, $order );
+						
 						wp_safe_redirect( wc_get_checkout_url() );
 						exit;
 					}
+					$order->save();
+
 				} catch ( Exception $e ) {
 					Eh_PayPal_Log::log_update( $e, 'catch Exception on Express Details' );
 					wc_add_notice( __( 'Redirect to PayPal failed. Please try again later.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );

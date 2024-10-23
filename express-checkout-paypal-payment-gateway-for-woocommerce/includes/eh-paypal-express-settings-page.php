@@ -57,7 +57,7 @@ if ( function_exists( 'wp_hash' ) ) {
 
 return array(
 	'enabled'                            => array(
-		'title'       => __( 'PayPal Payment Gateway', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'title'       => __( 'Enable PayPal payment', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'label'       => __( 'Enable', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'type'        => 'checkbox',
 		'description' => __( 'Enable to have PayPal payment method on the checkout page.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
@@ -65,31 +65,32 @@ return array(
 		'desc_tip'    => true,
 	),
 	'express_checkout'                   => array(
-		'title'       => sprintf( __( 'Payment Button', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
+		'title'       => sprintf( __( 'Select payment button', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
 		'label'       => sprintf( __( 'Express checkout', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
 		'type'        => 'checkbox',
 		'class'       => 'eh_paypal_mode',
-		'description' => 'Express Checkout are static buttons with limited customization options.',
+		'description' => 'Accept subscription payments with limited payment options and customization',
 		'default'     => $express_button_default,
 	),
 	'smart_button_enabled'               => array(
 		'label'       => sprintf( __( 'Smart Button', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
 		'type'        => 'checkbox',
 		'class'       => 'eh_paypal_mode',
-		'description' => '<div class="eh_paypal_mode_desc"><div>Smart Payment Buttons provides different ways to customize the PayPal checkout button. Accepts alternative payment methods such as PayPal Credit, Venmo, and local funding sources.</div><div class="smart_button_alert"> <span>&#9888;</span> Smart Payment buttons will override the existing customisations done for Express buttons.</div></div>',
+		'description' => '<div class="eh_paypal_mode_desc"><div>Customize PayPal checkout and accept various payment options</div><div class="smart_button_alert"> <span>&#9888;</span> Subscription payments will be supported by express checkout only.</div></div>',
 		'default'     => $smart_button_default,
 	),
 
-	'paypal_prerequesties'               => array(
-		'type'        => 'title',
-		'class'       => 'express_toggle_display',
-		'description' => sprintf( "<div class='eh_wt_info_div express_toggle_display'><p><b>" . __( 'Pre-requisites:', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</b></p><p> ' . __( 'Requires a PayPal Business account linked with confirmed identity, email, and bank account.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</p><p> ' . __( 'To get the API credentials:', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . "</p><ul class='eh_wt_notice_bar_style'><li> " . __( 'Log into your PayPal business account.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . ' </li> <li>' . __( 'Click Activity near the top of the page and select API Access.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</li> <li>' . __( 'Scroll to NVP/SOAP API Integration (Classic) and click Manage API Credentials.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</li> <li>' . __( 'Create keys if not done already. Else, copy the API Username, API Password, and Signature and paste it into the respective fields of the plugin.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . "</li> </ul></div><p class='express_toggle_display'><a target='_blank' href='https://www.webtoffee.com/paypal-express-checkout-payment-gateway-woocommerce-user-guide/'>  " . __( 'Read documentation', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . ' </a></p>' ),
-	),
+
 	'credentials_title'                  => array(
 		'title'       => sprintf( __( 'PayPal Credentials', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
 		'type'        => 'title',
 		'class'       => 'express_toggle_display',
 		'description' => __( '<span class="express_toggle_display">Select Live mode to accept payments and Sandbox mode to test payments.</span>', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+	),
+	'paypal_prerequesties'               => array(
+		'type'        => 'title',
+		'class'       => 'express_toggle_display',
+		'description' => sprintf( "<div class='eh_wt_info_div express_toggle_display'><p><b>" . __( 'Pre-requisites:', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</b></p><p> ' . __( 'Requires a PayPal Business account linked with confirmed identity, email, and bank account.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</p><p> ' . __( 'To get the API credentials:', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . "</p><ul class='eh_wt_notice_bar_style'><li> " . __( 'Log into your PayPal business account.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . ' </li> <li>' . __( 'Click Activity near the top of the page and select API Access.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</li> <li>' . __( 'Scroll to NVP/SOAP API Integration (Classic) and click Manage API Credentials.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</li> <li>' . __( 'Create keys if not done already. Else, copy the API Username, API Password, and Signature and paste it into the respective fields of the plugin.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . "</li> </ul></div><p class='express_toggle_display'><a target='_blank' href='https://www.webtoffee.com/paypal-express-checkout-payment-gateway-woocommerce-user-guide/'>  " . __( 'Read documentation', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . ' </a></p>' ),
 	),
 	'environment'                        => array(
 		'title'       => __( 'Environment', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
@@ -140,12 +141,14 @@ return array(
 		'default' => '',
 	),
 	'gateway_title'                      => array(
+		'title' => __(	'PayPal Payment Gateway', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'type'  => 'title',
+		'description' => __( '<span class="express_toggle_display">Includes PayPal as one of the available payment method, alongside other supported options.</span>', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'class' => 'eh-css-class express_toggle_display',
 	),
 
 	'title'                              => array(
-		'title'       => __( 'Title', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'title'       => __( 'Payment gateway title', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'type'        => 'text',
 		'class'       => 'express_toggle_display',
 		'description' => __( 'Input title for the payment gateway displayed at the checkout.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
@@ -165,7 +168,7 @@ return array(
 	'express_title'                      => array(
 		'title'       => sprintf( __( 'PayPal Express Checkout Button', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
 		'type'        => 'title',
-		'description' => __( '<span class="express_toggle_display">Add Express Checkout to your store for faster PayPal transactions.</span>', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'description' => __( '<span class="express_toggle_display">Express button exists seperately from the payment gateways section, and allows customers to proceed directly to PayPal for payment</span>', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'class'       => 'eh-css-class express_toggle_display',
 	),
 
@@ -243,8 +246,8 @@ return array(
 		'type'        => 'select',
 		'class'       => 'wc-enhanced-select express_toggle_display',
 		'options'     => array(
-			'login'   => __( 'Login', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
-			'billing' => __( 'Billing', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+			'login'   => __( 'PayPal login', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+			'billing' => __( 'PayPal Billing', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		),
 		'description' => sprintf( __( 'Customers will be redirected to the chosen page. By default, the billing page is taken.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
 		'default'     => 'billing',
@@ -282,7 +285,7 @@ return array(
 		'placeholder' => 'EH_',
 	),
 	'paypal_allow_override'              => array(
-		'title'       => __( 'Address override', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'title'       => __( 'Disable address override', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'type'        => 'checkbox',
 		'class'       => 'express_toggle_display',
 		'label'       => __( 'Enable to prevent checkout address being changed at the PayPal end.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
@@ -291,22 +294,22 @@ return array(
 		'desc_tip'    => false,
 	),
 	'send_shipping'                      => array(
-		'title'       => __( 'Shipping details', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'title'       => __( 'Send shipping address instead of billing', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'type'        => 'checkbox',
 		'class'       => 'express_toggle_display',
 		'label'       => __( 'Enable to send shipping details to PayPal instead of billing.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'default'     => 'no',
-		'description' => __( 'PayPal allows us to send only one among shipping/billing addresses. We advise you to validate PayPal Seller protection to send shipping details to PayPal.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'description' => __( 'PayPal accepts only one among shipping/billing addresses. It is recommended to validate PayPal Seller protection to submit shipping details to PayPal.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'desc_tip'    => false,
 	),
 
 	'skip_review'                        => array(
-		'title'       => __( 'Skip review page', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'title'       => __( 'Hide order review page', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'type'        => 'checkbox',
 		'class'       => 'express_toggle_display',
 		'label'       => __( 'Enable', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'default'     => 'yes',
-		'description' => __( 'Enable to skip the review page (Customers returned from PayPal will be presented with a final review page which includes the order details) and move to the site directly.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'description' => __( 'If enabled, customers returning from PayPal will directly go to the order received page.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'desc_tip'    => true,
 	),
 	'save_cancelled_order'               => array(
@@ -315,16 +318,16 @@ return array(
 		'class'       => 'express_toggle_display',
 		'label'       => __( 'Enable', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'default'     => 'no',
-		'description' => __( 'Enable to save pending order if payment is cancelled from PayPal’s side.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'description' => __( 'Save pending order if payment is cancelled from PayPal’s side.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'desc_tip'    => false,
 	),
 	'add_extra_line_item' => array(
-        'title' => __('Subtotal Mismatch Behavior', 'express-checkout-paypal-payment-gateway-for-woocommerce'),
+        'title' => __('Manage subtotal mismatch', 'express-checkout-paypal-payment-gateway-for-woocommerce'),
         'type' => 'checkbox',
         'class' => 'express_toggle_display',
         'label' => __('Enable to add/remove extra line item to handle subtotal mismatch', 'express-checkout-paypal-payment-gateway-for-woocommerce'),
         'default' => 'yes',
-       'description' => __('Enabling will add/remove an additional line item from the order to handle mismatch between order total and sub total, before sending to PayPal.', 'express-checkout-paypal-payment-gateway-for-woocommerce'),
+       'description' => __('Automatically add/remove additional line items to handle mismatch between order total and subtotal before sending to PayPal.', 'express-checkout-paypal-payment-gateway-for-woocommerce'),
         'desc_tip' => __('The plugin will add discounts or remove shipping charges (as the case may be) from the order to equate both order total and subtotal after currency conversion or on using a third party plugin, etc.', 'express-checkout-paypal-payment-gateway-for-woocommerce'),
     ),
 	'policy_notes'                       => array(
@@ -338,15 +341,16 @@ return array(
 	),
 
 
-	'smart_button_prerequesties'         => array(
-		'type'        => 'title',
-		'description' => sprintf( "<div class='eh_wt_info_div smart_button_toggle_display' id='wt_info_div_smart'><p><b>" . __( 'Pre-requisites:', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</b></p><p> ' . __( 'Requires a PayPal Developer account and Business account linked with confirmed identity, email, and bank account.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</p><p> ' . __( 'To get the Client ID and Secret:', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . "</p><ul class='eh_wt_notice_bar_style'><li> " . __( 'Login to your PayPal business account.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . ' </li> <li>' . __( 'Go to Activity > API Access OR from Account Settings > API Access.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</li> <li>' . __( 'Scroll down to the REST API Integration section and click Manage API apps and credentials. The REST API apps window opens up.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</li> <li>' . __( 'Click on the PayPal Developer experience link to create or manage apps.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</li><li>' . __( 'Next, Login to developer account or Signup a new developer account. Click on the  create a new application or default application for your business account. Then, copy the Client ID and Secret.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</li><li>' . __( 'Paste the Client ID and Secret in the respective fields of the plugin.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . "</li> </ul></div><p class='smart_button_toggle_display'><a target='_blank' href='https://www.webtoffee.com/paypal-express-checkout-payment-gateway-woocommerce-user-guide/'>  " . __( 'Read documentation', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . ' </a></p>' ),
-	),
+
 	'smart_button_credentials_title'     => array(
 		'title'       => sprintf( __( 'PayPal Credentials', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
 		'type'        => 'title',
 		'class'       => 'smart_button_toggle_display',
 		'description' => __( '<span class="smart_button_toggle_display">Select Live mode to accept payments and Sandbox mode to test payments.</span>', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+	),
+	'smart_button_prerequesties'         => array(
+		'type'        => 'title',
+		'description' => sprintf( "<div class='eh_wt_info_div smart_button_toggle_display' id='wt_info_div_smart'><p><b>" . __( 'Pre-requisites:', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</b></p><p> ' . __( 'Requires a PayPal Developer account and Business account linked with confirmed identity, email, and bank account.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</p><p> ' . __( 'To get the Client ID and Secret:', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . "</p><ul class='eh_wt_notice_bar_style'><li> " . __( 'Login to your PayPal business account.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . ' </li> <li>' . __( 'Go to Activity > API Access OR from Account Settings > API Access.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</li> <li>' . __( 'Scroll down to the REST API Integration section and click Manage API apps and credentials. The REST API apps window opens up.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</li> <li>' . __( 'Click on the PayPal Developer experience link to create or manage apps.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</li><li>' . __( 'Next, Login to developer account or Signup a new developer account. Click on the  create a new application or default application for your business account. Then, copy the Client ID and Secret.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</li><li>' . __( 'Paste the Client ID and Secret in the respective fields of the plugin.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . "</li> </ul></div><p class='smart_button_toggle_display'><a target='_blank' href='https://www.webtoffee.com/paypal-express-checkout-payment-gateway-woocommerce-user-guide/'>  " . __( 'Read documentation', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . ' </a></p>' ),
 	),
 	'smart_button_environment'           => array(
 		'title'       => __( 'Environment', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
@@ -387,12 +391,14 @@ return array(
 	),
 
 	'smart_button_gateway_title'         => array(
+		'title' => __( 'PayPal payment gateway', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'type'  => 'title',
 		'class' => 'eh-css-class smart_button_toggle_display',
+		'description' => __( '<span class="smart_button_toggle_display">Includes PayPal as one of the available payment gateways, alongside other supported options.</span>', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 	),
 
 	'smart_button_title'                 => array(
-		'title'       => __( 'Title', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'title'       => __( 'Payment gateway title', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'type'        => 'text',
 		'class'       => 'smart_button_toggle_display',
 		'description' => __( 'Input title for the payment gateway displayed at the checkout.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
@@ -413,7 +419,7 @@ return array(
 		'title'       => sprintf( __( 'PayPal Smart Button', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
 		'type'        => 'title',
 		'class'       => 'eh-css-class smart_button_toggle_display',
-		'description' => __( '<span class="smart_button_toggle_display">PayPal Smart Payment Buttons gives merchants different ways to customize size, color, and shape of PayPal checkout button, as well as for other, multiple alternative payment methods such as PayPal Credit, Venmo, and local funding sources.</span>', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'description' => __( '<span class="smart_button_toggle_display">Smart button exists separately from the payment methods section, and allows buyers to proceed directly to PayPal without filling the Checkout form.</span>', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 	),
 
 	'smart_button_on_pages'              => array(
@@ -567,8 +573,8 @@ return array(
 		'type'        => 'select',
 		'class'       => 'wc-enhanced-select smart_button_toggle_display',
 		'options'     => array(
-			'login'   => __( 'Login', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
-			'billing' => __( 'Billing', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+			'login'   => __( 'PayPal Login', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+			'billing' => __( 'PayPal Billing', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		),
 		'description' => sprintf( __( 'Customers will be redirected to the chosen page. By default, the billing page is taken.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
 		'default'     => 'billing',
@@ -599,7 +605,7 @@ return array(
 		'placeholder' => 'EH_',
 	),
 	'smart_button_paypal_allow_override' => array(
-		'title'       => __( 'Address override', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'title'       => __( 'Disable address override', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'type'        => 'checkbox',
 		'class'       => 'smart_button_toggle_display',
 		'label'       => __( 'Enable to prevent checkout address being changed at the PayPal end.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
@@ -609,21 +615,21 @@ return array(
 	),
 
 	'smart_button_send_shipping'         => array(
-		'title'       => __( 'Shipping details', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'title'       => __( 'Send shipping address instead of billing', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'type'        => 'checkbox',
 		'class'       => 'smart_button_toggle_display',
 		'label'       => __( 'Enable to send shipping details to PayPal instead of billing.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'default'     => 'no',
-		'description' => __( 'PayPal allows us to send only one among shipping/billing addresses. We advise you to validate PayPal Seller protection to send shipping details to PayPal.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'description' => __( 'PayPal accepts only one among shipping/billing addresses. It is recommended to validate PayPal Seller protection to submit shipping details to PayPal.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'desc_tip'    => false,
 	),
 	'smart_button_skip_review'           => array(
-		'title'       => __( 'Skip review page', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'title'       => __( 'Hide order review page', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'type'        => 'checkbox',
 		'class'       => 'smart_button_toggle_display',
 		'label'       => __( 'Enable', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'default'     => 'yes',
-		'description' => __( 'Enable to skip the review page(Customers returned from PayPal will be presented with a final review page which includes the order details) and move to the site directly.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'description' => __( 'If enabled, customers returning from PayPal will directly go to the order received page.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'desc_tip'    => true,
 	),
 	'smart_button_save_cancelled_order'  => array(
@@ -632,11 +638,11 @@ return array(
 		'class'       => 'smart_button_toggle_display',
 		'label'       => __( 'Enable', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'default'     => 'no',
-		'description' => __( 'Enable to save pending order if payment is cancelled from PayPal’s side.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		'description' => __( 'Save pending order even if payment is cancelled from PayPal’s side.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'desc_tip'    => false,
 	),
     'smart_button_add_extra_line_item' => array(
-        'title' => __('Subtotal Mismatch Behavior', 'express-checkout-paypal-payment-gateway-for-woocommerce'),
+        'title' => __('Manage subtotal mismatch', 'express-checkout-paypal-payment-gateway-for-woocommerce'),
         'type' => 'checkbox',
         'class' => 'smart_button_toggle_display',
         'label' => __('Enable to add/remove extra line item to handle subtotal mismatch', 'express-checkout-paypal-payment-gateway-for-woocommerce'),
@@ -674,8 +680,6 @@ return array(
 		'title'       => __( ' Log', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'label'       => __( 'Enable', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'type'        => 'checkbox',
-		//'description' => sprintf( __( '%1$sLog File%2$s: %3$s', 'eh_paypal_express_log' ) . ' ( ' . $file_size . ' ) ', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), '<span style="color:green">', '</span>', strstr( wc_get_log_file_path( 'eh_paypal_express_log' )),
-
         'description' => sprintf(__('%1$sLog File%2$s: %3$s () ', 'express-checkout-paypal-payment-gateway-for-woocommerce'), '<span style="color:green">', '</span>', $log_file ),
 
 		'default'     => 'yes',

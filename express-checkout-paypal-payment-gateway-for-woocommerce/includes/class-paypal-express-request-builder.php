@@ -331,28 +331,29 @@ class Eh_PE_Request_Built {
                             'ITEMAMT'               => $item_amount,
                             'SHIPPINGAMT'           => $this->make_paypal_amount(WC()->cart->shipping_total),
                             'TAXAMT'                => $cart_tax,
-                            'SHIPDISCAMT'           => $discount_amount + $ship_discount_amount,
+                            'SHIPDISCAMT'           => $ship_discount_amount,
                         )
                     );
             $this->make_param('MAXAMT',$this->make_paypal_amount(WC()->cart->total + ceil(WC()->cart->total * 0.75)));
         
 			$need_shipping             = $eh_paypal_express_options['send_shipping'];
-			if ( ( 'yes' === $need_shipping ) && ( isset( WC()->session->post_data['ship_to_different_address'] ) ) && ( 1 == WC()->session->post_data['ship_to_different_address'] ) ) {
+			if ( ( 'yes' === $need_shipping ) && ( isset( WC()->session->post_data['ship_to_different_address'] ) ) && ( 1 == WC()->session->post_data['ship_to_different_address'] ) || true === apply_filters("wt_force_send_shipping_address", false) ) {
 
-				$this->add_payment_params(
-					array(
-						'SHIPTONAME'        => ( empty( WC()->session->post_data['shipping_first_name'] ) ?  ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_shipping_first_name() ) : WC()->session->post_data['shipping_first_name'] ) . ' ' . ( empty( WC()->session->post_data['shipping_last_name'] ) ? ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_shipping_last_name() ) : WC()->session->post_data['shipping_last_name'] ),
-						'SHIPTOSTREET'      => empty( WC()->session->post_data['shipping_address_1'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_address() : WC()->customer->get_shipping_address_1() ) : wc_clean( WC()->session->post_data['shipping_address_1'] ),
-						'SHIPTOSTREET2'     => empty( WC()->session->post_data['shipping_address_2'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_address_2() : WC()->customer->get_shipping_address_2() ) : wc_clean( WC()->session->post_data['shipping_address_2'] ),
-						'SHIPTOCITY'        => empty( WC()->session->post_data['shipping_city'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_city() : WC()->customer->get_shipping_city() ) : wc_clean( WC()->session->post_data['shipping_city'] ),
-						'SHIPTOSTATE'       => empty( WC()->session->post_data['shipping_state'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_state() : WC()->customer->get_shipping_state() ) : wc_clean( WC()->session->post_data['shipping_state'] ),
-						'SHIPTOZIP'         => empty( WC()->session->post_data['shipping_postcode'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_postcode() : WC()->customer->get_shipping_postcode() ) : wc_clean( WC()->session->post_data['shipping_postcode'] ),
-						'SHIPTOCOUNTRYCODE' => empty( WC()->session->post_data['shipping_country'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_country() : WC()->customer->get_shipping_country() ) : wc_clean( WC()->session->post_data['shipping_country'] ),
-						'SHIPTOPHONENUM'    => empty( WC()->session->post_data['billing_phone'] ) ? ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_billing_phone() ) : wc_clean( WC()->session->post_data['billing_phone'] ),
-						'NOTETEXT'          => empty( WC()->session->post_data['order_comments'] ) ? '' : wc_clean( WC()->session->post_data['order_comments'] ),
-						'EMAIL'             => empty( WC()->session->post_data['billing_email'] ) ? ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_billing_email() ) : wc_clean( WC()->session->post_data['billing_email'] ),
-						'PAYMENTREQUESTID'  => ( ! empty( $args['order_id'] ) ? $args['order_id'] : '' ),
+				$this->add_payment_params(apply_filters("wt_shipping_address_create_order",
+						array(
+							'SHIPTONAME'        => ( empty( WC()->session->post_data['shipping_first_name'] ) ?  ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_shipping_first_name() ) : WC()->session->post_data['shipping_first_name'] ) . ' ' . ( empty( WC()->session->post_data['shipping_last_name'] ) ? ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_shipping_last_name() ) : WC()->session->post_data['shipping_last_name'] ),
+							'SHIPTOSTREET'      => empty( WC()->session->post_data['shipping_address_1'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_address() : WC()->customer->get_shipping_address_1() ) : wc_clean( WC()->session->post_data['shipping_address_1'] ),
+							'SHIPTOSTREET2'     => empty( WC()->session->post_data['shipping_address_2'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_address_2() : WC()->customer->get_shipping_address_2() ) : wc_clean( WC()->session->post_data['shipping_address_2'] ),
+							'SHIPTOCITY'        => empty( WC()->session->post_data['shipping_city'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_city() : WC()->customer->get_shipping_city() ) : wc_clean( WC()->session->post_data['shipping_city'] ),
+							'SHIPTOSTATE'       => empty( WC()->session->post_data['shipping_state'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_state() : WC()->customer->get_shipping_state() ) : wc_clean( WC()->session->post_data['shipping_state'] ),
+							'SHIPTOZIP'         => empty( WC()->session->post_data['shipping_postcode'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_postcode() : WC()->customer->get_shipping_postcode() ) : wc_clean( WC()->session->post_data['shipping_postcode'] ),
+							'SHIPTOCOUNTRYCODE' => empty( WC()->session->post_data['shipping_country'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_country() : WC()->customer->get_shipping_country() ) : wc_clean( WC()->session->post_data['shipping_country'] ),
+							'SHIPTOPHONENUM'    => empty( WC()->session->post_data['billing_phone'] ) ? ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_billing_phone() ) : wc_clean( WC()->session->post_data['billing_phone'] ),
+							'NOTETEXT'          => empty( WC()->session->post_data['order_comments'] ) ? '' : wc_clean( WC()->session->post_data['order_comments'] ),
+							'EMAIL'             => empty( WC()->session->post_data['billing_email'] ) ? ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_billing_email() ) : wc_clean( WC()->session->post_data['billing_email'] ),
+							'PAYMENTREQUESTID'  => ( ! empty( $args['order_id'] ) ? $args['order_id'] : '' ),
 
+						), $order_id
 					)
 				);
 			} else {
