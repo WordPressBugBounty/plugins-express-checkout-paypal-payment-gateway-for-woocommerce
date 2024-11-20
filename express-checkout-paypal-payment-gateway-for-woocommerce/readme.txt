@@ -1,12 +1,12 @@
 
 === Payment Gateway Plugin for PayPal WooCommerce ===
 Contributors: webtoffee
-Donate link: https://www.webtoffee.com/plugins/
+Donate link: https://www.webtoffee.com/product/paypal-express-checkout-gateway-for-woocommerce
 Tags: WooCommerce PayPal Payments, paylater, payment gateway, credit card, debit card
 Requires at least: 5.6
-Tested up to: 6.6.2
+Tested up to: 6.7
 Requires PHP: 5.6
-Stable tag: 1.8.7
+Stable tag: 1.8.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -44,7 +44,7 @@ With PayPal Express Checkout or PayPal Smart Checkout enabled you can ensure a s
 🔸 Customize  the PayPal payment options visible to customers with various settings and configurations. 
 🔸 Add invoice prefix to identify store order
 🔸 Faster checkout by skipping the order review page
-🔸 Tested OK with WooCommerce 9.3.3
+🔸 Tested OK with WooCommerce 9.4.2
 
 ### Importance of PayPal Checkout for your WooCommerce Store ###
 [PayPal](https://www.paypal.com/us/webapps/mpp/home) is one of the faster and more secure options for online payments. It has millions of active users globally making it one of the leading payment platforms. By integrating the PayPal payment gateway with your WooCommerce store (using the PayPal checkout plugin), you will be able to increase conversions and reduce cart abandonment at a drastic rate.
@@ -138,6 +138,9 @@ PayPal is available in more than 200 countries/regions and supports 25 currencie
 
 
 == Changelog ==
+= 1.8.8 2024-11-20=
+* [Compatibility] - WooCommerce 9.4.2
+* [Compatibility] - WordPress 6.7
 
 = 1.8.7 2024-08-14=
 * [Compatibility] - WooCommerce 9.3.3
@@ -478,10 +481,7 @@ PayPal is available in more than 200 countries/regions and supports 25 currencie
 
 == Upgrade Notice ==
 
-= 1.8.7 =
-* [Compatibility] - WooCommerce 9.3.3
-* [Compatibility] - WordPress 6.6.2
-* [Fix] - The total amount of the cart items doesn't match the order total.
-* [Fix] - No address or email was saved in the order details when a guest user completed a payment.
-* [Improvement] - Added support for Italian, Dutch, and Japanese translations.
+= 1.8.8 =
+* [Compatibility] - WooCommerce 9.4.2
+* [Compatibility] - WordPress 6.7
 

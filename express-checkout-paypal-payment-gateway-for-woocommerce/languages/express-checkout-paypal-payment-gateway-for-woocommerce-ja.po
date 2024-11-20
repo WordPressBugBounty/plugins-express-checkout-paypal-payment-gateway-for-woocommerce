@@ -1,0 +1,1486 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Payment Gateway Plugin for PayPal WooCommerce ( Free )\n"
+"POT-Creation-Date: 2024-10-23 14:48+0530\n"
+"PO-Revision-Date: 2024-10-23 15:13+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: express-checkout-paypal-payment-gateway-for-woocommerce."
+"php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:35
+msgid ""
+"Oops! PREMIUM Version of this Plugin Installed. Please uninstall the PREMIUM "
+"Version before activating BASIC"
+msgstr ""
+"おっと！このプラグインのプレミアムバージョンがインストールされています。ベー"
+"シックを有効にする前にプレミアムバージョンをアンインストールしてください。"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:53
+msgid "Settings"
+msgstr "設定"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:54
+msgid "Premium Upgrade"
+msgstr "プレミアムアップグレード"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:55
+msgid "Support"
+msgstr "サポート"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:56
+msgid "Review"
+msgstr "レビュー"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:152
+msgid "If you have a moment, please let us know why you are deactivating:"
+msgstr "よろしければ、解除する理由を教えてください。"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:164
+msgid ""
+"We do not collect any personal data when you submit this form. It's your "
+"feedback that we value."
+msgstr ""
+"このフォームを送信する際に個人情報を収集することはありません。みなさんの"
+"フィードバックを得ることを重要視しています。"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:165
+msgid "Privacy Policy"
+msgstr "プライバシーポリシー"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:171
+msgid "Go to support"
+msgstr "サポートにアクセス"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:172
+msgid "Submit & Deactivate"
+msgstr "送信＆無効化"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:173
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:174
+msgid "I rather wouldn't say"
+msgstr "遠慮します"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:280
+msgid "Deactivate and "
+msgstr "無効化して"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:280
+msgid "leave a review"
+msgstr "レビューを書く"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:334
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:385
+msgid "Upgraded to premium."
+msgstr "プレミアムにアップグレードしました。"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:340
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:391
+msgid "Doesn't have support in my country."
+msgstr "私の国ではサポートがありません。"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:342
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:393
+msgid ""
+"You can check the <a href=\"https://www.paypal.com/in/webapps/mpp/country-"
+"worldwide\">PayPal-supported country list.</a>"
+msgstr ""
+"<a href=\"https://www.paypal.com/in/webapps/mpp/country-worldwide\">PayPal が"
+"サポートしている国のリストを確認できます。</a>"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:346
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:397
+msgid ""
+"The Smart/Express Checkout buttons not visible or do not display properly."
+msgstr "Smart/Express Checkout ボタンが表示されないか、正しく表示されません。"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:348
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:399
+msgid ""
+"Please try to switch your theme or check if there is any console error. For "
+"additional support, <a href=\"https://wordpress.org/support/plugin/express-"
+"checkout-paypal-payment-gateway-for-woocommerce/\">go to support</a> and "
+"submit a ticket."
+msgstr ""
+"テーマを切り替えるか、コンソール エラーがあるかどうかを確認してください。追加"
+"のサポートが必要な場合は、<a href=\"https://wordpress.org/support/plugin/"
+"express-checkout-paypal-payment-gateway-for-woocommerce/\">サポートにアクセス"
+"し</a>てチケットを送信してください。"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:352
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:403
+msgid "Getting a paypal error code while checkout."
+msgstr "チェックアウト中に PayPal エラー コードが表示されます。"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:354
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:405
+msgid ""
+"We have curated the most common error codes and steps to fix them. Please "
+"take a  moment to check out the <a href=\"https://www.webtoffee.com/common-"
+"error-codes-and-their-causes/\">article</a>."
+msgstr ""
+"最も一般的なエラー コードとその修正手順をまとめました。ぜひ<a href=\"https://"
+"www.webtoffee.com/common-error-codes-and-their-causes/\">記事</a>をご覧くださ"
+"い。"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:358
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:409
+msgid "Notify us about an incompatible plugin or theme."
+msgstr "互換性のないプラグインまたはテーマについてお知らせください。"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:360
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:411
+msgid "Please share the name of the theme or plugin."
+msgstr "テーマまたはプラグインの名前を共有してください。"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:364
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:415
+msgid "Unable to set up"
+msgstr "設定できません"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:366
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:417
+msgid ""
+"Please refer to the <a href=\"https://www.webtoffee.com/paypal-express-"
+"checkout-payment-gateway-woocommerce-user-guide/\">setup guide</a>."
+msgstr ""
+"<a href=\"https://www.webtoffee.com/paypal-express-checkout-payment-gateway-"
+"woocommerce-user-guide/\">セットアップガイド</a>を参照してください。"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:370
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:421
+msgid "I found a better plugin"
+msgstr "よりよいプラグインを見つけました"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:372
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:423
+msgid "Could you please mention the plugin?"
+msgstr "プラグインについて教えてください。"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:376
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:427
+msgid "Other"
+msgstr "その他"
+
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:378
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:429
+msgid "Could you tell us a bit more?"
+msgstr "より詳しくご説明いただけますか ?"
+
+#: includes/class-bfcm-twenty-twenty-four.php:74
+msgid "Never Miss This Deal"
+msgstr "このセールを見逃さないで"
+
+#: includes/class-bfcm-twenty-twenty-four.php:79
+#, php-format
+msgid ""
+"Your Last Chance to Avail %1$s on WebToffee Plugins. Grab the deal before "
+"it`s gone!"
+msgstr ""
+"WebToffee プラグインで %1$s を利用できる最後のチャンスです。なくなる前にこの"
+"特典を手に入れましょう!"
+
+#: includes/class-bfcm-twenty-twenty-four.php:80
+msgid "OFF"
+msgstr "オフ"
+
+#: includes/class-bfcm-twenty-twenty-four.php:85
+msgid "View plugins"
+msgstr "プラグインを表示"
+
+#: includes/class-paypal-express-api.php:14
+msgid "PayPal Express"
+msgstr "PayPal エクスプレス"
+
+#: includes/class-paypal-express-api.php:15
+msgid ""
+"Allow customers to checkout directly with PayPal Smart Buttons or Express "
+"Buttons."
+msgstr ""
+"PayPal スマート ボタンまたはエクスプレス ボタンを使用して顧客が直接チェックア"
+"ウトできるようにします。"
+
+#: includes/class-paypal-express-api.php:58
+msgid "Place Order"
+msgstr "注文する"
+
+#: includes/class-paypal-express-api.php:58
+msgid "Proceed to PayPal"
+msgstr "PayPal に進んでください。"
+
+#: includes/class-paypal-express-api.php:133
+#: includes/class-paypal-express-api.php:149
+msgid ""
+"Invalid PayPal Credentials. Please check and enter valid credentials in the "
+"plugin settings here."
+msgstr ""
+"PayPal 認証情報が無効です。ここでプラグイン設定で有効な認証情報を確認して入力"
+"してください。"
+
+#: includes/class-paypal-express-api.php:248
+#, php-format
+msgid "Already using URL as image: %s"
+msgstr "既に URL をイメージとして使用しています: %s"
+
+#: includes/class-paypal-express-api.php:256
+msgid "Select a image to upload"
+msgstr "アップロードする画像を選択する"
+
+#: includes/class-paypal-express-api.php:257
+msgid "Use this image"
+msgstr "この画像を使う"
+
+#: includes/class-paypal-express-api.php:258
+#: includes/class-paypal-express-api.php:261
+msgid "Add image"
+msgstr "画像を新規追加"
+
+#: includes/class-paypal-express-api.php:269
+msgid "Remove image"
+msgstr "画像を削除"
+
+#: includes/class-paypal-express-api.php:502
+#: includes/class-paypal-express-api.php:521
+#: includes/class-paypal-express-api.php:879
+#: includes/class-paypal-express-api.php:1582
+#: includes/class-paypal-express-api.php:1754
+#: includes/class-paypal-express-api.php:1836
+msgid "Oops !"
+msgstr "おっと！"
+
+#: includes/class-paypal-express-api.php:503
+#: includes/class-paypal-express-api.php:880
+#: includes/class-paypal-express-api.php:1583
+#: includes/class-paypal-express-api.php:1755
+#: includes/class-paypal-express-api.php:1837
+msgid "Page Not Found"
+msgstr "お探しのページが見つかりません。"
+
+#: includes/class-paypal-express-api.php:504
+#: includes/class-paypal-express-api.php:523
+#: includes/class-paypal-express-api.php:881
+#: includes/class-paypal-express-api.php:1584
+#: includes/class-paypal-express-api.php:1756
+#: includes/class-paypal-express-api.php:1838
+msgid "Back"
+msgstr "戻る"
+
+#: includes/class-paypal-express-api.php:522
+msgid "Your Cart is Empty"
+msgstr "カートは空です"
+
+#: includes/class-paypal-express-api.php:539
+#: includes/class-paypal-express-api.php:872
+#: includes/class-paypal-express-api.php:1574
+msgid "No shipping method has been selected."
+msgstr "配送方法が選択されていません。"
+
+#: includes/class-paypal-express-api.php:639
+#: includes/class-paypal-express-api.php:853
+#: includes/class-paypal-express-api.php:1133
+#: includes/class-paypal-express-api.php:1299
+#: includes/class-paypal-express-api.php:1559
+#: includes/class-paypal-express-api.php:1745
+#: includes/class-paypal-express-api.php:1825
+#: includes/class-paypal-express-api.php:1889
+msgid "Redirect to PayPal failed. Please try again later."
+msgstr ""
+"PayPal へのリダイレクトに失敗しました。しばらくしてからもう一度お試しくださ"
+"い。"
+
+#: includes/class-paypal-express-api.php:1046
+#, php-format
+msgid ""
+"Payment Status : %1$s <br>[ %2$s ] <br>Source : %3$s.<br>Transaction ID : "
+"%4$s"
+msgstr ""
+"支払い状況: %1$s<br> [ %2$s ]<br>ソース: %3$s。<br>トランザクション ID: %4$s"
+
+#: includes/class-paypal-express-api.php:1056
+msgid ""
+"Address: The payment is pending because your customer did not include a "
+"confirmed shipping address and your Payment Receiving Preferences is set "
+"such that you want to manually accept or deny each of these payments. To "
+"change your preference, go to the Preferences section of your Profile."
+msgstr ""
+"住所: 顧客が確認済みの配送先住所を入力しておらず、支払い受け取り設定が各支払"
+"いを手動で承認または拒否するように設定されているため、支払いが保留になってい"
+"ます。設定を変更するには、プロフィールの「設定」セクションに移動します。"
+
+#: includes/class-paypal-express-api.php:1059
+msgid ""
+"Authorization: The payment is pending because it has been authorized but not "
+"settled. You must capture the funds first."
+msgstr ""
+"承認: 支払いは承認されましたが決済されていないため保留中です。まず資金を獲得"
+"する必要があります。"
+
+#: includes/class-paypal-express-api.php:1062
+msgid ""
+"eCheck: The payment is pending because it was made by an eCheck that has not "
+"yet cleared."
+msgstr ""
+"eCheck: まだ決済されていない eCheck によって行われたため、支払いは保留中で"
+"す。"
+
+#: includes/class-paypal-express-api.php:1065
+msgid ""
+"intl: The payment is pending because you hold a non-U.S. account and do not "
+"have a withdrawal mechanism. You must manually accept or deny this payment "
+"from your Account Overview."
+msgstr ""
+"intl: お客様は米国以外の口座を保有しており、引き出しの仕組みがないため、支払"
+"いは保留中です。アカウント概要からこの支払いを手動で承認または拒否する必要が"
+"あります。"
+
+#: includes/class-paypal-express-api.php:1069
+msgid ""
+"Multi-currency: You do not have a balance in the currency sent, and you do "
+"not have your Payment Receiving Preferences set to automatically convert and "
+"accept this payment. You must manually accept or deny this payment."
+msgstr ""
+"複数通貨: 送金した通貨の残高がなく、支払い受け取り設定でこの支払いを自動的に"
+"換算して承認するように設定されていません。この支払いを手動で承認または拒否す"
+"る必要があります。"
+
+#: includes/class-paypal-express-api.php:1072
+msgid ""
+"Order: The payment is pending because it is part of an order that has been "
+"authorized but not settled."
+msgstr ""
+"注文: 支払いは承認されたものの決済されていない注文の一部であるため、保留中で"
+"す。"
+
+#: includes/class-paypal-express-api.php:1075
+msgid ""
+"Payment Review: The payment is pending while it is being reviewed by PayPal "
+"for risk."
+msgstr "支払いの確認: PayPal によるリスクの確認中、支払いは保留中です。"
+
+#: includes/class-paypal-express-api.php:1078
+msgid ""
+"Unilateral: The payment is pending because it was made to an email address "
+"that is not yet registered or confirmed."
+msgstr ""
+"一方的: 支払いは、まだ登録または確認されていない電子メール アドレスに対して行"
+"われたため、保留中です。"
+
+#: includes/class-paypal-express-api.php:1081
+msgid ""
+"Verify: The payment is pending because you are not yet verified. You must "
+"verify your account before you can accept this payment."
+msgstr ""
+"確認: まだ確認されていないため、支払いは保留中です。この支払いを受け取る前"
+"に、アカウントを確認する必要があります。"
+
+#: includes/class-paypal-express-api.php:1084
+msgid "Other: For more information, contact PayPal customer service."
+msgstr ""
+"その他: 詳細については、PayPal カスタマー サービスにお問い合わせください。"
+
+#: includes/class-paypal-express-api.php:1088
+msgid "No pending reason provided."
+msgstr "保留中の理由は提供されていません。"
+
+#: includes/class-paypal-express-api.php:1095
+#: includes/class-paypal-express-api.php:1109
+#: includes/class-paypal-express-api.php:2658
+#: includes/class-paypal-express-api.php:2665
+msgid "Payment Status : "
+msgstr "お支払い状況 :"
+
+#: includes/class-paypal-express-api.php:1146
+#: includes/class-paypal-express-api.php:1330
+#: includes/class-paypal-express-api.php:1476
+#: includes/class-paypal-express-api.php:1706
+#: includes/class-paypal-express-api.php:1734
+#: includes/class-paypal-express-api.php:1770
+#: includes/class-paypal-express-api.php:1814
+#: includes/class-paypal-express-api.php:1852
+#: includes/class-paypal-express-api.php:1878
+#: includes/class-paypal-express-api.php:2277
+#: includes/class-paypal-express-api.php:2696
+msgid ""
+"An error occurred, We were unable to process your order, please try again."
+msgstr ""
+"エラーが発生しました。ご注文を処理できませんでした。もう一度お試しください。"
+
+#: includes/class-paypal-express-api.php:1259
+#: includes/class-paypal-express-api.php:1275
+#: includes/class-paypal-express-api.php:2693
+msgid "An error occured.Please refresh and try again"
+msgstr "エラーが発生しました。更新してもう一度お試しください"
+
+#: includes/class-paypal-express-api.php:1271
+#: includes/class-paypal-express-api.php:1273
+#: includes/class-paypal-express-api.php:1732
+#: includes/class-paypal-express-api.php:2625
+msgid " - "
+msgstr "〜"
+
+#: includes/class-paypal-express-api.php:1471
+#: includes/class-paypal-express-api.php:1812
+#: includes/class-paypal-express-api.php:1876
+#: includes/class-paypal-express-api.php:2687
+msgid " error - "
+msgstr " エラー - "
+
+#: includes/class-paypal-express-api.php:1536
+msgid "Unfortunately"
+msgstr "残念ながら"
+
+#: includes/class-paypal-express-api.php:1536
+#, php-format
+msgid "we do not ship %s"
+msgstr "%sは発送できません"
+
+#: includes/class-paypal-express-api.php:1536
+msgid ". Please enter an alternative shipping address."
+msgstr "。別の配送先住所を入力してください。"
+
+#: includes/class-paypal-express-api.php:1798
+msgid "Payment Status  : Pending <br> [ "
+msgstr "支払い状況: 保留中<br>[ "
+
+#: includes/class-paypal-express-api.php:1920
+#: includes/class-paypal-express-hook.php:46
+msgid ""
+"You have cancelled PayPal Express Checkout. Please try to process your order "
+"again."
+msgstr ""
+"PayPal Express Checkout をキャンセルしました。もう一度注文の処理を行ってくだ"
+"さい。"
+
+#: includes/class-paypal-express-api.php:1967
+msgid "Edit Details"
+msgstr "詳細を編集"
+
+#: includes/class-paypal-express-api.php:1973
+msgid "First Name"
+msgstr "名"
+
+#: includes/class-paypal-express-api.php:1978
+msgid "Last Name"
+msgstr "姓"
+
+#: includes/class-paypal-express-api.php:1985
+msgid "Company Name"
+msgstr "会社名"
+
+#: includes/class-paypal-express-api.php:1992
+msgid "Email Address"
+msgstr "メールアドレス"
+
+#: includes/class-paypal-express-api.php:1999
+msgid "Country"
+msgstr "国"
+
+#: includes/class-paypal-express-api.php:2006
+msgid "Address"
+msgstr "住所"
+
+#: includes/class-paypal-express-api.php:2019
+msgid "Town / City"
+msgstr "市区町村 (City)"
+
+#: includes/class-paypal-express-api.php:2026
+msgid "State"
+msgstr "都道府県"
+
+#: includes/class-paypal-express-api.php:2031
+msgid "Postcode / ZIP"
+msgstr "郵便番号"
+
+#: includes/class-paypal-express-api.php:2125
+msgid "Seller Policy"
+msgstr "販売者ポリシー"
+
+#: includes/class-paypal-express-api.php:2146
+#: includes/class-paypal-express-api.php:2149
+msgid "Cancel Order"
+msgstr "注文をキャンセルする"
+
+#: includes/class-paypal-express-api.php:2630
+msgid "An unknown error occured during authentication."
+msgstr "認証中に不明なエラーが発生しました。"
+
+#: includes/class-paypal-express-hook.php:136
+msgid "Check out with PayPal"
+msgstr "PayPalでチェックアウト"
+
+#: includes/class-paypal-express-hook.php:145
+msgid "Check out with PayPal Credit"
+msgstr "PayPalクレジットでチェックアウト"
+
+#: includes/class-paypal-express-review-request.php:51
+#, php-format
+msgid ""
+"Hey, we at %1$sWebToffee%2$s would like to thank you for using our plugin. "
+"We would really appreciate if you could take a moment to drop a quick review "
+"that will inspire us to keep going."
+msgstr ""
+"%1$sWebToffee%2$s のプラグインをご利用いただきありがとうございます。少し時間"
+"を割いて、私たちが前進し続けるためのインスピレーションとなる簡単なレビューを"
+"投稿していただければ幸いです."
+
+#: includes/class-paypal-express-review-request.php:54
+msgid "Remind me later"
+msgstr "後で思い出させる"
+
+#: includes/class-paypal-express-review-request.php:55
+msgid "Not interested"
+msgstr "関心がない"
+
+#: includes/class-paypal-express-review-request.php:56
+msgid "Review now"
+msgstr "レビュー中"
+
+#: includes/class-paypal-rest-request-builder.php:306
+#: includes/class-paypal-rest-request-builder.php:611
+msgid "Extra line item"
+msgstr "追加の項目"
+
+#: includes/eh-paypal-express-settings-page.php:60
+msgid "Enable PayPal payment"
+msgstr "PayPal決済を有効にする"
+
+#: includes/eh-paypal-express-settings-page.php:61
+#: includes/eh-paypal-express-settings-page.php:310
+#: includes/eh-paypal-express-settings-page.php:319
+#: includes/eh-paypal-express-settings-page.php:630
+#: includes/eh-paypal-express-settings-page.php:639
+#: includes/eh-paypal-express-settings-page.php:681
+msgid "Enable"
+msgstr "有効にする"
+
+#: includes/eh-paypal-express-settings-page.php:63
+msgid "Enable to have PayPal payment method on the checkout page."
+msgstr "チェックアウトページで PayPal 支払い方法を使用できるようにします。"
+
+#: includes/eh-paypal-express-settings-page.php:68
+msgid "Select payment button"
+msgstr "支払いボタンを選択"
+
+#: includes/eh-paypal-express-settings-page.php:69
+msgid "Express checkout"
+msgstr "エクスプレスチェックアウト"
+
+#: includes/eh-paypal-express-settings-page.php:76
+msgid "Smart Button"
+msgstr "スマートボタン"
+
+#: includes/eh-paypal-express-settings-page.php:85
+#: includes/eh-paypal-express-settings-page.php:346
+msgid "PayPal Credentials"
+msgstr "PayPal資格情報"
+
+#: includes/eh-paypal-express-settings-page.php:88
+msgid ""
+"<span class=\"express_toggle_display\">Select Live mode to accept payments "
+"and Sandbox mode to test payments.</span>"
+msgstr ""
+"<span class=\"express_toggle_display\">支払いを受け入れるにはライブ モードを"
+"選択し、支払いをテストするにはサンドボックス モードを選択します。</span>"
+
+#: includes/eh-paypal-express-settings-page.php:93
+#: includes/eh-paypal-express-settings-page.php:353
+msgid "Pre-requisites:"
+msgstr "前提条件 :"
+
+#: includes/eh-paypal-express-settings-page.php:93
+msgid ""
+"Requires a PayPal Business account linked with confirmed identity, email, "
+"and bank account."
+msgstr ""
+"確認済みの身元、メール、銀行口座にリンクされた PayPal ビジネス アカウントが必"
+"要です。"
+
+#: includes/eh-paypal-express-settings-page.php:93
+msgid "To get the API credentials:"
+msgstr "API 資格情報を取得するには:"
+
+#: includes/eh-paypal-express-settings-page.php:93
+msgid "Log into your PayPal business account."
+msgstr "PayPalビジネスアカウントにログインします。"
+
+#: includes/eh-paypal-express-settings-page.php:93
+msgid "Click Activity near the top of the page and select API Access."
+msgstr ""
+"ページ上部の「アクティビティ」をクリックし、「API アクセス」を選択します。"
+
+#: includes/eh-paypal-express-settings-page.php:93
+msgid ""
+"Scroll to NVP/SOAP API Integration (Classic) and click Manage API "
+"Credentials."
+msgstr ""
+"NVP/SOAP API 統合 (クラシック) までスクロールし、API 資格情報の管理をクリック"
+"します。"
+
+#: includes/eh-paypal-express-settings-page.php:93
+msgid ""
+"Create keys if not done already. Else, copy the API Username, API Password, "
+"and Signature and paste it into the respective fields of the plugin."
+msgstr ""
+"まだ行っていない場合は、キーを作成します。そうでない場合は、API ユーザー名、"
+"API パスワード、および署名をコピーして、プラグインのそれぞれのフィールドに貼"
+"り付けます。"
+
+#: includes/eh-paypal-express-settings-page.php:93
+#: includes/eh-paypal-express-settings-page.php:353
+msgid "Read documentation"
+msgstr "ドキュメントを読む"
+
+#: includes/eh-paypal-express-settings-page.php:96
+#: includes/eh-paypal-express-settings-page.php:356
+msgid "Environment"
+msgstr "環境"
+
+#: includes/eh-paypal-express-settings-page.php:100
+#: includes/eh-paypal-express-settings-page.php:361
+msgid "Sandbox mode"
+msgstr "サンドボックス モード"
+
+#: includes/eh-paypal-express-settings-page.php:101
+#: includes/eh-paypal-express-settings-page.php:362
+msgid "Live mode"
+msgstr "ライブモード"
+
+#: includes/eh-paypal-express-settings-page.php:103
+msgid "<div id=\"environment_alert_desc\"></div>"
+msgstr "<div id=\"environment_alert_desc\"></div>"
+
+#: includes/eh-paypal-express-settings-page.php:105
+#: includes/eh-paypal-express-settings-page.php:366
+msgid ""
+"Choose Sandbox mode to test payment using test API keys. Switch to live mode "
+"to accept payments with PayPal using live API keys."
+msgstr ""
+"テスト API キーを使用して支払いをテストするには、サンドボックス モードを選択"
+"します。ライブ API キーを使用して PayPal で支払いを受け入れるには、ライブ "
+"モードに切り替えます。"
+
+#: includes/eh-paypal-express-settings-page.php:108
+msgid "Sandbox API username"
+msgstr "Sandbox API ユーザー名"
+
+#: includes/eh-paypal-express-settings-page.php:114
+msgid "Sandbox API password"
+msgstr "Sandbox API パスワード"
+
+#: includes/eh-paypal-express-settings-page.php:120
+msgid "Sandbox API signature"
+msgstr "Sandbox API 署名"
+
+#: includes/eh-paypal-express-settings-page.php:126
+msgid "Live API username"
+msgstr "Live API ユーザー名"
+
+#: includes/eh-paypal-express-settings-page.php:132
+msgid "Live API password"
+msgstr "Live API パスワード"
+
+#: includes/eh-paypal-express-settings-page.php:138
+msgid "Live API signature"
+msgstr "Live API 署名"
+
+#: includes/eh-paypal-express-settings-page.php:144
+msgid "PayPal Payment Gateway"
+msgstr "PayPal支払いゲートウェイ"
+
+#: includes/eh-paypal-express-settings-page.php:146
+msgid ""
+"Includes PayPal as one of the available payment method, alongside other "
+"supported options."
+msgstr ""
+"サポートされている他のオプションとともに、利用可能な支払い方法の 1 つとして "
+"PayPal が含まれます。"
+
+#: includes/eh-paypal-express-settings-page.php:151
+#: includes/eh-paypal-express-settings-page.php:401
+msgid "Payment gateway title"
+msgstr ""
+
+#: includes/eh-paypal-express-settings-page.php:154
+#: includes/eh-paypal-express-settings-page.php:404
+msgid "Input title for the payment gateway displayed at the checkout."
+msgstr "チェックアウト時に表示される決済ゲートウェイのタイトルを入力します。"
+
+#: includes/eh-paypal-express-settings-page.php:155
+#: includes/eh-paypal-express-settings-page.php:405
+#: includes/eh-paypal-express-settings-page.php:474
+msgid "PayPal"
+msgstr "PayPal"
+
+#: includes/eh-paypal-express-settings-page.php:159
+#: includes/eh-paypal-express-settings-page.php:206
+#: includes/eh-paypal-express-settings-page.php:409
+#: includes/eh-paypal-express-settings-page.php:441
+msgid "Description"
+msgstr "説明"
+
+#: includes/eh-paypal-express-settings-page.php:163
+#: includes/eh-paypal-express-settings-page.php:413
+msgid "Input description for the payment gateway displayed at the checkout."
+msgstr "チェックアウト時に表示される支払いゲートウェイの説明を入力します。"
+
+#: includes/eh-paypal-express-settings-page.php:164
+#: includes/eh-paypal-express-settings-page.php:414
+msgid "Secure payment via PayPal."
+msgstr "PayPal による安全な支払い。"
+
+#: includes/eh-paypal-express-settings-page.php:169
+msgid "PayPal Express Checkout Button"
+msgstr "PayPal エクスプレスチェックアウトボタン"
+
+#: includes/eh-paypal-express-settings-page.php:171
+msgid ""
+"<span class=\"express_toggle_display\">Smart button exists separately from "
+"the payment methods section, and allows buyers to proceed directly to PayPal "
+"without filling the Checkout form.</span>"
+msgstr ""
+"<span class=\"express_toggle_display\">スマート ボタンは支払い方法セクション"
+"とは別に存在し、購入者はチェックアウト フォームに入力せずに PayPal に直接進む"
+"ことができます。</span>"
+
+#: includes/eh-paypal-express-settings-page.php:176
+#, php-format
+msgid "Show Express button on %s"
+msgstr "%s にエクスプレス ボタンを表示する"
+
+#: includes/eh-paypal-express-settings-page.php:180
+msgid "Displays PayPal Express button on chosen pages."
+msgstr "選択したページに PayPal Express ボタンを表示します。"
+
+#: includes/eh-paypal-express-settings-page.php:191
+#, php-format
+msgid "Show Express credit button on %s"
+msgstr "%s にエクスプレスクレジットボタンを表示する"
+
+#: includes/eh-paypal-express-settings-page.php:195
+msgid ""
+"Displays a PayPal Credit button on selected pages. By using PayPal Credit, "
+"store owner will receive the payment upfront but customers can opt for "
+"financing and pay over time."
+msgstr ""
+"選択したページに PayPal クレジット ボタンを表示します。PayPal クレジットを使"
+"用すると、ストア所有者は前払いで支払いを受け取りますが、顧客は融資を選択して"
+"分割払いすることができます。"
+
+#: includes/eh-paypal-express-settings-page.php:210
+msgid "Input description displayed above the PayPal Express button."
+msgstr "PayPal Express ボタンの上に表示される説明を入力します。"
+
+#: includes/eh-paypal-express-settings-page.php:211
+#: includes/eh-paypal-express-settings-page.php:446
+msgid "Reduce the number of clicks with PayPal Express."
+msgstr "PayPal Express でクリック数を減らしましょう。"
+
+#: includes/eh-paypal-express-settings-page.php:215
+msgid "Button size"
+msgstr "ボタンサイズ"
+
+#: includes/eh-paypal-express-settings-page.php:218
+msgid "Choose the size of the button as either small, medium or large."
+msgstr "ボタンのサイズを小、中、大から選択します。"
+
+#: includes/eh-paypal-express-settings-page.php:222
+#: includes/eh-paypal-express-settings-page.php:457
+msgid "Small"
+msgstr "小"
+
+#: includes/eh-paypal-express-settings-page.php:223
+#: includes/eh-paypal-express-settings-page.php:458
+msgid "Medium"
+msgstr "中"
+
+#: includes/eh-paypal-express-settings-page.php:224
+#: includes/eh-paypal-express-settings-page.php:459
+msgid "Large"
+msgstr "大"
+
+#: includes/eh-paypal-express-settings-page.php:229
+#: includes/eh-paypal-express-settings-page.php:556
+msgid "Branding"
+msgstr "ブランディング"
+
+#: includes/eh-paypal-express-settings-page.php:231
+msgid ""
+"<span class=\"express_toggle_display\">Set your brand identity at the PayPal "
+"end by giving a brand name, logo etc. It will be visible for customers on "
+"the PayPal site on choosing to pay via PayPal.</span>"
+msgstr ""
+"<span class=\"express_toggle_display\">ブランド名やロゴなどを入力して、"
+"PayPal 側でブランド アイデンティティを設定します。PayPal 経由での支払いを選択"
+"すると、PayPal サイトで顧客に表示されます。</span>"
+
+#: includes/eh-paypal-express-settings-page.php:235
+#: includes/eh-paypal-express-settings-page.php:562
+msgid "Brand name"
+msgstr "ブランド名"
+
+#: includes/eh-paypal-express-settings-page.php:238
+#: includes/eh-paypal-express-settings-page.php:565
+msgid "Input the name of your store that will appear on the PayPal end."
+msgstr "PayPal 側に表示されるストアの名前を入力します。"
+
+#: includes/eh-paypal-express-settings-page.php:245
+#: includes/eh-paypal-express-settings-page.php:572
+msgid "Landing page"
+msgstr "ランディングページ"
+
+#: includes/eh-paypal-express-settings-page.php:249
+msgid "PayPal login"
+msgstr "PayPalログイン"
+
+#: includes/eh-paypal-express-settings-page.php:250
+#: includes/eh-paypal-express-settings-page.php:577
+msgid "PayPal Billing"
+msgstr "PayPal 請求"
+
+#: includes/eh-paypal-express-settings-page.php:252
+#: includes/eh-paypal-express-settings-page.php:579
+msgid ""
+"Customers will be redirected to the chosen page. By default, the billing "
+"page is taken."
+msgstr ""
+"顧客は選択したページにリダイレクトされます。デフォルトでは、請求ページが選ば"
+"れます。"
+
+#: includes/eh-paypal-express-settings-page.php:257
+msgid "Logo (190 x 90)"
+msgstr "ロゴ（190×90）"
+
+#: includes/eh-paypal-express-settings-page.php:260
+msgid ""
+"Upload a company logo that will appear on the PayPal end. Image requires an "
+"SSL host."
+msgstr ""
+"PayPal 側に表示される会社のロゴをアップロードします。画像には SSL ホストが必"
+"要です。"
+
+#: includes/eh-paypal-express-settings-page.php:265
+#: includes/eh-paypal-express-settings-page.php:585
+msgid "PayPal locale"
+msgstr "PayPal ロケール"
+
+#: includes/eh-paypal-express-settings-page.php:268
+#: includes/eh-paypal-express-settings-page.php:588
+msgid "Use store locale"
+msgstr "ストアのロケールを使用する"
+
+#: includes/eh-paypal-express-settings-page.php:270
+msgid "Check to set the PayPal locale same as the store locale."
+msgstr ""
+"PayPal のロケールをストアのロケールと同じに設定するにはチェックを入れます。"
+
+#: includes/eh-paypal-express-settings-page.php:274
+#: includes/eh-paypal-express-settings-page.php:594
+msgid "Advanced Options"
+msgstr "高度なオプション"
+
+#: includes/eh-paypal-express-settings-page.php:279
+#: includes/eh-paypal-express-settings-page.php:599
+msgid "Invoice prefix"
+msgstr "インボイスプレフィックス"
+
+#: includes/eh-paypal-express-settings-page.php:282
+#: includes/eh-paypal-express-settings-page.php:602
+msgid "Enter an invoice prefix to identify transactions from your site."
+msgstr "サイトからの取引を識別するために請求書のプレフィックスを入力します。"
+
+#: includes/eh-paypal-express-settings-page.php:288
+#: includes/eh-paypal-express-settings-page.php:608
+msgid "Disable address override"
+msgstr "アドレスオーバーライドを無効にする"
+
+#: includes/eh-paypal-express-settings-page.php:291
+#: includes/eh-paypal-express-settings-page.php:611
+msgid "Enable to prevent checkout address being changed at the PayPal end."
+msgstr ""
+"PayPal 側でチェックアウト アドレスが変更されないようにするには、これを有効に"
+"します。"
+
+#: includes/eh-paypal-express-settings-page.php:293
+#: includes/eh-paypal-express-settings-page.php:613
+msgid ""
+"Enabling this will affect Express checkout and PayPal will strictly verify "
+"the address."
+msgstr ""
+"これを有効にすると、Express Checkout に影響し、PayPal によって住所が厳密に検"
+"証されます。"
+
+#: includes/eh-paypal-express-settings-page.php:297
+msgid "Send shipping details instead of billing to PayPal "
+msgstr "PayPalに請求書の代わりに発送の詳細を送信します"
+
+#: includes/eh-paypal-express-settings-page.php:300
+#: includes/eh-paypal-express-settings-page.php:621
+msgid "Enable to send shipping details to PayPal instead of billing."
+msgstr "請求の代わりに PayPal に配送の詳細を送信できるようにします。"
+
+#: includes/eh-paypal-express-settings-page.php:302
+#: includes/eh-paypal-express-settings-page.php:623
+msgid ""
+"PayPal accepts only one among shipping/billing addresses. It is recommended "
+"to validate PayPal Seller protection to submit shipping details to PayPal."
+msgstr ""
+"PayPal は、発送先/請求先住所のうち 1 つのみを受け入れます。PayPal に発送の詳"
+"細を送信するには、PayPal 販売者保護を有効化することをお勧めします。"
+
+#: includes/eh-paypal-express-settings-page.php:307
+#: includes/eh-paypal-express-settings-page.php:627
+msgid "Hide order review page"
+msgstr "注文確認ページを非表示にする"
+
+#: includes/eh-paypal-express-settings-page.php:312
+#: includes/eh-paypal-express-settings-page.php:632
+msgid ""
+"If enabled, customers returning from PayPal will directly go to the order "
+"received page."
+msgstr ""
+"有効にすると、PayPal から戻ってきた顧客は注文受領ページに直接移動します。"
+
+#: includes/eh-paypal-express-settings-page.php:316
+#: includes/eh-paypal-express-settings-page.php:636
+msgid "Save abandoned orders"
+msgstr "放棄された注文を保存する"
+
+#: includes/eh-paypal-express-settings-page.php:321
+msgid "Save pending order if payment is cancelled from PayPal’s side."
+msgstr "PayPal 側で支払いがキャンセルされた場合は、保留中の注文を保存します。"
+
+#: includes/eh-paypal-express-settings-page.php:325
+msgid "Manage subtotal mismatch"
+msgstr "小計の不一致を管理する"
+
+#: includes/eh-paypal-express-settings-page.php:328
+#: includes/eh-paypal-express-settings-page.php:648
+msgid "Enable to add/remove extra line item to handle subtotal mismatch"
+msgstr "小計の不一致を処理するために追加の行項目を追加/削除できるようにします"
+
+#: includes/eh-paypal-express-settings-page.php:330
+msgid ""
+"Automatically add/remove additional line items to handle mismatch between "
+"order total and subtotal before sending to PayPal."
+msgstr ""
+"PayPal に送信する前に、注文合計と小計の不一致を処理するために追加の行項目を自"
+"動的に追加/削除します。"
+
+#: includes/eh-paypal-express-settings-page.php:331
+#: includes/eh-paypal-express-settings-page.php:651
+msgid ""
+"The plugin will add discounts or remove shipping charges (as the case may "
+"be) from the order to equate both order total and subtotal after currency "
+"conversion or on using a third party plugin, etc."
+msgstr ""
+"プラグインは、通貨換算後またはサードパーティのプラグインの使用後などに、注文"
+"の合計と小計を一致させるために、注文から割引を追加したり、配送料を削除したり"
+"します（状況に応じて）。"
+
+#: includes/eh-paypal-express-settings-page.php:334
+#: includes/eh-paypal-express-settings-page.php:662
+msgid "Seller policy"
+msgstr "販売者ポリシー"
+
+#: includes/eh-paypal-express-settings-page.php:338
+#: includes/eh-paypal-express-settings-page.php:666
+msgid ""
+"Enter the seller protection policy or customized text which will be "
+"displayed in order review page."
+msgstr ""
+"注文確認ページに表示される販売者保護ポリシーまたはカスタマイズされたテキスト"
+"を入力します。"
+
+#: includes/eh-paypal-express-settings-page.php:339
+#: includes/eh-paypal-express-settings-page.php:667
+#, php-format
+msgid "You are Protected by %s Policy"
+msgstr "あなたは%sポリシーによって保護されています"
+
+#: includes/eh-paypal-express-settings-page.php:349
+msgid ""
+"<span class=\"smart_button_toggle_display\">Select Live mode to accept "
+"payments and Sandbox mode to test payments.</span>"
+msgstr ""
+"<span class=\"smart_button_toggle_display\">支払いを受け入れるにはライブ モー"
+"ドを選択し、支払いをテストするにはサンドボックス モードを選択します。</span>"
+
+#: includes/eh-paypal-express-settings-page.php:353
+msgid ""
+"Requires a PayPal Developer account and Business account linked with "
+"confirmed identity, email, and bank account."
+msgstr ""
+"確認済みの身元、メール、銀行口座にリンクされた PayPal 開発者アカウントとビジ"
+"ネス アカウントが必要です。"
+
+#: includes/eh-paypal-express-settings-page.php:353
+msgid "To get the Client ID and Secret:"
+msgstr "クライアント ID とシークレットを取得するには:"
+
+#: includes/eh-paypal-express-settings-page.php:353
+msgid "Login to your PayPal business account."
+msgstr "PayPal ビジネス アカウントにログインします。"
+
+#: includes/eh-paypal-express-settings-page.php:353
+msgid "Go to Activity > API Access OR from Account Settings > API Access."
+msgstr ""
+"[アクティビティ] > [API アクセス] に移動するか、[アカウント設定] > [API アク"
+"セス] に移動します。"
+
+#: includes/eh-paypal-express-settings-page.php:353
+msgid ""
+"Scroll down to the REST API Integration section and click Manage API apps "
+"and credentials. The REST API apps window opens up."
+msgstr ""
+"REST API 統合セクションまで下にスクロールし、API アプリと資格情報の管理をク"
+"リックします。REST API アプリ ウィンドウが開きます。"
+
+#: includes/eh-paypal-express-settings-page.php:353
+msgid "Click on the PayPal Developer experience link to create or manage apps."
+msgstr ""
+"PayPal 開発者エクスペリエンス リンクをクリックして、アプリを作成または管理し"
+"ます。"
+
+#: includes/eh-paypal-express-settings-page.php:353
+msgid ""
+"Next, Login to developer account or Signup a new developer account. Click on "
+"the  create a new application or default application for your business "
+"account. Then, copy the Client ID and Secret."
+msgstr ""
+"次に、開発者アカウントにログインするか、新しい開発者アカウントにサインアップ"
+"します。ビジネス アカウントの新しいアプリケーションまたはデフォルト アプリ"
+"ケーションの作成をクリックします。次に、クライアント ID とシークレットをコ"
+"ピーします。"
+
+#: includes/eh-paypal-express-settings-page.php:353
+msgid "Paste the Client ID and Secret in the respective fields of the plugin."
+msgstr ""
+"プラグインのそれぞれのフィールドにクライアント ID とシークレットを貼り付けま"
+"す。"
+
+#: includes/eh-paypal-express-settings-page.php:364
+msgid "<div id=\"environment_alert_desc \"></div>"
+msgstr "<div id=\"environment_alert_desc \"></div>"
+
+#: includes/eh-paypal-express-settings-page.php:369
+msgid "Sandbox client ID"
+msgstr "サンドボックスクライアントID"
+
+#: includes/eh-paypal-express-settings-page.php:375
+msgid "Sandbox client secret"
+msgstr "サンドボックスクライアントシークレット"
+
+#: includes/eh-paypal-express-settings-page.php:381
+msgid "Live client ID"
+msgstr "ライブクライアントID"
+
+#: includes/eh-paypal-express-settings-page.php:387
+msgid "Live client secret"
+msgstr "ライブクライアントシークレット"
+
+#: includes/eh-paypal-express-settings-page.php:394
+msgid "PayPal payment gateway"
+msgstr "PayPal 決済ゲートウェイ"
+
+#: includes/eh-paypal-express-settings-page.php:397
+msgid ""
+"Includes PayPal as one of the available payment gateways, alongside other "
+"supported options."
+msgstr ""
+"サポートされている他のオプションとともに、利用可能な支払いゲートウェイの 1 つ"
+"として PayPal が含まれます。"
+
+#: includes/eh-paypal-express-settings-page.php:419
+msgid "PayPal Smart Button"
+msgstr "PayPal スマートボタン"
+
+#: includes/eh-paypal-express-settings-page.php:422
+msgid ""
+"<span class=\"smart_button_toggle_display\">Smart button exists separately "
+"from the payment methods section, and allows buyers to proceed directly to "
+"PayPal without filling the Checkout form.</span>"
+msgstr ""
+"<span class=\"smart_button_toggle_display\">スマート ボタンは支払い方法セク"
+"ションとは別に存在し、購入者はチェックアウト フォームに入力せずに PayPal に直"
+"接進むことができます。</span>"
+
+#: includes/eh-paypal-express-settings-page.php:426
+msgid "Show Smart button on"
+msgstr "スマートボタンを表示"
+
+#: includes/eh-paypal-express-settings-page.php:430
+msgid "Displays PayPal smart button on chosen pages."
+msgstr "選択したページに PayPal スマート ボタンを表示します。"
+
+#: includes/eh-paypal-express-settings-page.php:445
+msgid "Input description displayed above the PayPal Smart button."
+msgstr "PayPal スマート ボタンの上に表示される説明を入力します。"
+
+#: includes/eh-paypal-express-settings-page.php:450
+msgid "Size"
+msgstr "サイズ"
+
+#: includes/eh-paypal-express-settings-page.php:453
+msgid ""
+"Choose the size of the button as either small, medium, large or responsive."
+msgstr "ボタンのサイズを小、中、大、レスポンシブのいずれかから選択します。"
+
+#: includes/eh-paypal-express-settings-page.php:460
+msgid "Responsive"
+msgstr "レスポンシブ"
+
+#: includes/eh-paypal-express-settings-page.php:464
+msgid "Button label"
+msgstr "ボタンラベル"
+
+#: includes/eh-paypal-express-settings-page.php:467
+msgid "Choose a pre-defined button label provided by PayPal."
+msgstr "PayPal が提供する定義済みのボタン ラベルを選択します。"
+
+#: includes/eh-paypal-express-settings-page.php:471
+msgid "Checkout"
+msgstr "チェックアウト"
+
+#: includes/eh-paypal-express-settings-page.php:472
+msgid "Pay"
+msgstr "支払う"
+
+#: includes/eh-paypal-express-settings-page.php:473
+msgid "Buy Now"
+msgstr "今すぐ購入"
+
+#: includes/eh-paypal-express-settings-page.php:478
+msgid "Tagline"
+msgstr "タグライン"
+
+#: includes/eh-paypal-express-settings-page.php:481
+msgid "Choose whether to show or hide the button tagline."
+msgstr "ボタンのタグラインを表示するか非表示にするかを選択します。"
+
+#: includes/eh-paypal-express-settings-page.php:485
+msgid "Show"
+msgstr "表示"
+
+#: includes/eh-paypal-express-settings-page.php:486
+msgid "Hide"
+msgstr "非表示"
+
+#: includes/eh-paypal-express-settings-page.php:490
+msgid "Button color"
+msgstr "ボタンの色"
+
+#: includes/eh-paypal-express-settings-page.php:493
+msgid "Choose the color of the smart checkout button."
+msgstr "スマートチェックアウトボタンの色を選択します。"
+
+#: includes/eh-paypal-express-settings-page.php:497
+msgid "Gold"
+msgstr "ゴールド"
+
+#: includes/eh-paypal-express-settings-page.php:498
+msgid "Blue"
+msgstr "青"
+
+#: includes/eh-paypal-express-settings-page.php:499
+msgid "Silver"
+msgstr "シルバー"
+
+#: includes/eh-paypal-express-settings-page.php:500
+msgid "White"
+msgstr "白"
+
+#: includes/eh-paypal-express-settings-page.php:501
+msgid "Black"
+msgstr "黒"
+
+#: includes/eh-paypal-express-settings-page.php:506
+msgid "Shape"
+msgstr "形状"
+
+#: includes/eh-paypal-express-settings-page.php:509
+msgid "Choose the button shape as either Rect (squared) or Pill (rounded)."
+msgstr "ボタンの形状を Rect (四角形) または Pill (丸形) から選択します。"
+
+#: includes/eh-paypal-express-settings-page.php:513
+msgid "Rect"
+msgstr "長方形"
+
+#: includes/eh-paypal-express-settings-page.php:514
+msgid "Pill"
+msgstr "ピル"
+
+#: includes/eh-paypal-express-settings-page.php:519
+msgid "Layout"
+msgstr "レイアウト"
+
+#: includes/eh-paypal-express-settings-page.php:522
+msgid "Choose the button layout as either Vertical or Horizontal."
+msgstr "ボタンのレイアウトを垂直または水平として選択します。"
+
+#: includes/eh-paypal-express-settings-page.php:526
+msgid "Vertical"
+msgstr "垂直"
+
+#: includes/eh-paypal-express-settings-page.php:527
+msgid "Horizontal"
+msgstr "水平"
+
+#: includes/eh-paypal-express-settings-page.php:532
+msgid "Disable funding sources"
+msgstr "資金源を無効にする"
+
+#: includes/eh-paypal-express-settings-page.php:535
+msgid ""
+"Disable a funding source by choosing it from the available options. "
+"<br>Note: The eligible funding sources are shown by PayPal on the checkout "
+"based on buyer country or devices."
+msgstr ""
+"利用可能なオプションから資金源を選択して無効にします。<br>注: 適格な資金源"
+"は、購入者の国またはデバイスに基づいて、チェックアウト時に PayPal によって表"
+"示されます。"
+
+#: includes/eh-paypal-express-settings-page.php:539
+msgid "Credit or debit cards"
+msgstr "クレジットまたはデビットカード"
+
+#: includes/eh-paypal-express-settings-page.php:540
+msgid "PayPal Credit"
+msgstr "PayPalクレジット"
+
+#: includes/eh-paypal-express-settings-page.php:541
+msgid "Bancontact"
+msgstr "バンコンタクト"
+
+#: includes/eh-paypal-express-settings-page.php:542
+msgid "BLIK"
+msgstr "BLIK"
+
+#: includes/eh-paypal-express-settings-page.php:543
+msgid "eps"
+msgstr "eps"
+
+#: includes/eh-paypal-express-settings-page.php:544
+msgid "giropay"
+msgstr "giropay"
+
+#: includes/eh-paypal-express-settings-page.php:545
+msgid "iDEAL"
+msgstr "iDEAL"
+
+#: includes/eh-paypal-express-settings-page.php:546
+msgid "Mercado Pago"
+msgstr "Mercado Pago"
+
+#: includes/eh-paypal-express-settings-page.php:547
+msgid "MyBank"
+msgstr "MyBank"
+
+#: includes/eh-paypal-express-settings-page.php:548
+msgid "Przelewy24"
+msgstr "Przelewy24"
+
+#: includes/eh-paypal-express-settings-page.php:549
+msgid "SEPA-Lastschrift"
+msgstr "SEPA-Lastschrift"
+
+#: includes/eh-paypal-express-settings-page.php:550
+msgid "Sofort"
+msgstr "Sofort"
+
+#: includes/eh-paypal-express-settings-page.php:551
+msgid "Venmo"
+msgstr "Venmo"
+
+#: includes/eh-paypal-express-settings-page.php:559
+msgid ""
+"<span class=\"smart_button_toggle_display\"> Set your brand identity at the "
+"PayPal end by giving a brand name. It will be visible for customers on the "
+"PayPal site on choosing to pay via PayPal.</span>"
+msgstr ""
+"<span class=\"smart_button_toggle_display\">ブランド名を入力して、PayPal 側で"
+"ブランド アイデンティティを設定します。PayPal 経由での支払いを選択した顧客"
+"は、PayPal サイトでブランド名を見ることができます。</span>"
+
+#: includes/eh-paypal-express-settings-page.php:576
+msgid "PayPal Login"
+msgstr "PayPalログイン"
+
+#: includes/eh-paypal-express-settings-page.php:590
+msgid "Choose to set the PayPal locale same as the store locale."
+msgstr "PayPal のロケールをストアのロケールと同じに設定することを選択します。"
+
+#: includes/eh-paypal-express-settings-page.php:618
+msgid "Send shipping details instead of billing to PayPal"
+msgstr "PayPalに請求書の代わりに発送詳細を送信します"
+
+#: includes/eh-paypal-express-settings-page.php:641
+msgid "Save pending order even if payment is cancelled from PayPal’s side."
+msgstr ""
+"PayPal 側で支払いがキャンセルされた場合でも、保留中の注文を保存します。"
+
+#: includes/eh-paypal-express-settings-page.php:645
+msgid "Subtotal Mismatch Behavior"
+msgstr "小計不一致の動作"
+
+#: includes/eh-paypal-express-settings-page.php:650
+msgid ""
+"Enabling will add/remove an additional line item from the order to handle "
+"mismatch between order total and sub total, before sending to PayPal."
+msgstr ""
+"有効にすると、PayPal に送信する前に、注文合計と小計の不一致を処理するために、"
+"注文から追加の行項目が追加/削除されます。"
+
+#: includes/eh-paypal-express-settings-page.php:656
+msgid "Remove line item"
+msgstr "項目を削除"
+
+#: includes/eh-paypal-express-settings-page.php:658
+msgid ""
+"Enabling will remove the line item and send only the subtotal to paypal."
+msgstr "有効にすると明細項目が削除され、小計のみが PayPal に送信されます。"
+
+#: includes/eh-paypal-express-settings-page.php:674
+msgid "Debug Logs"
+msgstr "デバッグログ"
+
+#: includes/eh-paypal-express-settings-page.php:677
+#, php-format
+msgid ""
+"Records PayPal payment transactions into WooCommerce status log. %1$s  View "
+"log %2$s"
+msgstr ""
+"PayPal の支払い取引を WooCommerce ステータス ログに記録します。%1$s ログを表"
+"示 %2$s"
+
+#: includes/eh-paypal-express-settings-page.php:680
+msgid " Log"
+msgstr "ログ"
+
+#: includes/eh-paypal-express-settings-page.php:685
+#, php-format
+msgid "%1$sLog File%2$s: %3$s () "
+msgstr "%1$sログ ファイル%2$s: %3$s ()"
+
+#: includes/eh-paypal-express-settings-page.php:688
+msgid " Enable to record PayPal payment transactions in a log file."
+msgstr "PayPal の支払い取引をログ ファイルに記録できるようにします。"
+
+#: includes/market.php:152
+msgid "PayPal Express Checkout Payment Gateway"
+msgstr "PayPal エクスプレスチェックアウト決済ゲートウェイ"
+
+#: includes/market.php:160
+msgid "Add PayPal Smart Buttons on product pages."
+msgstr "商品ページに PayPal スマート ボタンを追加します。"
+
+#: includes/market.php:161
+msgid "Provide alternative payment methods based on customer’s country."
+msgstr "顧客の国に基づいて代替の支払い方法を提供します。"
+
+#: includes/market.php:162
+msgid "Add PayPal Express Checkout buttons on product pages and mini-cart."
+msgstr "商品ページとミニカートに PayPal Express Checkout ボタンを追加します。"
+
+#: includes/market.php:163
+msgid "Authorize payments and capture funds later."
+msgstr ""
+
+#: includes/market.php:164
+msgid "Process full or partial refunds directly from order edit pages."
+msgstr "注文編集ページから直接、全額または一部の払い戻しを処理します。"
+
+#: includes/market.php:165
+msgid "Tailor button styles, positions, and more to fit your store’s design."
+msgstr ""
+"ストアのデザインに合わせてボタンのスタイルや位置などをカスタマイズします。"
+
+#: includes/market.php:166
+msgid ""
+"In-context checkout for secure payment using PayPal without leaving your "
+"site."
+msgstr ""
+"サイトを離れることなく PayPal を使用して安全に支払いを行うためのインコンテキ"
+"スト チェックアウト。"
+
+#: includes/market.php:167
+msgid "Compatible with WooCommerce Subscriptions."
+msgstr "WooCommerce サブスクリプションと互換性があります。"
+
+#: includes/market.php:168
+msgid "Set up a specific PayPal locale."
+msgstr "特定の PayPal ロケールを設定します。"
+
+#: includes/market.php:169
+msgid "Add PayPal Express buttons anywhere with shortcode integration."
+msgstr ""
+"ショートコード統合により、どこにでも PayPal Express ボタンを追加できます。"
+
+#: includes/market.php:170
+msgid "Receive timely compatibility updates and bug fixes."
+msgstr "互換性アップデートとバグ修正をタイムリーに受け取ります。"
+
+#: includes/market.php:179
+msgid "Upgrade to Premium"
+msgstr "プレミアムバージョンにアップグレード"
+
+#: includes/market.php:184
+msgid "Try with confidence"
+msgstr "自信を持って挑戦してください"
+
+#: includes/market.php:190
+msgid "100% No Risk Money Back Guarantee"
+msgstr "100%ノーリスク返金保証"
+
+#: includes/market.php:194
+msgid "Fast and Proirity Support with 99% Satisfaction Rating"
+msgstr "99%の満足度を誇る迅速で優先的なサポート"
+
+#. Plugin Name of the plugin/theme
+msgid "Payment Gateway Plugin for PayPal WooCommerce ( Free )"
+msgstr "PayPal WooCommerce 向け決済ゲートウェイプラグイン (無料)"
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://wordpress.org/plugins/express-checkout-paypal-payment-gateway-for-"
+"woocommerce/"
+msgstr ""
+"https://wordpress.org/plugins/express-checkout-paypal-payment-gateway-for-"
+"woocommerce/"
+
+#. Description of the plugin/theme
+msgid ""
+"Accepts payments via PayPal, Credit/Debit cards, Paypal Credit, or Local "
+"Payment Methods based on country/device using PayPal Express/Smart button "
+"checkout."
+msgstr ""
+"PayPal、クレジット/デビットカード、PayPal クレジット、または PayPal Express/"
+"スマート ボタン チェックアウトを使用した国/デバイスに基づく現地の支払い方法に"
+"よる支払いを受け入れます。"
+
+#. Author of the plugin/theme
+msgid "WebToffee"
+msgstr "ウェブトフィー"
+
+#. Author URI of the plugin/theme
+msgid ""
+"https://www.webtoffee.com/product/paypal-express-checkout-gateway-for-"
+"woocommerce/"
+msgstr ""
+"https://www.webtoffee.com/product/paypal-express-checkout-gateway-for-"
+"woocommerce/"
