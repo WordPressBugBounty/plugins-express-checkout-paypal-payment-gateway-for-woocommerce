@@ -82,44 +82,6 @@ class Eh_PE_Request_Built {
 
 			WC()->cart->calculate_totals();
 
-			// when checkout using express button some fee details are not saved in order
-			// $order = wc_get_order($args['order_id']);
-			/*
-			if(!empty(WC()->cart->get_fees()) && (count($order->get_fees()) != count(WC()->cart->get_fees()))){
-
-				foreach( $order->get_items( 'fee' ) as $item_id => $fee_obj ){
-
-					$fee_item_data = $fee_obj->get_data();
-					$fee_data_id = $fee_item_data['id'];
-
-					$order->remove_item($fee_data_id);
-				}
-
-				//adding fee line item to order
-				foreach ( WC()->cart->get_fees() as $fee_key => $fee ) {
-					$item                 = new WC_Order_Item_Fee();
-					$item->legacy_fee     = $fee;
-					$item->legacy_fee_key = $fee_key;
-					$item->set_props(
-						array(
-							'name'      => $fee->name,
-							'tax_class' => $fee->taxable ? $fee->tax_class : 0,
-							'amount'    => $fee->amount,
-							'total'     => $fee->total,
-							'total_tax' => $fee->tax,
-							'taxes'     => array(
-								'total' => $fee->tax_data,
-							),
-						)
-					);
-
-					// Add item to order and save.
-					$order->add_item( $item );
-					$order->save();
-					$order->calculate_totals();
-				}
-			}*/
-
 			$cart_item = wc()->cart->get_cart();
 
 			$line_item_total_amount = 0;
@@ -207,40 +169,13 @@ class Eh_PE_Request_Built {
 
 			}
 
-			// add line items amount and compares it with cart total amount to check for any total mismatch
 			$item_amount = $this->make_paypal_amount( WC()->cart->cart_contents_total + WC()->cart->fee_total );
-
-			if ( $line_item_total_amount != $item_amount ) {
-				$diff = $this->make_paypal_amount( $item_amount - $line_item_total_amount );
-				if ( abs( $diff ) > 0.000001 && 0.0 !== (float) $diff ) {
-					// add extra line item if there is a total mismatch
-					$this->add_line_items(
-						array(
-							'NAME' => 'Extra line item',
-							'DESC' => '',
-							'QTY'  => 1,
-							'AMT'  => abs($diff),
-						),
-						$i++
-					);
-				}
-			}
-
-			// handle mismatch due to rounded tax calculation
 			$ship_discount_amount = 0;
-			$cart_total           = $this->make_paypal_amount( WC()->cart->total );
-			$cart_tax             = $this->make_paypal_amount( WC()->cart->tax_total + WC()->cart->shipping_tax_total );
-			$cart_items_total     = $item_amount + $this->make_paypal_amount( WC()->cart->shipping_total ) + $cart_tax;
-			if ( $cart_total != $cart_items_total ) {
-				if ( $cart_items_total < $cart_total ) {
-					$cart_tax += $cart_total - $cart_items_total;
-				} else {
-					$ship_discount_amount += $this->make_paypal_amount( $cart_total - $cart_items_total );
-				}
-			}
+			$cart_total = $this->make_paypal_amount(WC()->cart->total);
+			$cart_tax = $this->make_paypal_amount(WC()->cart->tax_total + WC()->cart->shipping_tax_total);
+			$cart_items_total = $item_amount + $this->make_paypal_amount(WC()->cart->shipping_total) + $cart_tax;
 
-
-			//FIX PECPGFW-539: Resolve issue where get_cart_discount_total() returns zero despite discounts being applied.
+			//FIX PECPGFW-539, PECPGFW-620 : Resolve issue where get_cart_discount_total() returns zero despite discounts being applied.
 			$order_id = isset($args['order_id']) ? $args['order_id'] : 0; 
 			if($order_id){
 				$order = wc_get_order($order_id);
@@ -263,25 +198,16 @@ class Eh_PE_Request_Built {
 						);
 
 						$item_amount -= $discount_amount;
-						$cart_total -= $discount_amount;
+						$cart_total = $order->get_total();
+						$cart_items_total -= $discount_amount;
+						$line_item_total_amount -= $discount_amount;
 					}
 				}
 			}
 
-			
+       
 
-			$this->add_payment_params(
-				array(
-					'AMT'           => $cart_total,
-					'CURRENCYCODE'  => $this->store_currency,
-					'ITEMAMT'       => $item_amount,
-					'SHIPPINGAMT'   => $this->make_paypal_amount( WC()->cart->shipping_total ),
-					'TAXAMT'        => $cart_tax,
-					'SHIPDISCAMT'   => $ship_discount_amount,
-					'PAYMENTACTION' => 'Sale',
-				)
-			);
-			$this->make_param( 'MAXAMT', $this->make_paypal_amount( WC()->cart->total + ceil( WC()->cart->total * 0.75 ) ) );
+
 			$eh_paypal_express_options = get_option( 'woocommerce_eh_paypal_express_settings' );
 			
             if (isset($eh_paypal_express_options['add_extra_line_item']) && 'yes' === $eh_paypal_express_options['add_extra_line_item']) {
@@ -304,12 +230,6 @@ class Eh_PE_Request_Built {
                     }
                 }
             }
-
-            //handle mismatch due to rounded tax calculation
-            $ship_discount_amount = 0;
-            $cart_total = $this->make_paypal_amount(WC()->cart->total);
-            $cart_tax = $this->make_paypal_amount(WC()->cart->tax_total + WC()->cart->shipping_tax_total);
-            $cart_items_total = $item_amount + $this->make_paypal_amount(WC()->cart->shipping_total) + $cart_tax;
             
             //subtotal mistmatch
             if (isset($eh_paypal_express_options['add_extra_line_item']) && 'yes' === $eh_paypal_express_options['add_extra_line_item']) {
@@ -334,7 +254,7 @@ class Eh_PE_Request_Built {
                             'SHIPDISCAMT'           => $ship_discount_amount,
                         )
                     );
-            $this->make_param('MAXAMT',$this->make_paypal_amount(WC()->cart->total + ceil(WC()->cart->total * 0.75)));
+			$this->make_param( 'MAXAMT', $this->make_paypal_amount( $cart_total + ceil( $cart_total * 0.75 ) ) );
         
 			$need_shipping             = $eh_paypal_express_options['send_shipping'];
 			if ( ( 'yes' === $need_shipping ) && ( isset( WC()->session->post_data['ship_to_different_address'] ) ) && ( 1 == WC()->session->post_data['ship_to_different_address'] ) || true === apply_filters("wt_force_send_shipping_address", false) ) {
