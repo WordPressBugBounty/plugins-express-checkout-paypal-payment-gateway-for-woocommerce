@@ -31,7 +31,6 @@ class Eh_Paypal_Express_Handlers {
 		require_once EH_PAYPAL_MAIN_PATH . 'includes/class-paypal-rest-request-builder.php';
 		require_once EH_PAYPAL_MAIN_PATH . 'includes/class-paypal-express-request-sender.php';
 		require_once EH_PAYPAL_MAIN_PATH . 'includes/class-paypal-express-response-processer.php';
-		require_once EH_PAYPAL_MAIN_PATH . 'includes/class-paypal-express-review-request.php';
 		require_once EH_PAYPAL_MAIN_PATH . 'includes/class-bfcm-twenty-twenty-four.php';
 	}
 }
