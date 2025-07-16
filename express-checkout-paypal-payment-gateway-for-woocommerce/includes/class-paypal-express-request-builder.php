@@ -261,16 +261,16 @@ class Eh_PE_Request_Built {
 
 				$this->add_payment_params(apply_filters("wt_shipping_address_create_order",
 						array(
-							'SHIPTONAME'        => ( empty( WC()->session->post_data['shipping_first_name'] ) ?  ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_shipping_first_name() ) : WC()->session->post_data['shipping_first_name'] ) . ' ' . ( empty( WC()->session->post_data['shipping_last_name'] ) ? ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_shipping_last_name() ) : WC()->session->post_data['shipping_last_name'] ),
-							'SHIPTOSTREET'      => empty( WC()->session->post_data['shipping_address_1'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_address() : WC()->customer->get_shipping_address_1() ) : wc_clean( WC()->session->post_data['shipping_address_1'] ),
-							'SHIPTOSTREET2'     => empty( WC()->session->post_data['shipping_address_2'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_address_2() : WC()->customer->get_shipping_address_2() ) : wc_clean( WC()->session->post_data['shipping_address_2'] ),
-							'SHIPTOCITY'        => empty( WC()->session->post_data['shipping_city'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_city() : WC()->customer->get_shipping_city() ) : wc_clean( WC()->session->post_data['shipping_city'] ),
-							'SHIPTOSTATE'       => empty( WC()->session->post_data['shipping_state'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_state() : WC()->customer->get_shipping_state() ) : wc_clean( WC()->session->post_data['shipping_state'] ),
-							'SHIPTOZIP'         => empty( WC()->session->post_data['shipping_postcode'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_postcode() : WC()->customer->get_shipping_postcode() ) : wc_clean( WC()->session->post_data['shipping_postcode'] ),
-							'SHIPTOCOUNTRYCODE' => empty( WC()->session->post_data['shipping_country'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_country() : WC()->customer->get_shipping_country() ) : wc_clean( WC()->session->post_data['shipping_country'] ),
-							'SHIPTOPHONENUM'    => empty( WC()->session->post_data['billing_phone'] ) ? ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_billing_phone() ) : wc_clean( WC()->session->post_data['billing_phone'] ),
+							'SHIPTONAME'        => ( empty( WC()->session->post_data['shipping_first_name'] ) ?  ( ( version_compare(WC()->version, '2.7.0', '<') ) ? '' : WC()->customer->get_shipping_first_name() ) : WC()->session->post_data['shipping_first_name'] ) . ' ' . ( empty( WC()->session->post_data['shipping_last_name'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? '' : WC()->customer->get_shipping_last_name() ) : WC()->session->post_data['shipping_last_name'] ),
+							'SHIPTOSTREET'      => empty( WC()->session->post_data['shipping_address_1'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_address() : WC()->customer->get_shipping_address_1() ) : wc_clean( WC()->session->post_data['shipping_address_1'] ),
+							'SHIPTOSTREET2'     => empty( WC()->session->post_data['shipping_address_2'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_address_2() : WC()->customer->get_shipping_address_2() ) : wc_clean( WC()->session->post_data['shipping_address_2'] ),
+							'SHIPTOCITY'        => empty( WC()->session->post_data['shipping_city'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_city() : WC()->customer->get_shipping_city() ) : wc_clean( WC()->session->post_data['shipping_city'] ),
+							'SHIPTOSTATE'       => empty( WC()->session->post_data['shipping_state'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_state() : WC()->customer->get_shipping_state() ) : wc_clean( WC()->session->post_data['shipping_state'] ),
+							'SHIPTOZIP'         => empty( WC()->session->post_data['shipping_postcode'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_postcode() : WC()->customer->get_shipping_postcode() ) : wc_clean( WC()->session->post_data['shipping_postcode'] ),
+							'SHIPTOCOUNTRYCODE' => empty( WC()->session->post_data['shipping_country'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_country() : WC()->customer->get_shipping_country() ) : wc_clean( WC()->session->post_data['shipping_country'] ),
+							'SHIPTOPHONENUM'    => empty( WC()->session->post_data['billing_phone'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? '' : WC()->customer->get_billing_phone() ) : wc_clean( WC()->session->post_data['billing_phone'] ),
 							'NOTETEXT'          => empty( WC()->session->post_data['order_comments'] ) ? '' : wc_clean( WC()->session->post_data['order_comments'] ),
-							'EMAIL'             => empty( WC()->session->post_data['billing_email'] ) ? ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_billing_email() ) : wc_clean( WC()->session->post_data['billing_email'] ),
+							'EMAIL'             => empty( WC()->session->post_data['billing_email'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? '' : WC()->customer->get_billing_email() ) : wc_clean( WC()->session->post_data['billing_email'] ),
 							'PAYMENTREQUESTID'  => ( ! empty( $args['order_id'] ) ? $args['order_id'] : '' ),
 
 						), $order_id
@@ -280,16 +280,16 @@ class Eh_PE_Request_Built {
 
 				$this->add_payment_params(
 					array(
-						'SHIPTONAME'        => ( empty( WC()->session->post_data['billing_first_name'] ) ?  ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_billing_first_name() ) : WC()->session->post_data['billing_first_name'] ) . ' ' . ( empty( WC()->session->post_data['billing_last_name'] ) ? ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_billing_last_name() ) : WC()->session->post_data['billing_last_name'] ),
-						'SHIPTOSTREET'      => empty( WC()->session->post_data['billing_address_1'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_address() : WC()->customer->get_billing_address() ) : wc_clean( WC()->session->post_data['billing_address_1'] ),
-						'SHIPTOSTREET2'     => empty( WC()->session->post_data['billing_address_2'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_address_2() : WC()->customer->get_billing_address_2() ) : wc_clean( WC()->session->post_data['billing_address_2'] ),
-						'SHIPTOCITY'        => empty( WC()->session->post_data['billing_city'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_city() : WC()->customer->get_billing_city() ) : wc_clean( WC()->session->post_data['billing_city'] ),
-						'SHIPTOSTATE'       => empty( WC()->session->post_data['billing_state'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_state() : WC()->customer->get_billing_state() ) : wc_clean( WC()->session->post_data['billing_state'] ),
-						'SHIPTOZIP'         => empty( WC()->session->post_data['billing_postcode'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_postcode() : WC()->customer->get_billing_postcode() ) : wc_clean( WC()->session->post_data['billing_postcode'] ),
-						'SHIPTOCOUNTRYCODE' => empty( WC()->session->post_data['billing_country'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_country() : WC()->customer->get_billing_country() ) : wc_clean( WC()->session->post_data['billing_country'] ),
-						'SHIPTOPHONENUM'    => empty( WC()->session->post_data['billing_phone'] ) ? ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_billing_phone() ) : wc_clean( WC()->session->post_data['billing_phone'] ),
+						'SHIPTONAME'        => ( empty( WC()->session->post_data['billing_first_name'] ) ?  ( ( version_compare(WC()->version, '2.7.0', '<') ) ? '' : WC()->customer->get_billing_first_name() ) : WC()->session->post_data['billing_first_name'] ) . ' ' . ( empty( WC()->session->post_data['billing_last_name'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? '' : WC()->customer->get_billing_last_name() ) : WC()->session->post_data['billing_last_name'] ),
+						'SHIPTOSTREET'      => empty( WC()->session->post_data['billing_address_1'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_address() : WC()->customer->get_billing_address() ) : wc_clean( WC()->session->post_data['billing_address_1'] ),
+						'SHIPTOSTREET2'     => empty( WC()->session->post_data['billing_address_2'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_address_2() : WC()->customer->get_billing_address_2() ) : wc_clean( WC()->session->post_data['billing_address_2'] ),
+						'SHIPTOCITY'        => empty( WC()->session->post_data['billing_city'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_city() : WC()->customer->get_billing_city() ) : wc_clean( WC()->session->post_data['billing_city'] ),
+						'SHIPTOSTATE'       => empty( WC()->session->post_data['billing_state'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_state() : WC()->customer->get_billing_state() ) : wc_clean( WC()->session->post_data['billing_state'] ),
+						'SHIPTOZIP'         => empty( WC()->session->post_data['billing_postcode'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_postcode() : WC()->customer->get_billing_postcode() ) : wc_clean( WC()->session->post_data['billing_postcode'] ),
+						'SHIPTOCOUNTRYCODE' => empty( WC()->session->post_data['billing_country'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_country() : WC()->customer->get_billing_country() ) : wc_clean( WC()->session->post_data['billing_country'] ),
+						'SHIPTOPHONENUM'    => empty( WC()->session->post_data['billing_phone'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? '' : WC()->customer->get_billing_phone() ) : wc_clean( WC()->session->post_data['billing_phone'] ),
 						'NOTETEXT'          => empty( WC()->session->post_data['order_comments'] ) ? '' : wc_clean( WC()->session->post_data['order_comments'] ),
-						'EMAIL'             => empty( WC()->session->post_data['billing_email'] ) ? ( ( WC()->version < '2.7.0' ) ? '' : WC()->customer->get_billing_email() ) : wc_clean( WC()->session->post_data['billing_email'] ),
+						'EMAIL'             => empty( WC()->session->post_data['billing_email'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? '' : WC()->customer->get_billing_email() ) : wc_clean( WC()->session->post_data['billing_email'] ),
 						'PAYMENTREQUESTID'  => ( ! empty( $args['order_id'] ) ? $args['order_id'] : '' ),
 
 					)
@@ -318,7 +318,7 @@ class Eh_PE_Request_Built {
 		);
 
 		$this->order_item_params( $order );
-		$order_id = ( WC()->version < '2.7.0' ) ? $order->id : $order->get_id();
+		$order_id = ( version_compare(WC()->version, '2.7.0', '<') ) ? $order->id : $order->get_id();
 		$order_no = $order->get_order_number();
 
 		$this->add_payment_params(
@@ -347,8 +347,8 @@ class Eh_PE_Request_Built {
 
 		$line_item_total_amount = 0;
 
-		$currency           = ( WC()->version < '2.7.0' ) ? $order->get_order_currency() : $order->get_currency();
-		$order_id           = ( WC()->version < '2.7.0' ) ? $order->id : $order->get_id();
+		$currency           = ( version_compare(WC()->version, '2.7.0', '<') ) ? $order->get_order_currency() : $order->get_currency();
+		$order_id           = ( version_compare(WC()->version, '2.7.0', '<') ) ? $order->id : $order->get_id();
 		$wt_skip_line_items = $this->wt_skip_line_items(); // if tax enabled and when product has inclusive tax
 		foreach ( $order_item as $item ) {
 

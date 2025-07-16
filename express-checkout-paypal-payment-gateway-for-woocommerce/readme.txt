@@ -3,9 +3,9 @@ Contributors: webtoffee
 Donate link: https://www.webtoffee.com/product/paypal-express-checkout-gateway-for-woocommerce
 Tags: WooCommerce PayPal Payments, paylater, payment gateway, credit card, debit card
 Requires at least: 5.6
-Tested up to: 6.8.1
+Tested up to: 6.8.2
 Requires PHP: 5.6
-Stable tag: 1.9.1
+Stable tag: 1.9.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -43,7 +43,7 @@ With PayPal Express Checkout or PayPal Smart Checkout enabled you can ensure a s
 🔸 Customize  the PayPal payment options visible to customers with various settings and configurations. 
 🔸 Add invoice prefix to identify store order
 🔸 Faster checkout by skipping the order review page
-🔸 Tested OK with WooCommerce  9.9.5
+🔸 Tested OK with WooCommerce  10.0.2
 
 ### Importance of PayPal Checkout for your WooCommerce Store ###
 [PayPal](https://www.paypal.com/us/webapps/mpp/home) is one of the faster and more secure options for online payments. It has millions of active users globally making it one of the leading payment platforms. By integrating the PayPal payment gateway with your WooCommerce store (using the PayPal checkout plugin), you will be able to increase conversions and reduce cart abandonment at a drastic rate.
@@ -137,6 +137,10 @@ PayPal is available in more than 200 countries/regions and supports 25 currencie
 
 
 == Changelog ==
+
+= 1.9.2 2025-07-16 =
+* [Compatibility] - WooCommerce 10.0.2
+* [Compatibility] - WordPress 6.8.2
 
 = 1.9.1 2025-07-04 =
 * [Compatibility] - WooCommerce 9.9.5
@@ -493,5 +497,6 @@ PayPal is available in more than 200 countries/regions and supports 25 currencie
 
 == Upgrade Notice ==
 
-= 1.9.1 =
-* [Compatibility] - WooCommerce 9.9.5
+= 1.9.2 =
+* [Compatibility] - WooCommerce 10.0.2
+* [Compatibility] - WordPress 6.8.2

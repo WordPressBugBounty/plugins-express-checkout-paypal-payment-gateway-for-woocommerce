@@ -99,7 +99,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 		// }
 
 		add_action( 'woocommerce_available_payment_gateways', array( $this, 'gateways_hide_on_review' ) );
-		add_action( 'woocommerce_after_checkout_validation', array( $this, 'process_express_checkout' ), 10, ( WC()->version < '2.7.0' ) ? 1 : 2 );
+		add_action( 'woocommerce_after_checkout_validation', array( $this, 'process_express_checkout' ), 10, ( version_compare(WC()->version, '2.7.0', '<') ) ? 1 : 2 );
 		add_action( 'woocommerce_checkout_billing', array( $this, 'fill_checkout_fields_on_review' ) );
 		add_action( 'woocommerce_checkout_fields', array( $this, 'hide_checkout_fields_on_review' ), 11 );
 		add_action( 'woocommerce_before_checkout_billing_form', array( $this, 'fill_billing_details_on_review' ), 9 );
@@ -1093,7 +1093,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 									Eh_PayPal_Express_Payment::wt_paypal_order_db_operations($order_id, $order, 'add', '_eh_pe_details', $update, false); 
 
 									$order->add_order_note( __( 'Payment Status : ' . $p_status . '<br>[ ' . $p_time . ' ] <br>Source : ' . $p_type . '.<br>Transaction ID : ' . $p_id . '.<br>Reason : ' . $reason, 'express-checkout-paypal-payment-gateway-for-woocommerce' ) );
-									if ( ( WC()->version < '2.7.0' ) ) {
+									if ( ( version_compare(WC()->version, '2.7.0', '<') ) ) {
 										$order->reduce_order_stock();
 									} else {
 										wc_reduce_stock_levels( $order_id );
@@ -1797,7 +1797,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
                         $order->add_order_note(__('Payment Status  : Pending <br> [ ' . $p_time . ' ] <br>Transaction ID : ' . $p_id .'<br>Reason : The payment is pending because it has been authorized but not settled. You must capture the funds first.', 'express-checkout-paypal-payment-gateway-for-woocommerce'));
 
-						if ( ( WC()->version < '2.7.0' ) ) {
+						if ( ( version_compare(WC()->version, '2.7.0', '<') ) ) {
 							$order->reduce_order_stock();
 						} else {
 							wc_reduce_stock_levels( $order_id );
@@ -2288,29 +2288,29 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 		$data             = WC()->session->post_data;
 		$billing_details  = array(
-			'first_name' => empty( $data['billing_first_name'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->session->post_data['billing_first_name'] : WC()->customer->get_billing_first_name() ) : wc_clean( $data['billing_first_name'] ),
-			'last_name'  => empty( $data['billing_last_name'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->session->post_data['billing_last_name'] : WC()->customer->get_billing_last_name() ) : wc_clean( $data['billing_last_name'] ),
-			'email'      => empty( $data['billing_email'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->session->post_data['billing_email'] : WC()->customer->get_billing_email() ) : wc_clean( $data['billing_email'] ),
-			'phone'      => empty( $data['billing_phone'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->session->post_data['billing_phone'] : WC()->customer->get_billing_phone() ) : wc_clean( $data['billing_phone'] ),
-			'address_1'  => empty( $data['billing_address_1'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_address() : WC()->customer->get_billing_address() ) : wc_clean( $data['billing_address_1'] ),
-			'address_2'  => empty( $data['billing_address_2'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_address_2() : WC()->customer->get_billing_address_2() ) : wc_clean( $data['billing_address_2'] ),
-			'city'       => empty( $data['billing_city'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_city() : WC()->customer->get_billing_city() ) : wc_clean( $data['billing_city'] ),
-			'postcode'   => empty( $data['billing_postcode'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_postcode() : WC()->customer->get_billing_postcode() ) : wc_clean( $data['billing_postcode'] ),
-			'country'    => empty( $data['billing_country'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_country() : WC()->customer->get_billing_country() ) : wc_clean( $data['billing_country'] ),
-			'state'      => empty( $data['billing_state'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_state() : WC()->customer->get_billing_state() ) : wc_clean( $data['billing_state'] ),
+			'first_name' => empty( $data['billing_first_name'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->session->post_data['billing_first_name'] : WC()->customer->get_billing_first_name() ) : wc_clean( $data['billing_first_name'] ),
+			'last_name'  => empty( $data['billing_last_name'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->session->post_data['billing_last_name'] : WC()->customer->get_billing_last_name() ) : wc_clean( $data['billing_last_name'] ),
+			'email'      => empty( $data['billing_email'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->session->post_data['billing_email'] : WC()->customer->get_billing_email() ) : wc_clean( $data['billing_email'] ),
+			'phone'      => empty( $data['billing_phone'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->session->post_data['billing_phone'] : WC()->customer->get_billing_phone() ) : wc_clean( $data['billing_phone'] ),
+			'address_1'  => empty( $data['billing_address_1'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_address() : WC()->customer->get_billing_address() ) : wc_clean( $data['billing_address_1'] ),
+			'address_2'  => empty( $data['billing_address_2'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_address_2() : WC()->customer->get_billing_address_2() ) : wc_clean( $data['billing_address_2'] ),
+			'city'       => empty( $data['billing_city'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_city() : WC()->customer->get_billing_city() ) : wc_clean( $data['billing_city'] ),
+			'postcode'   => empty( $data['billing_postcode'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_postcode() : WC()->customer->get_billing_postcode() ) : wc_clean( $data['billing_postcode'] ),
+			'country'    => empty( $data['billing_country'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_country() : WC()->customer->get_billing_country() ) : wc_clean( $data['billing_country'] ),
+			'state'      => empty( $data['billing_state'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_state() : WC()->customer->get_billing_state() ) : wc_clean( $data['billing_state'] ),
 			'company'    => empty( $data['billing_company'] ) ? '' : wc_clean( $data['billing_company'] ),
 		);
 		$shipping_details = array(
-			'first_name' => empty( $data['shipping_first_name'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->session->post_data['shipping_first_name'] : WC()->customer->get_shipping_first_name() ) : wc_clean( $data['shipping_first_name'] ),
-			'last_name'  => empty( $data['shipping_last_name'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->session->post_data['shipping_last_name'] : WC()->customer->get_shipping_last_name() ) : wc_clean( $data['shipping_last_name'] ),
-			'email'      => empty( $data['billing_email'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->session->post_data['billing_email'] : WC()->customer->get_billing_email() ) : wc_clean( $data['billing_email'] ),
-			'phone'      => empty( $data['billing_phone'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->session->post_data['billing_phone'] : WC()->customer->get_billing_phone() ) : wc_clean( $data['billing_phone'] ),
-			'address_1'  => empty( $data['shipping_address_1'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_address() : WC()->customer->get_shipping_address() ) : wc_clean( $data['shipping_address_1'] ),
-			'address_2'  => empty( $data['shipping_address_2'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_address_2() : WC()->customer->get_shipping_address_2() ) : wc_clean( $data['shipping_address_2'] ),
-			'city'       => empty( $data['shipping_city'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_city() : WC()->customer->get_shipping_city() ) : wc_clean( $data['shipping_city'] ),
-			'postcode'   => empty( $data['shipping_postcode'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_postcode() : WC()->customer->get_shipping_postcode() ) : wc_clean( $data['shipping_postcode'] ),
-			'country'    => empty( $data['shipping_country'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_country() : WC()->customer->get_shipping_country() ) : wc_clean( $data['shipping_country'] ),
-			'state'      => empty( $data['shipping_state'] ) ? ( ( WC()->version < '2.7.0' ) ? WC()->customer->get_state() : WC()->customer->get_shipping_state() ) : wc_clean( $data['shipping_state'] ),
+			'first_name' => empty( $data['shipping_first_name'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->session->post_data['shipping_first_name'] : WC()->customer->get_shipping_first_name() ) : wc_clean( $data['shipping_first_name'] ),
+			'last_name'  => empty( $data['shipping_last_name'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->session->post_data['shipping_last_name'] : WC()->customer->get_shipping_last_name() ) : wc_clean( $data['shipping_last_name'] ),
+			'email'      => empty( $data['billing_email'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->session->post_data['billing_email'] : WC()->customer->get_billing_email() ) : wc_clean( $data['billing_email'] ),
+			'phone'      => empty( $data['billing_phone'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->session->post_data['billing_phone'] : WC()->customer->get_billing_phone() ) : wc_clean( $data['billing_phone'] ),
+			'address_1'  => empty( $data['shipping_address_1'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_address() : WC()->customer->get_shipping_address() ) : wc_clean( $data['shipping_address_1'] ),
+			'address_2'  => empty( $data['shipping_address_2'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_address_2() : WC()->customer->get_shipping_address_2() ) : wc_clean( $data['shipping_address_2'] ),
+			'city'       => empty( $data['shipping_city'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_city() : WC()->customer->get_shipping_city() ) : wc_clean( $data['shipping_city'] ),
+			'postcode'   => empty( $data['shipping_postcode'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_postcode() : WC()->customer->get_shipping_postcode() ) : wc_clean( $data['shipping_postcode'] ),
+			'country'    => empty( $data['shipping_country'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_country() : WC()->customer->get_shipping_country() ) : wc_clean( $data['shipping_country'] ),
+			'state'      => empty( $data['shipping_state'] ) ? ( ( version_compare(WC()->version, '2.7.0', '<') ) ? WC()->customer->get_state() : WC()->customer->get_shipping_state() ) : wc_clean( $data['shipping_state'] ),
 			'company'    => empty( $data['shipping_company'] ) ? '' : wc_clean( $data['shipping_company'] ),
 		);
 
@@ -2702,7 +2702,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 	public function create_wc_order( $checkout_post ) {
 		// create woocommerce order
-		if ( ( WC()->version < '2.7.0' ) ) {
+		if ( ( version_compare(WC()->version, '2.7.0', '<') ) ) {
 			$order_id = WC()->checkout()->create_order();
 		} else {
 			$data = array(

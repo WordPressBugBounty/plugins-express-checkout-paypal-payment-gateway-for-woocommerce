@@ -5,9 +5,9 @@
  * Description: Accepts payments via PayPal, Credit/Debit cards, Paypal Credit, or Local Payment Methods based on country/device using PayPal Express/Smart button checkout.
  * Author: WebToffee
  * Author URI: https://www.webtoffee.com/product/paypal-express-checkout-gateway-for-woocommerce/
- * Version: 1.9.1
+ * Version: 1.9.2
  * * WC requires at least: 3.0
- * WC tested up to: 9.9.5
+ * WC tested up to: 10.0.2
  * Text Domain: express-checkout-paypal-payment-gateway-for-woocommerce
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -24,7 +24,7 @@ if ( ! defined( 'EH_PAYPAL_MAIN_URL' ) ) {
 	define( 'EH_PAYPAL_MAIN_URL', plugin_dir_url( __FILE__ ) );
 }
 if ( ! defined( 'EH_PAYPAL_VERSION' ) ) {
-	define( 'EH_PAYPAL_VERSION', '1.9.1' );
+	define( 'EH_PAYPAL_VERSION', '1.9.2' );
 }
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -92,8 +92,7 @@ if ( is_plugin_active( 'eh-paypal-express-checkout/eh-paypal-express-checkout.ph
 		);
 	}
 	function eh_paypal_express_init_log() {
-
-		if ( WC()->version >= '2.7.0' ) {
+		if ( version_compare( WC()->version, '2.7.0', '>=' ) ) {
 			$log      = wc_get_logger();
 			$init_msg = Eh_PayPal_Log::init_log();
 			$context  = array( 'source' => 'eh_paypal_express_log' );

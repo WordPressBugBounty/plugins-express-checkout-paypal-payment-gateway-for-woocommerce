@@ -37,7 +37,7 @@ class Eh_PayPal_Log {
 			$msg = self::remove_data( $mg );
 		}
 		if ( 'yes' === $check['paypal_logging'] ) {
-			if ( WC()->version >= '2.7.0' ) {
+			if ( version_compare(WC()->version, '2.7.0', '>=') ) {
 				$log  = wc_get_logger();
 				$head = '<------------------- WebToffee PayPal Express Payment ( ' . $title . " ) ------------------->\n";
 				if ( 'json' == $type ) {
