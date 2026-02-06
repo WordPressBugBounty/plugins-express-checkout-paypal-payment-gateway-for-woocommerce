@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Eh_PayPal_Log {
 
 	public static function init_log() {
-		$content = '<------------------- WebToffee PayPal Express Payment Log File ( ' . EH_PAYPAL_VERSION . " ) ------------------->\n";
+		$content = '<------------------- ThemeHigh PayPal Express Payment Log File ( ' . EH_PAYPAL_VERSION . " ) ------------------->\n";
 		return $content;
 	}
 
@@ -39,7 +39,7 @@ class Eh_PayPal_Log {
 		if ( 'yes' === $check['paypal_logging'] ) {
 			if ( version_compare(WC()->version, '2.7.0', '>=') ) {
 				$log  = wc_get_logger();
-				$head = '<------------------- WebToffee PayPal Express Payment ( ' . $title . " ) ------------------->\n";
+				$head = '<------------------- ThemeHigh PayPal Express Payment ( ' . $title . " ) ------------------->\n";
 				if ( 'json' == $type ) {
 					$log_text = $head . print_r( $msg, true );
 				} else {
@@ -49,7 +49,7 @@ class Eh_PayPal_Log {
 				$log->log( 'debug', $log_text, $context );
 			} else {
 				$log  = new WC_Logger();
-				$head = '<------------------- WebToffee PayPal Express Payment ( ' . $title . " ) ------------------->\n";
+				$head = '<------------------- ThemeHigh PayPal Express Payment ( ' . $title . " ) ------------------->\n";
 				if ( 'json' == $type ) {
 					$log_text = $head . print_r( $msg, true );
 				} else {

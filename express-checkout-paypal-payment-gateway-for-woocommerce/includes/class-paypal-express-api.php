@@ -1002,7 +1002,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 							'method'          => 'DoExpressCheckoutPayment',
 							'token'           => WC()->session->eh_pe_checkout['token'],
 							'payer_id'        => WC()->session->eh_pe_checkout['payer_id'],
-							'button'          => 'WebToffee PE Checkout',
+							'button'          => 'ThemeHigh PE Checkout',
 							'instant_payment' => true,
 							// 'invoice_prefix' => apply_filters('eh_paypal_invoice_prefix','EH_'),
 							'invoice_prefix'  => ( isset( $this->invoice_prefix ) ) ? $this->invoice_prefix : apply_filters( 'eh_paypal_invoice_prefix', 'EH_' ),
@@ -2684,7 +2684,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 			wp_redirect( $this->make_redirect_url( $response['TOKEN'] ) );
 		} else {
 			if ( isset( $response['L_ERRORCODE0'] ) && isset( $response['L_LONGMESSAGE0'] ) ) {
-				wc_add_notice( __( $response['L_ERRORCODE0'] . ' error - ' . $response['L_LONGMESSAGE0'] . '. Refer to the <a style="text-decoration: underline;" href="https://www.webtoffee.com/common-error-codes-and-their-causes/">article</a> to troubleshoot the error.', 'eh-paypal-express' ), 'error' );
+				wc_add_notice( __( $response['L_ERRORCODE0'] . ' error - ' . $response['L_LONGMESSAGE0'] . '. Refer to the <a style="text-decoration: underline;" href="https://www.themehigh.com/docs/trouble-shooting-guide/">article</a> to troubleshoot the error.', 'eh-paypal-express' ), 'error' );
 
 			} elseif ( isset( $response['http_request_failed'] ) ) {
 				wc_add_notice( __( $response['http_request_failed'][0], 'eh-paypal-express' ), 'error' );

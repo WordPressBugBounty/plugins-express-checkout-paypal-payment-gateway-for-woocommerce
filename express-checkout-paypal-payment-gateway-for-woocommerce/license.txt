@@ -1,4 +1,4 @@
-Payment Gateway Plugin for PayPal WooCommerce
+Payment Gateway of PayPal for WooCommerce
 
 Copyright 2018 by the contributors
 

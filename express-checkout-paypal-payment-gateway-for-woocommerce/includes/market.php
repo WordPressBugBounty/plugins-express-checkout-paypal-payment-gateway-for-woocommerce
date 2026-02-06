@@ -140,11 +140,11 @@
 
 <div class="box14 table-box-main">
     <?php 
-    if (Wteh_Bfcm_Twenty_Twenty_Four::is_bfcm_season()) { ?>
-        <div class="bfcm_doc_settings">
-            <img class="bfcm-coupon-img" src="<?php echo esc_url( plugins_url( 'assets/img/bfcm-30-off-coupon.svg', dirname(__FILE__)) ); ?>" alt="30% Off Coupon">
-        </div>
-    <?php } ?>
+    // if (Wteh_Bfcm_Twenty_Twenty_Four::is_bfcm_season()) { ?>
+        <!-- <div class="bfcm_doc_settings">
+            <img class="bfcm-coupon-img" src="<?php // echo esc_url( plugins_url( 'assets/img/bfcm-30-off-coupon.svg', dirname(__FILE__)) ); ?>" alt="30% Off Coupon">
+        </div> -->
+    <?php // } ?>
     <div class="eh_gopro_block">
         <div class="eh_premium_upgrade">
             <img src="<?php echo esc_url(EH_PAYPAL_MAIN_URL . 'assets/img/paypal-cta-img.svg'); ?>" alt="paypal img">
@@ -174,7 +174,7 @@
         <div class="eh_premium_button">
             <p style="text-align: center;">
                 <?php
-                    $href_attr = 'https://www.webtoffee.com/product/paypal-express-checkout-gateway-for-woocommerce/?utm_source=free_plugin_sidebar&utm_medium=Paypal_basic&utm_campaign=Paypal&utm_content=' . EH_PAYPAL_VERSION;
+                    $href_attr = 'https://www.themehigh.com/product/paypal-express-checkout-gateway-for-woocommerce/';
                 ?>
                 <a href="<?php print( esc_url( $href_attr ) ); ?>" target="_blank" class="eh-button eh-button-go-pro"><img src="<?php echo esc_url(EH_PAYPAL_MAIN_URL.'assets/img/crown.svg'); ?>" ><?php echo esc_html__( 'Upgrade to Premium', 'express-checkout-paypal-payment-gateway-for-woocommerce' ); ?></a>
             </p>

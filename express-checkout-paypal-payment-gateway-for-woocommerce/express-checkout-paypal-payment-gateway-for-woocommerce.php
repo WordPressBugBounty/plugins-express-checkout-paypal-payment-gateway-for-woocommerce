@@ -1,13 +1,14 @@
 <?php
 /*
- * Plugin Name: Payment Gateway Plugin for PayPal WooCommerce ( Free )
+ * Plugin Name: Payment Gateway of PayPal for WooCommerce ( Free )
  * Plugin URI: https://wordpress.org/plugins/express-checkout-paypal-payment-gateway-for-woocommerce/
  * Description: Accepts payments via PayPal, Credit/Debit cards, Paypal Credit, or Local Payment Methods based on country/device using PayPal Express/Smart button checkout.
- * Author: WebToffee
- * Author URI: https://www.webtoffee.com/product/paypal-express-checkout-gateway-for-woocommerce/
- * Version: 1.9.2
- * * WC requires at least: 3.0
- * WC tested up to: 10.0.2
+ * Author: ThemeHigh
+ * Author URI: https://www.themehigh.com/product/paypal-express-checkout-gateway-for-woocommerce/
+ * Version: 1.9.3
+ * Requires Plugins:  woocommerce
+ * WC requires at least: 3.0
+ * WC tested up to: 10.3
  * Text Domain: express-checkout-paypal-payment-gateway-for-woocommerce
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -24,7 +25,7 @@ if ( ! defined( 'EH_PAYPAL_MAIN_URL' ) ) {
 	define( 'EH_PAYPAL_MAIN_URL', plugin_dir_url( __FILE__ ) );
 }
 if ( ! defined( 'EH_PAYPAL_VERSION' ) ) {
-	define( 'EH_PAYPAL_VERSION', '1.9.2' );
+	define( 'EH_PAYPAL_VERSION', '1.9.3' );
 }
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -51,8 +52,8 @@ if ( is_plugin_active( 'eh-paypal-express-checkout/eh-paypal-express-checkout.ph
 				$setting_link = admin_url( 'admin.php?page=wc-settings&tab=checkout&section=eh_paypal_express' );
 				$plugin_links = array(
 					'<a href="' . $setting_link . '">' . __( 'Settings', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</a>',
-					'<a href="https://www.webtoffee.com/product/paypal-express-checkout-gateway-for-woocommerce/?utm_source=free_plugin_sidebar&utm_medium=Paypal_basic&utm_campaign=Paypal&utm_content=' . EH_PAYPAL_VERSION . '" target="_blank" style="color:#3db634;">' . __( 'Premium Upgrade', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</a>',
-					'<a href="https://wordpress.org/support/plugin/express-checkout-paypal-payment-gateway-for-woocommerce/" target="_blank">' . __( 'Support', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</a>',
+					'<a href="https://www.themehigh.com/product/paypal-express-checkout-gateway-for-woocommerce/" target="_blank" style="color:#3db634;">' . __( 'Premium Upgrade', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</a>',
+					'<a href="https://help.themehigh.com/hc/en-us/requests/new" target="_blank">' . __( 'Support', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</a>',
 					'<a href="https://wordpress.org/support/plugin/express-checkout-paypal-payment-gateway-for-woocommerce/reviews/" target="_blank">' . __( 'Review', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</a>',
 				);
 
@@ -81,7 +82,7 @@ if ( is_plugin_active( 'eh-paypal-express-checkout/eh-paypal-express-checkout.ph
 					'Plugin activated.',
 					'Selected plugins activated.',
 				);
-				$new = "<span style='color:red'>PayPal Express Payment for WooCommerce (BASIC) (WebToffee)-</span> Plugin Needs WooCommerce to Work.";
+				$new = "<span style='color:red'>PayPal Express Payment for WooCommerce (BASIC) (ThemeHigh)-</span> Plugin Needs WooCommerce to Work.";
 				if ( in_array( $untranslated_text, $old, true ) ) {
 					$translated_text = $new;
 				}

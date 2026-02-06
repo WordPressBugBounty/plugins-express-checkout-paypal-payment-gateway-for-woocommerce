@@ -1,169 +1,57 @@
-# Copyright (C) 2024 WebToffee
+# Copyright (C) 2025 ThemeHigh
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Payment Gateway Plugin for PayPal WooCommerce ( Free ) 1.8.7\n"
+"Project-Id-Version: Payment Gateway Plugin for PayPal WooCommerce ( Free ) 1.9.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/express-checkout-paypal-payment-gateway-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-10-23T04:12:26+00:00\n"
+"POT-Creation-Date: 2025-10-17T10:56:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: express-checkout-paypal-payment-gateway-for-woocommerce\n"
 
 #. Plugin Name of the plugin
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php
 msgid "Payment Gateway Plugin for PayPal WooCommerce ( Free )"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php
 msgid "https://wordpress.org/plugins/express-checkout-paypal-payment-gateway-for-woocommerce/"
 msgstr ""
 
 #. Description of the plugin
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php
 msgid "Accepts payments via PayPal, Credit/Debit cards, Paypal Credit, or Local Payment Methods based on country/device using PayPal Express/Smart button checkout."
 msgstr ""
 
 #. Author of the plugin
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php
-msgid "WebToffee"
+msgid "ThemeHigh"
 msgstr ""
 
 #. Author URI of the plugin
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php
-msgid "https://www.webtoffee.com/product/paypal-express-checkout-gateway-for-woocommerce/"
+msgid "https://www.themehigh.com/product/paypal-express-checkout-gateway-for-woocommerce/"
 msgstr ""
 
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:35
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:36
 msgid "Oops! PREMIUM Version of this Plugin Installed. Please uninstall the PREMIUM Version before activating BASIC"
 msgstr ""
 
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:53
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:54
 msgid "Settings"
 msgstr ""
 
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:54
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:55
 msgid "Premium Upgrade"
 msgstr ""
 
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:55
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:56
 msgid "Support"
 msgstr ""
 
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:56
+#: express-checkout-paypal-payment-gateway-for-woocommerce.php:57
 msgid "Review"
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:152
-msgid "If you have a moment, please let us know why you are deactivating:"
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:165
-msgid "Privacy Policy"
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:171
-msgid "Go to support"
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:172
-msgid "Submit & Deactivate"
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:173
-msgid "Cancel"
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:174
-msgid "I rather wouldn't say"
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:280
-msgid "Deactivate and "
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:280
-msgid "leave a review"
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:334
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:385
-msgid "Upgraded to premium."
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:340
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:391
-msgid "Doesn't have support in my country."
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:342
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:393
-msgid "You can check the <a href=\"https://www.paypal.com/in/webapps/mpp/country-worldwide\">PayPal-supported country list.</a>"
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:346
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:397
-msgid "The Smart/Express Checkout buttons not visible or do not display properly."
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:348
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:399
-msgid "Please try to switch your theme or check if there is any console error. For additional support, <a href=\"https://wordpress.org/support/plugin/express-checkout-paypal-payment-gateway-for-woocommerce/\">go to support</a> and submit a ticket."
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:352
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:403
-msgid "Getting a paypal error code while checkout."
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:354
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:405
-msgid "We have curated the most common error codes and steps to fix them. Please take a  moment to check out the <a href=\"https://www.webtoffee.com/common-error-codes-and-their-causes/\">article</a>."
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:358
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:409
-msgid "Notify us about an incompatible plugin or theme."
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:360
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:411
-msgid "Please share the name of the theme or plugin."
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:364
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:415
-msgid "Unable to set up"
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:366
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:417
-msgid "Please refer to the <a href=\"https://www.webtoffee.com/paypal-express-checkout-payment-gateway-woocommerce-user-guide/\">setup guide</a>."
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:370
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:421
-msgid "I found a better plugin"
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:372
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:423
-msgid "Could you please mention the plugin?"
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:376
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:427
-msgid "Other"
-msgstr ""
-
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:378
-#: express-checkout-paypal-payment-gateway-for-woocommerce.php:429
-msgid "Could you tell us a bit more?"
 msgstr ""
 
 #: includes/class-paypal-express-api.php:14
@@ -405,22 +293,6 @@ msgstr ""
 msgid "Check out with PayPal Credit"
 msgstr ""
 
-#: includes/class-paypal-express-review-request.php:51
-msgid "Hey, we at %1$sWebToffee%2$s would like to thank you for using our plugin. We would really appreciate if you could take a moment to drop a quick review that will inspire us to keep going."
-msgstr ""
-
-#: includes/class-paypal-express-review-request.php:54
-msgid "Remind me later"
-msgstr ""
-
-#: includes/class-paypal-express-review-request.php:55
-msgid "Not interested"
-msgstr ""
-
-#: includes/class-paypal-express-review-request.php:56
-msgid "Review now"
-msgstr ""
-
 #: includes/class-paypal-rest-request-builder.php:306
 #: includes/class-paypal-rest-request-builder.php:611
 msgid "Extra line item"
@@ -551,7 +423,7 @@ msgid "PayPal Payment Gateway"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:146
-msgid "Includes PayPal as one of the available payment method, alongside other supported options."
+msgid "<span class=\"express_toggle_display\">Includes PayPal as one of the available payment method, alongside other supported options.</span>"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:151
@@ -592,7 +464,7 @@ msgid "PayPal Express Checkout Button"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:171
-msgid "<span class=\"express_toggle_display\">Smart button exists separately from the payment methods section, and allows buyers to proceed directly to PayPal without filling the Checkout form.</span>"
+msgid "<span class=\"express_toggle_display\">Express button exists seperately from the payment gateways section, and allows customers to proceed directly to PayPal for payment</span>"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:176
@@ -734,7 +606,8 @@ msgid "Enabling this will affect Express checkout and PayPal will strictly verif
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:297
-msgid "Send shipping details instead of billing to PayPal "
+#: includes/eh-paypal-express-settings-page.php:618
+msgid "Send shipping address instead of billing"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:300
@@ -767,6 +640,7 @@ msgid "Save pending order if payment is cancelled from PayPal’s side."
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:325
+#: includes/eh-paypal-express-settings-page.php:645
 msgid "Manage subtotal mismatch"
 msgstr ""
 
@@ -860,7 +734,7 @@ msgid "PayPal payment gateway"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:397
-msgid "Includes PayPal as one of the available payment gateways, alongside other supported options."
+msgid "<span class=\"smart_button_toggle_display\">Includes PayPal as one of the available payment gateways, alongside other supported options.</span>"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:419
@@ -1063,16 +937,8 @@ msgstr ""
 msgid "Choose to set the PayPal locale same as the store locale."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:618
-msgid "Send shipping details instead of billing to PayPal"
-msgstr ""
-
 #: includes/eh-paypal-express-settings-page.php:641
 msgid "Save pending order even if payment is cancelled from PayPal’s side."
-msgstr ""
-
-#: includes/eh-paypal-express-settings-page.php:645
-msgid "Subtotal Mismatch Behavior"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:650
@@ -1099,11 +965,11 @@ msgstr ""
 msgid " Log"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:685
+#: includes/eh-paypal-express-settings-page.php:683
 msgid "%1$sLog File%2$s: %3$s () "
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:688
+#: includes/eh-paypal-express-settings-page.php:686
 msgid " Enable to record PayPal payment transactions in a log file."
 msgstr ""
 
