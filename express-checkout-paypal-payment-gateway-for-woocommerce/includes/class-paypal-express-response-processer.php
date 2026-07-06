@@ -5,6 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 #[\AllowDynamicProperties]
 class Eh_PE_Process_Response {
 
+	public $is_rest = false;
+
 	public function process_response( $response ) {
 		if ( isset( $response->errors['http_request_failed'] ) ) {
 			$this->response = $response->errors;
@@ -20,8 +22,7 @@ class Eh_PE_Process_Response {
 		if ( is_wp_error( $response ) ) {
 			return;
 		}
-		$eh_paypal = get_option( 'woocommerce_eh_paypal_express_settings' );
-		if ( (empty($eh_paypal) && isset($_POST['woocommerce_eh_paypal_express_smart_button_enabled'])) || 'yes' == $eh_paypal['smart_button_enabled'] ) {
+		if ( $this->is_rest ) {
 			$parsed_response = json_decode( ( wp_remote_retrieve_body( $response ) ), true );
 			if ( empty( $parsed_response ) ) {
 				$parsed_response = wp_remote_retrieve_response_code( $response );

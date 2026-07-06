@@ -3,9 +3,9 @@ Contributors: themehigh
 Donate link: https://www.themehigh.com/product/paypal-express-checkout-gateway-for-woocommerce/
 Tags: paypal, credit card, debit card, paylater, payment gateway
 Requires at least: 5.6
-Tested up to: 6.8.2
-Requires PHP: 5.6
-Stable tag: 1.9.3
+Tested up to: 7.0
+Requires PHP: 7.0
+Stable tag: 1.9.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -86,7 +86,7 @@ For the complete list of features and details regarding WooCommerce PayPal, plea
 
 = Minimum Requirements =
 
-* PHP 5.6 or higher is recommended
+* PHP 7.0 or higher is recommended
 * WordPress 5.6 or higher is recommended
 
 = Steps to install the plugin =
@@ -135,6 +135,12 @@ PayPal is available in more than 200 countries/regions and supports 25 currencie
 
 
 == Changelog ==
+
+= 1.9.4 =
+* [Compatibility] - WooCommerce 10.9
+* [Compatibility] - WordPress 7.0
+* [Fix] - Orders being placed for non-shippable addresses
+* [Fix] - Issue with tax calculation.
 
 = 1.9.3 =
 * [Compatibility] - WooCommerce 10.3

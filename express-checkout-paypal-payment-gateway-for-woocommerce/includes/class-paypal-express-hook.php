@@ -31,6 +31,9 @@ class Eh_Paypal_Express_Hooks {
 		add_action( 'woocommerce_proceed_to_checkout', array( $this, 'eh_express_checkout_hook' ), 20 );
 		add_action( 'wp', array( $this, 'unset_express' ) );
 		add_action( 'woocommerce_cart_emptied', array( $this, 'unset_expres_cart_empty' ) );
+
+		add_action( 'wp_ajax_eh_smart_button_recalculate_totals',        array( $this, 'eh_smart_button_recalculate_totals' ) );
+		add_action( 'wp_ajax_nopriv_eh_smart_button_recalculate_totals', array( $this, 'eh_smart_button_recalculate_totals' ) );
 	}
 	public function unset_express() {
 		if ( ( isset( $_REQUEST['cancel_express_checkout'] ) && ( 'cancel' === $_REQUEST['cancel_express_checkout'] ) ) ) {
@@ -58,6 +61,163 @@ class Eh_Paypal_Express_Hooks {
 			unset( WC()->session->eh_pe_checkout );
 		}
 	}
+
+	public function eh_smart_button_recalculate_totals() {
+		check_ajax_referer( 'eh_paypal_nonce', 'nonce' );
+ 
+		$country         = isset( $_POST['country'] )         ? wc_clean( wp_unslash( $_POST['country'] ) )         : '';
+		$state           = isset( $_POST['state'] )           ? wc_clean( wp_unslash( $_POST['state'] ) )           : '';
+		$postcode        = isset( $_POST['postcode'] )        ? wc_clean( wp_unslash( $_POST['postcode'] ) )        : '';
+		$city            = isset( $_POST['city'] )            ? wc_clean( wp_unslash( $_POST['city'] ) )            : '';
+		$paypal_order_id = isset( $_POST['paypal_order_id'] ) ? wc_clean( wp_unslash( $_POST['paypal_order_id'] ) ) : '';
+ 
+		if ( empty( $country ) || empty( $paypal_order_id ) ) {
+			wp_send_json( array( 'success' => false, 'allowed' => false, 'message' => 'Missing required parameters' ) );
+			return;
+		}
+ 
+		//Country restriction check
+		$wc_countries      = new WC_Countries();
+		$allowed_countries = $wc_countries->get_shipping_countries();
+		if ( ! empty( $allowed_countries ) && ! array_key_exists( $country, $allowed_countries ) ) {
+			wp_send_json( array( 'success' => false, 'allowed' => false ) );
+			return;
+		}
+		if ( ! defined( 'WOOCOMMERCE_CART' ) ) {
+			define( 'WOOCOMMERCE_CART', true );
+		}
+ 
+		WC()->customer->set_shipping_country( $country );
+		WC()->customer->set_shipping_state( $state );
+		WC()->customer->set_shipping_postcode( $postcode );
+		WC()->customer->set_shipping_city( $city );
+		WC()->customer->set_billing_country( $country );
+		WC()->customer->set_billing_state( $state );
+		WC()->customer->set_billing_postcode( $postcode );
+		WC()->customer->set_billing_city( $city );
+		WC()->customer->save();
+ 
+		//Recalculate cart totals
+		WC()->session->set( 'shipping_for_package_0', null );
+		WC()->cart->calculate_shipping();
+		WC()->cart->calculate_totals();
+ 
+		//Build updated amount breakdown
+		$currency_code           = get_woocommerce_currency();
+		$zero_decimal_currencies = array( 'HUF', 'JPY', 'TWD' );
+		$decimals                = in_array( $currency_code, $zero_decimal_currencies, true ) ? 0 : 2;
+ 
+		$fmt = function( $amount ) use ( $decimals ) {
+			return abs( round( (float) $amount, $decimals ) );
+		};
+ 
+		$cart_total    = $fmt( WC()->cart->total );
+		$cart_subtotal = $fmt( WC()->cart->subtotal_ex_tax );
+		$cart_shipping = $fmt( WC()->cart->shipping_total );
+		$cart_tax      = $fmt( WC()->cart->tax_total + WC()->cart->shipping_tax_total );
+		$cart_discount = $fmt( abs( WC()->cart->get_cart_discount_total() ) );
+		$cart_fee      = $fmt( WC()->cart->fee_total );
+ 
+		$cart_items_total = ( $cart_subtotal + $cart_shipping + $cart_tax + $cart_fee ) - $cart_discount;
+		$ship_discount    = 0;
+		if ( $cart_total !== $cart_items_total ) {
+			if ( $cart_items_total < $cart_total ) {
+				$cart_tax += $cart_total - $cart_items_total;
+			} else {
+				$ship_discount = $fmt( $cart_items_total - $cart_total );
+			}
+		}
+ 
+		$patch_payload = array(
+			array(
+				'op'    => 'replace',
+				'path'  => "/purchase_units/@reference_id=='default'/amount",
+				'value' => array(
+					'currency_code' => $currency_code,
+					'value'         => $cart_total,
+					'breakdown'     => array(
+						'item_total'        => array( 'currency_code' => $currency_code, 'value' => $cart_subtotal ),
+						'shipping'          => array( 'currency_code' => $currency_code, 'value' => $cart_shipping ),
+						'tax_total'         => array( 'currency_code' => $currency_code, 'value' => $fmt( abs( $cart_tax ) ) ),
+						'discount'          => array( 'currency_code' => $currency_code, 'value' => $cart_discount ),
+						'handling'          => array( 'currency_code' => $currency_code, 'value' => $cart_fee ),
+						'shipping_discount' => array( 'currency_code' => $currency_code, 'value' => $ship_discount ),
+					),
+				),
+			),
+		);
+ 
+		//Get PayPal gateway instance & access token
+		$gateways = WC()->payment_gateways()->payment_gateways();
+		if ( ! isset( $gateways['eh_paypal_express'] ) ) {
+			wp_send_json( array( 'success' => false, 'message' => 'Gateway not available' ) );
+			return;
+		}
+		$gateway = $gateways['eh_paypal_express'];
+ 
+		$request_process = new Eh_PE_Process_Request();
+		$request_build   = $gateway->new_rest_request();
+		$access_token    = $gateway->get_access_token( $request_process, $request_build, false );
+ 
+		if ( ! $access_token ) {
+			wp_send_json( array( 'success' => false, 'message' => 'Could not obtain access token' ) );
+			return;
+		}
+ 
+		//PATCH the PayPal order with the updated amount
+		ini_set( 'precision', 14 );
+		ini_set( 'serialize_precision', -1 );
+ 
+		$headers = array(
+			'Authorization' => 'Bearer ' . $access_token,
+			'Content-Type'  => 'application/json',
+		);
+ 
+		$patch_args = array(
+			'method'      => 'PATCH',
+			'timeout'     => 30,
+			'redirection' => 0,
+			'httpversion' => '1.1',
+			'sslverify'   => false,
+			'blocking'    => true,
+			'headers'     => $headers,
+			'body'        => wp_json_encode( $patch_payload ),
+			'cookies'     => array(),
+		);
+		$patch_args = apply_filters( 'wt_paypal_http_request', $patch_args );
+ 
+		Eh_PayPal_Log::log_update(
+			wp_json_encode( $patch_payload, JSON_PRETTY_PRINT ),
+			'Smart Button onShippingChange PATCH Request',
+			'json'
+		);
+ 
+		$response  = wp_safe_remote_request(
+			$gateway->rest_api_url . '/v2/checkout/orders/' . $paypal_order_id,
+			$patch_args
+		);
+ 
+		if ( is_wp_error( $response ) ) {
+			Eh_PayPal_Log::log_update(
+				$response->get_error_message(),
+				'Smart Button onShippingChange PATCH WP_Error',
+				'json'
+			);
+			wp_send_json( array( 'success' => false, 'message' => $response->get_error_message() ) );
+			return;
+		}
+ 
+		$http_code = wp_remote_retrieve_response_code( $response );
+		Eh_PayPal_Log::log_update(
+			'HTTP ' . $http_code,
+			'Smart Button onShippingChange PATCH Response',
+			'json'
+		);
+ 
+		// PayPal returns HTTP 204 No Content on a successful PATCH
+		wp_send_json( array( 'success' => ( '204' == $http_code ) ) );
+	}
+	
 	public function express_run() {
 		if ( isset( $this->eh_paypal_express_options['enabled'] ) && ( 'yes' === $this->eh_paypal_express_options['enabled'] ) ) {
 			$this->check_express();
@@ -317,6 +477,8 @@ class Eh_Paypal_Express_Hooks {
 					'tagline'        => $this->eh_paypal_express_options['button_tagline'],
 					'locale'         => $locale,
 					'page_name'      => $pagename,
+					'ajax_url'       => admin_url( 'admin-ajax.php' ),
+					'nonce'          => wp_create_nonce( 'eh_paypal_nonce' ),
 				);
 
 				wp_register_script( 'paypal-checkout-incontext-js', $paypal_script_url, array(), null);

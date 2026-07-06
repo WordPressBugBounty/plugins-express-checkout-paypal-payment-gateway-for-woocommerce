@@ -17,8 +17,13 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 		$this->supports           = array(
 			'products',
 		);
-        $this->payment_mode = (isset($_POST['woocommerce_eh_paypal_express_smart_button_enabled'])) ? 'yes' : $this->get_option('smart_button_enabled'); 
-
+        $this->payment_mode = isset( $_POST['woocommerce_eh_paypal_express_smart_button_enabled'] ) 
+			? 'yes' 
+			: ( isset( $_POST['woocommerce_eh_paypal_express_express_checkout'] ) 
+				? 'no'                                    // admin saving with express checked
+				: $this->get_option( 'smart_button_enabled' ) // frontend – read from DB
+			);
+		
 		$this->init_form_fields();
 		$this->init_settings();
 		$this->enabled                     = $this->get_option( 'enabled' );
@@ -131,6 +136,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
             $token = $this->get_access_token($request_process, $request_build, false);
             if(false ===  $token){ 
                 WC_Admin_Settings::add_error(__('Invalid PayPal Credentials. Please check and enter valid credentials in the plugin settings here.', 'eh-paypal-express'));
+				return;
             }			
 		}
 		else{ 
@@ -147,6 +153,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
                 update_option('eh_paypal_express_payer_id', $response['PAL']);
             } else {
                 WC_Admin_Settings::add_error(__('Invalid PayPal Credentials. Please check and enter valid credentials in the plugin settings here.', 'eh-paypal-express'));
+				return;
             }
 		}
 
@@ -283,8 +290,9 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 	public function admin_options() {
 		include_once 'market.php';
-		wc_enqueue_js(
-			"
+		add_action( 'admin_footer', function () {
+			?>
+			<script type="text/javascript">
                         jQuery( function( $ ) {
  
                             var eh_paypal_express_button_color    = jQuery( '#woocommerce_eh_paypal_express_button_color').closest( 'tr' );
@@ -368,7 +376,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
                                     $('.express_toggle_display').hide();
                                     $(express_elements).hide();                                   
                                 }
-                            })
+                            });
 
 
                             $('.description').css({'font-style':'normal'});
@@ -446,8 +454,9 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 
                         });
-                    "
-		);
+			</script>
+			<?php
+		} );
 		parent::admin_options();
 	}
 
@@ -558,7 +567,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 						// create order only if save abondoned orderis enabled
 						if ( $this->save_abandoned_order_express ) {
-							$order_id = $this->create_wc_order( $checkout_post );
+							$order_id = $this->create_wc_order( $checkout_post, true );
 							$order    = wc_get_order( $order_id );
 
 						}
@@ -642,11 +651,26 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 				}
 				exit;
 			case 'express_details':
-				// create order only if save abondoned orderis disabled and is not an order pay page
+				// Prevent duplicate order creation for the same PayPal token. If a second request arrives with the same token (race condition / tab duplicate), redirect to the existing order's thank-you page instead of creating a new order.
+				$token_guard = isset( $_GET['token'] ) ? sanitize_text_field( wp_unslash( $_GET['token'] ) ) : '';
+				if ( ! empty( $token_guard ) ) {
+					$transient_key     = 'eh_pe_processing_' . md5( $token_guard );
+					$existing_order_id = get_transient( $transient_key );
+					if ( $existing_order_id ) {
+						$existing_order = wc_get_order( $existing_order_id );
+						if ( $existing_order && $existing_order->is_paid() ) {
+							wp_safe_redirect( $this->get_return_url( $existing_order ) );
+							exit;
+						}
+					}
+				}			// create order only if save abondoned orderis disabled and is not an order pay page
 				if ( ( ! isset( $_REQUEST['pay_for_order'] ) || ! sanitize_text_field( wp_unslash( $_REQUEST['pay_for_order'] ) ) ) && ! $this->save_abandoned_order_express ) {
-					$order_id = $this->create_wc_order( $checkout_post );
+					$order_id = $this->create_wc_order( $checkout_post, true );
 					$order    = wc_get_order( $order_id );
-
+					// Store token-to-order mapping so duplicate requests can find this order
+					if ( ! empty( $token_guard ) && $order_id ) {
+						set_transient( 'eh_pe_processing_' . md5( $token_guard ), $order_id, 1800 ); 
+					}
 				}
 				if ( ! isset( $_GET['token'] ) ) {
 					return;
@@ -755,6 +779,52 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 						WC()->session->payeremail            = $response['EMAIL'];
 						WC()->session->chosen_payment_method = get_class( $this );
 						wc_clear_notices();
+
+						if ( ( WC()->cart->needs_shipping() ) ) {
+							$shipping_country = WC()->session->eh_pe_checkout['shipping']['country'];
+							$allowed_countries = WC()->countries->get_shipping_countries();
+
+							if ( ! empty( $allowed_countries ) && ! array_key_exists( $shipping_country, $allowed_countries ) ) {
+								
+								wc_add_notice( sprintf( __( 'Unfortunately', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . ' <strong>' . __( 'we do not ship %s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</strong>' . __( '. Please enter an alternative shipping address.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), WC()->countries->shipping_to_prefix() . ' ' . WC()->session->eh_pe_checkout['shipping']['country'] ), 'error' );
+
+								unset( WC()->session->eh_pe_checkout );
+
+								wp_safe_redirect( wc_get_cart_url() );
+								exit;
+							}
+						}
+						
+						$this->eh_recalculate_shipping_charges_for_legacy_express_address(
+							WC()->session->eh_pe_checkout['shipping']
+						);
+						
+						$chosen_methods         = WC()->session->get( 'chosen_shipping_methods' );
+						$shipping_for_package_0 = WC()->session->get( 'shipping_for_package_0' );
+ 
+						if ( ! empty( $chosen_methods ) && isset( $shipping_for_package_0['rates'][ $chosen_methods[0] ] ) ) {
+							// Remove any stale shipping item that may already be on the order
+							foreach ( $order->get_items( 'shipping' ) as $item_id => $_ ) {
+								$order->remove_item( $item_id );
+							}
+ 
+							$chosen_method = $shipping_for_package_0['rates'][ $chosen_methods[0] ];
+							$shipping_item = new WC_Order_Item_Shipping();
+							$shipping_item->set_props(
+								array(
+									'method_title' => $chosen_method->get_label(),
+									'method_id'    => $chosen_method->get_id(),
+									'total'        => wc_format_decimal( $chosen_method->get_cost() ),
+									'taxes'        => array( 'total' => $chosen_method->taxes ),
+								)
+							);
+							foreach ( $chosen_method->get_meta_data() as $key => $value ) {
+								$shipping_item->add_meta_data( $key, $value, true );
+							}
+							$order->add_item( $shipping_item );
+							$order->set_shipping_total( wc_format_decimal( $chosen_method->get_cost() ) );
+							$order->save();
+						}
 					} else {
 						$this->eh_error_msg_processing( $response, 'GetExpressCheckoutDetails' );
 						wp_safe_redirect( wc_get_cart_url() );
@@ -781,7 +851,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 					$order->set_payment_method( WC()->session->chosen_payment_method );
 
-					$billing_phone = isset( $response['PHONENUM'] ) ? $response['PHONENUM'] : WC()->session->post_data['billing_phone'];
+					$billing_phone = isset( $response['PHONENUM'] ) ? $response['PHONENUM'] : ( isset( WC()->session->post_data['billing_phone'] ) ? WC()->session->post_data['billing_phone'] : '' );
 					$billing_phone = isset( $response['SHIPTOPHONENUM'] ) ? $response['SHIPTOPHONENUM'] : $billing_phone;
 					if ( ! empty( $billing_phone ) ) {
 		                Eh_PayPal_Express_Payment::wt_paypal_order_db_operations($order_id, $order, 'update', '_billing_phone', $billing_phone, false);
@@ -885,6 +955,14 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 					$order_id = intval( $_GET['order_id'] );
 					$order    = wc_get_order( $order_id );
+
+				// If this order is already paid , skip the PayPal API call and redirect to thank-you page.
+					if ( $order && $order->is_paid() ) {
+						unset( WC()->session->eh_pe_checkout );
+						wc_clear_notices();
+						wp_safe_redirect( $this->get_return_url( $order ) );
+						exit;
+					}
 
 					do_action( 'eh_paypal_on_start_finish_express', $order, $this->skip_review );
 
@@ -1123,6 +1201,10 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 								WC()->mailer()->emails['WC_Email_Customer_Processing_Order']->trigger( $order->get_id(), $order );   // PECPGFW-248 - order confirmation mail not send
 							}
 						}
+					
+						unset( WC()->session->eh_pe_checkout );
+						wp_safe_redirect( $this->get_return_url( $order ) );
+						exit;
 					} else {
 						$this->eh_error_msg_processing( $response, 'DoExpressCheckoutPayment' );
 						wp_safe_redirect( wc_get_checkout_url() );
@@ -1219,7 +1301,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 							'intent'               => $intent,
 							'return_url'           => $return_url,
 							'cancel_url'           => $cancel_url, // cancel the order if user clicks cancel from paypal page
-							'shipping_preference'  => ( 'yes' == $eh_paypal['smart_button_paypal_allow_override'] ) ? 'SET_PROVIDED_ADDRESS' : 'GET_FROM_FILE',
+							'shipping_preference'  => ( ( 'yes' == $eh_paypal['smart_button_paypal_allow_override'] ) || ! ( isset( $_REQUEST['type'] ) && 'ajax' == $_REQUEST['type'] ) ) ? 'SET_PROVIDED_ADDRESS' : 'GET_FROM_FILE',
 							'landing_page'         => ( 'login' === $eh_paypal['smart_button_landing_page'] ) ? 'LOGIN' : 'BILLING',
 							'brand_name'           => $eh_paypal['smart_button_business_name'],
 							'locale'               => $eh_paypal['smart_button_paypal_locale'] ? $this->store_locale( get_locale() ) : false,
@@ -1230,7 +1312,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 						)
 					);
 
-					$response = $request_process->process_request( $request_params, $this->rest_api_url . '/v2/checkout/orders' );
+					$response = $request_process->process_request( $request_params, $this->rest_api_url . '/v2/checkout/orders', true );
 					Eh_PayPal_Log::log_update( wp_json_encode( $response, JSON_PRETTY_PRINT ), 'Response on Create Order API', 'json' );
 					if ( isset( $response['id'] ) && ! empty( $response['id'] ) ) {
 						if ( isset( $_REQUEST['type'] ) && 'ajax' == $_REQUEST['type'] ) {
@@ -1338,7 +1420,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 						)
 					);
 
-					$response = $request_process->process_request( $request_params, $this->rest_api_url . '/v2/checkout/orders/' . $paypal_order_id );
+					$response = $request_process->process_request( $request_params, $this->rest_api_url . '/v2/checkout/orders/' . $paypal_order_id, true );
 					Eh_PayPal_Log::log_update( wp_json_encode( $response, JSON_PRETTY_PRINT ), 'Response on Order Details', 'json' );
 					if ( ! empty( $response ) && isset( $response['status'] ) && 'APPROVED' == $response['status'] ) {
 						if ( ! isset( $order ) ) {
@@ -1714,7 +1796,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 						),
 						$order
 					);
-					$response       = $request_process->process_request( $request_params, $this->rest_api_url . '/v2/checkout/orders/' . WC()->session->eh_pe_checkout['paypal_order_id'] );
+					$response       = $request_process->process_request( $request_params, $this->rest_api_url . '/v2/checkout/orders/' . WC()->session->eh_pe_checkout['paypal_order_id'], true );
 					Eh_PayPal_Log::log_update( wp_json_encode( $response, JSON_PRETTY_PRINT ), 'Response on Update Order', 'json' );
 
 					if ( ! empty( $response ) && '204' == $response ) {
@@ -1776,7 +1858,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 							'id'           => WC()->session->eh_pe_checkout['paypal_order_id'],
 						)
 					);
-					$response       = $request_process->process_request( $request_params, $this->rest_api_url . '/v2/checkout/orders/' . WC()->session->eh_pe_checkout['paypal_order_id'] . '/authorize/' );
+					$response       = $request_process->process_request( $request_params, $this->rest_api_url . '/v2/checkout/orders/' . WC()->session->eh_pe_checkout['paypal_order_id'] . '/authorize/', true );
 					Eh_PayPal_Log::log_update( wp_json_encode( $response, JSON_PRETTY_PRINT ), 'Response on Authorize Order', 'json' );
 
 					if ( isset( $response['status'] ) && 'COMPLETED' == $response['status'] ) {
@@ -1858,7 +1940,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 							'id'           => WC()->session->eh_pe_checkout['paypal_order_id'],
 						)
 					);
-					$response       = $request_process->process_request( $request_params, $this->rest_api_url . '/v2/checkout/orders/' . WC()->session->eh_pe_checkout['paypal_order_id'] . '/capture/' );
+					$response       = $request_process->process_request( $request_params, $this->rest_api_url . '/v2/checkout/orders/' . WC()->session->eh_pe_checkout['paypal_order_id'] . '/capture/', true );
 					Eh_PayPal_Log::log_update( wp_json_encode( $response, JSON_PRETTY_PRINT ), 'Response on Capture Order', 'json' );
 
 					if ( isset( $response['status'] ) && 'COMPLETED' == $response['status'] ) {
@@ -2410,6 +2492,89 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 		return false;
 	}
 
+		protected function eh_recalculate_shipping_charges_for_legacy_express_address( array $shipping ) {
+		$country  = isset( $shipping['country'] )  ? $shipping['country']  : '';
+		$state    = isset( $shipping['state'] )    ? $shipping['state']    : '';
+		$postcode = isset( $shipping['postcode'] ) ? $shipping['postcode'] : '';
+		$city     = isset( $shipping['city'] )     ? $shipping['city']     : '';
+ 
+		if ( empty( $country ) ) {
+			return;
+		}
+ 
+		// Point WooCommerce customer object at the PayPal-supplied address so shipping zone lookup uses the correct location.
+		WC()->customer->set_shipping_location( $country, $state, $postcode, $city );
+		WC()->customer->set_billing_location( $country, $state, $postcode, $city );
+
+		// Preserve the shopper's original choice so we can restore it after the package is recalculated.
+		$previous_chosen_methods = WC()->session->get( 'chosen_shipping_methods' );
+
+		// Clear BOTH the package cache AND chosen_shipping_methods before recalculating.
+		WC()->session->set( 'shipping_for_package_0', null );
+		WC()->session->set( 'chosen_shipping_methods', array() );
+
+		WC()->cart->calculate_shipping();
+ 
+		// Read back what WooCommerce resolved for the new address.
+		$shipping_package = WC()->session->get( 'shipping_for_package_0' );
+		$available_rates  = ( ! empty( $shipping_package['rates'] ) && is_array( $shipping_package['rates'] ) )
+			? $shipping_package['rates']
+			: array();
+ 
+		if ( ! empty( $available_rates ) ) {
+			$chosen_key = isset( $previous_chosen_methods[0] ) ? $previous_chosen_methods[0] : '';
+
+			if ( empty( $chosen_key ) || ! isset( $available_rates[ $chosen_key ] ) ) {
+				$available_rate_keys = array_keys( $available_rates );
+				$chosen_key          = isset( $available_rate_keys[0] ) ? $available_rate_keys[0] : '';
+			}
+
+			// Restore the resolved method so the later order item reconstruction uses the correct paid rate.
+			WC()->session->set( 'chosen_shipping_methods', array( $chosen_key ) );
+
+			Eh_PayPal_Log::log_update(
+				array(
+					'country'        => $country,
+					'state'          => $state,
+					'postcode'       => $postcode,
+					'city'           => $city,
+					'chosen_method'  => $chosen_key,
+					'available'      => array_keys( $available_rates ),
+				),
+				'Legacy Express: shipping method resolved for PayPal-supplied address'
+			);
+		} else {
+			// No rates at all — leave chosen_shipping_methods empty so the no-shipping-method guard in the request flow fires correctly.
+			Eh_PayPal_Log::log_update(
+				array(
+					'country'  => $country,
+					'state'    => $state,
+					'postcode' => $postcode,
+					'city'     => $city,
+				),
+				'Legacy Express: no shipping rates available for PayPal-supplied address'
+			);
+		}
+ 
+		// Recalculate cart totals to apply the resolved method's cost.
+		WC()->cart->calculate_totals();
+ 
+		Eh_PayPal_Log::log_update(
+			array(
+				'country'        => $country,
+				'state'          => $state,
+				'postcode'       => $postcode,
+				'city'           => $city,
+				'chosen_method'  => isset( WC()->session->get( 'chosen_shipping_methods' )[0] )
+					? WC()->session->get( 'chosen_shipping_methods' )[0]
+					: 'none',
+				'shipping_total' => WC()->cart->get_shipping_total(),
+				'order_total'    => WC()->cart->get_total( 'edit' ),
+			),
+			'Legacy Express: shipping recalculated for PayPal-supplied address'
+		);
+	}
+	
 	public function shipping_parse( $response, $type = null ) {
 
 		// response from PayPal rest API
@@ -2611,7 +2776,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 		$this->access_token = get_transient( 'eh_access_token' );
 		if ( false === $this->access_token ) { 
 			$auth_token_rqst = $request_build->get_token($this);
-			$response        = $request_process->process_request( $auth_token_rqst, $this->rest_api_url . '/v1/oauth2/token' );
+			$response        = $request_process->process_request( $auth_token_rqst, $this->rest_api_url . '/v1/oauth2/token', true );
 
 			Eh_PayPal_Log::log_update(json_encode($auth_token_rqst, JSON_PRETTY_PRINT),'Access token request', 'json');
 			Eh_PayPal_Log::log_update(json_encode($response, JSON_PRETTY_PRINT),'Access token response', 'json');
@@ -2700,7 +2865,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 		return true;
 	}
 
-	public function create_wc_order( $checkout_post ) {
+	public function create_wc_order( $checkout_post, $defer_shipping_item = false ) {
 		// create woocommerce order
 		if ( ( version_compare(WC()->version, '2.7.0', '<') ) ) {
 			$order_id = WC()->checkout()->create_order();
@@ -2732,7 +2897,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 		$set_address = $this->set_address_to_order( $order );
 
 		// adding shipping details to order when order is created
-		if ( ( WC()->cart->needs_shipping() ) ) {
+		if ( ! $defer_shipping_item && ( WC()->cart->needs_shipping() ) ) {
 			if ( ! $order->get_item_count( 'shipping' ) ) { // count is 0
 				$chosen_methods         = WC()->session->get( 'chosen_shipping_methods' );
 				$shipping_for_package_0 = WC()->session->get( 'shipping_for_package_0' );

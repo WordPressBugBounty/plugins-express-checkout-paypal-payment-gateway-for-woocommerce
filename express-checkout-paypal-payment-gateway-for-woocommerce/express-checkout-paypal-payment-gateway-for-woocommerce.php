@@ -5,15 +5,15 @@
  * Description: Accepts payments via PayPal, Credit/Debit cards, Paypal Credit, or Local Payment Methods based on country/device using PayPal Express/Smart button checkout.
  * Author: ThemeHigh
  * Author URI: https://www.themehigh.com/product/paypal-express-checkout-gateway-for-woocommerce/
- * Version: 1.9.3
+ * Version: 1.9.4
  * Requires Plugins:  woocommerce
- * WC requires at least: 3.0
- * WC tested up to: 10.3
+ * WC requires at least: 9.5
+ * WC tested up to: 10.9
  * Text Domain: express-checkout-paypal-payment-gateway-for-woocommerce
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 5.6
- * Requires PHP: 5.6
+ * Requires PHP: 7.0
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,7 +25,7 @@ if ( ! defined( 'EH_PAYPAL_MAIN_URL' ) ) {
 	define( 'EH_PAYPAL_MAIN_URL', plugin_dir_url( __FILE__ ) );
 }
 if ( ! defined( 'EH_PAYPAL_VERSION' ) ) {
-	define( 'EH_PAYPAL_VERSION', '1.9.3' );
+	define( 'EH_PAYPAL_VERSION', '1.9.4' );
 }
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';

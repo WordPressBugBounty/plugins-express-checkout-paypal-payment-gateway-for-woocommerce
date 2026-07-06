@@ -59,6 +59,47 @@
 
 					},
 
+					onShippingChange: function(data, actions) {
+						var country  = ( data.shipping_address && data.shipping_address.country_code )
+							? data.shipping_address.country_code : '';
+						var state    = ( data.shipping_address && data.shipping_address.state )
+							? data.shipping_address.state : '';
+						var postcode = ( data.shipping_address && data.shipping_address.postal_code )
+							? data.shipping_address.postal_code : '';
+						var city     = ( data.shipping_address && data.shipping_address.city )
+							? data.shipping_address.city : '';
+
+						if ( ! country ) {
+							return actions.resolve();
+						}
+
+						// Validate country restriction
+						return fetch( eh_button_params['ajax_url'], {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+							body: new URLSearchParams({
+								action          : 'eh_smart_button_recalculate_totals',
+								nonce           : eh_button_params['nonce'],
+								country         : country,
+								state           : state,
+								postcode        : postcode,
+								city            : city,
+								paypal_order_id : data.orderID
+							})
+						} )
+						.then( function( res ) { return res.json(); } )
+						.then( function( resp ) {
+							// If country is restricted, reject so PayPal shows its native error.
+							if ( resp && resp.allowed === false ) {
+								return actions.reject();
+							}
+							return actions.resolve();
+						} )
+						.catch( function() {
+							return actions.resolve();
+						} );
+					},
+
 					onError: function(err){
 						console.log( err );
 						if (err == 'Error: Unexpected end of JSON input') {

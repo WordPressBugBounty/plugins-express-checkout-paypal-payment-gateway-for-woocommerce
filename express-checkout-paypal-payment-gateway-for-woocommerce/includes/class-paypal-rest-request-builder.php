@@ -197,6 +197,7 @@ class Eh_Rest_Request_Built {
 
 			/*Only send line items to paypal based on the settings option*/
 			$smart_button_hide_line_item = isset($eh_paypal_express_options['smart_button_hide_line_item']) ? $eh_paypal_express_options['smart_button_hide_line_item'] : 'no';
+			$smart_button_add_extra_line_item = isset($eh_paypal_express_options['smart_button_add_extra_line_item']) ? $eh_paypal_express_options['smart_button_add_extra_line_item'] : 'no';
 			if('yes' != $smart_button_hide_line_item){
 
 				$cart_item = wc()->cart->get_cart();
