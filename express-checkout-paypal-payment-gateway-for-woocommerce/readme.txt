@@ -3,9 +3,9 @@ Contributors: themehigh
 Donate link: https://www.themehigh.com/product/paypal-express-checkout-gateway-for-woocommerce/
 Tags: paypal, credit card, debit card, paylater, payment gateway
 Requires at least: 5.6
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.0
-Stable tag: 1.9.4
+Stable tag: 1.9.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -135,6 +135,10 @@ PayPal is available in more than 200 countries/regions and supports 25 currencie
 
 
 == Changelog ==
+
+= 1.9.5 =
+* [Compatibility] - WooCommerce 11.0
+* [Compatibility] - WordPress 7.1
 
 = 1.9.4 =
 * [Compatibility] - WooCommerce 10.9

@@ -135,7 +135,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
             $request_build = $this->new_rest_request(); 
             $token = $this->get_access_token($request_process, $request_build, false);
             if(false ===  $token){ 
-                WC_Admin_Settings::add_error(__('Invalid PayPal Credentials. Please check and enter valid credentials in the plugin settings here.', 'eh-paypal-express'));
+                WC_Admin_Settings::add_error(__('Invalid PayPal Credentials. Please check and enter valid credentials in the plugin settings here.', 'express-checkout-paypal-payment-gateway-for-woocommerce'));
 				return;
             }			
 		}
@@ -152,7 +152,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
             if (isset($response['ACK']) && ('Success' === $response['ACK'] || 'SuccessWithWarning' === $response['ACK'])) {
                 update_option('eh_paypal_express_payer_id', $response['PAL']);
             } else {
-                WC_Admin_Settings::add_error(__('Invalid PayPal Credentials. Please check and enter valid credentials in the plugin settings here.', 'eh-paypal-express'));
+                WC_Admin_Settings::add_error(__('Invalid PayPal Credentials. Please check and enter valid credentials in the plugin settings here.', 'express-checkout-paypal-payment-gateway-for-woocommerce'));
 				return;
             }
 		}
@@ -252,6 +252,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 					if ( ! $eh_value_is_url ) {
 						echo wp_get_attachment_image( $value, 'checkout_logo' === $key ? 'eh_logo_image_size' : 'eh_header_image_size' );
 					} else {
+						/* translators: %s: image URL currently in use */
 						echo sprintf( esc_html__( 'Already using URL as image: %s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), esc_attr( $value ) );
 					}
 					?>
@@ -786,6 +787,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 							if ( ! empty( $allowed_countries ) && ! array_key_exists( $shipping_country, $allowed_countries ) ) {
 								
+								/* translators: %s: shipping destination (prefix + country name) */
 								wc_add_notice( sprintf( __( 'Unfortunately', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . ' <strong>' . __( 'we do not ship %s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</strong>' . __( '. Please enter an alternative shipping address.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), WC()->countries->shipping_to_prefix() . ' ' . WC()->session->eh_pe_checkout['shipping']['country'] ), 'error' );
 
 								unset( WC()->session->eh_pe_checkout );
@@ -1121,6 +1123,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 						switch ( strtolower( $p_status ) ) {
 							case 'completed':
 								if ( in_array( $p_type, array( 'cart', 'instant', 'express_checkout', 'web_accept', 'masspay', 'send_money' ) ) ) {
+									/* translators: 1: payment status, 2: payment time, 3: payment source/type, 4: transaction ID */
 									$order->add_order_note( sprintf( __( 'Payment Status : %1$s <br>[ %2$s ] <br>Source : %3$s.<br>Transaction ID : %4$s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), $p_status, $p_time, $p_type, $p_id ) );
 									$order->payment_complete( $p_id );
 									
@@ -1170,7 +1173,8 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 									
 									Eh_PayPal_Express_Payment::wt_paypal_order_db_operations($order_id, $order, 'add', '_eh_pe_details', $update, false); 
 
-									$order->add_order_note( __( 'Payment Status : ' . $p_status . '<br>[ ' . $p_time . ' ] <br>Source : ' . $p_type . '.<br>Transaction ID : ' . $p_id . '.<br>Reason : ' . $reason, 'express-checkout-paypal-payment-gateway-for-woocommerce' ) );
+									/* translators: 1: payment status, 2: payment time, 3: payment source/type, 4: transaction ID, 5: reason */
+									$order->add_order_note( sprintf( __( 'Payment Status : %1$s<br>[ %2$s ] <br>Source : %3$s.<br>Transaction ID : %4$s.<br>Reason : %5$s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), $p_status, $p_time, $p_type, $p_id, $reason ) );
 									if ( ( version_compare(WC()->version, '2.7.0', '<') ) ) {
 										$order->reduce_order_stock();
 									} else {
@@ -1184,7 +1188,8 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 							case 'failed':
 							case 'voided':
 								$order->update_status( 'cancelled' );
-								$order->add_order_note( __( 'Payment Status : ' . $p_status . ' [ ' . $p_time . ' ] <br>Source : ' . $p_type . '.<br>Transaction ID : ' . $p_id . '.<br>Reason : ' . $p_reason, 'express-checkout-paypal-payment-gateway-for-woocommerce' ) );
+								/* translators: 1: payment status, 2: payment time, 3: payment source/type, 4: transaction ID, 5: reason */
+								$order->add_order_note( sprintf( __( 'Payment Status : %1$s [ %2$s ] <br>Source : %3$s.<br>Transaction ID : %4$s.<br>Reason : %5$s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), $p_status, $p_time, $p_type, $p_id, $p_reason ) );
 								break;
 							default:
 								break;
@@ -1350,9 +1355,9 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 						}
 						if ( isset( $response['name'] ) ) {
-							wc_add_notice( __( $response['name'] . ' - ' . $response['details'][0]['description'], 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
+							wc_add_notice( $response['name'] . ' - ' . $response['details'][0]['description'], 'error' );
 						} elseif ( isset( $response['error'] ) ) {
-							wc_add_notice( __( $response['error'] . ' - ' . $response['error_description'], 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
+							wc_add_notice( $response['error'] . ' - ' . $response['error_description'], 'error' );
 						} else {
 							wc_add_notice( __( 'An error occured.Please refresh and try again', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
 						}
@@ -1550,7 +1555,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 						WC()->session->chosen_payment_method = get_class( $this );
 						wc_clear_notices();
 					} elseif ( isset( $response['name'] ) ) {
-						  wc_add_notice( __( $response['name'] . ' error - ' . $response['details'][0]['description'], 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
+						  wc_add_notice( $response['name'] . ' error - ' . $response['details'][0]['description'], 'error' );
 						 wp_safe_redirect( wc_get_cart_url() );
 						exit;
 
@@ -1615,7 +1620,8 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 								WC()->session->eh_pe_set                     = array( 'skip_review_disabled' => 'true' );
 								WC()->session->eh_disable_skip_review_option = array( 'disable_skip_review_option' => 'true' );
 
-								wc_add_notice( sprintf( __( 'Unfortunately', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . ' <strong>' . __( 'we do not ship %s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) . '</strong>' . __( '. Please enter an alternative shipping address.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), WC()->countries->shipping_to_prefix() . ' ' . WC()->session->eh_pe_checkout['shipping']['country'] ), 'error' );
+								/* translators: %s: shipping destination (prefix + country name) */
+								wc_add_notice( sprintf( __( 'Unfortunately <strong>we do not ship %s</strong>. Please enter an alternative shipping address.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), WC()->countries->shipping_to_prefix() . ' ' . WC()->session->eh_pe_checkout['shipping']['country'] ), 'error' );
 								wp_safe_redirect( wc_get_checkout_url() );
 								exit;
 							}
@@ -1811,7 +1817,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 					} else {
 						if ( isset( $response['name'] ) ) {
-							wc_add_notice( __( $response['name'] . ' - ' . $response['details'][0]['description'], 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
+							wc_add_notice( $response['name'] . ' - ' . $response['details'][0]['description'], 'error' );
 						} else {
 							wc_add_notice( __( 'An error occurred, We were unable to process your order, please try again.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
 						}
@@ -1877,7 +1883,8 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 						Eh_PayPal_Express_Payment::wt_paypal_order_db_operations($order_id, $order, 'add', '_eh_pe_details', $update, false); 
 
-                        $order->add_order_note(__('Payment Status  : Pending <br> [ ' . $p_time . ' ] <br>Transaction ID : ' . $p_id .'<br>Reason : The payment is pending because it has been authorized but not settled. You must capture the funds first.', 'express-checkout-paypal-payment-gateway-for-woocommerce'));
+                        /* translators: 1: payment time, 2: transaction ID */
+                        $order->add_order_note( sprintf( __( 'Payment Status  : Pending <br> [ %1$s ] <br>Transaction ID : %2$s<br>Reason : The payment is pending because it has been authorized but not settled. You must capture the funds first.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), $p_time, $p_id ) );
 
 						if ( ( version_compare(WC()->version, '2.7.0', '<') ) ) {
 							$order->reduce_order_stock();
@@ -1891,7 +1898,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 					} else {
 						if ( isset( $response['name'] ) ) {
-							wc_add_notice( __( $response['name'] . ' error - ' . $response['details'][0]['description'], 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
+							wc_add_notice( $response['name'] . ' error - ' . $response['details'][0]['description'], 'error' );
 						} else {
 							wc_add_notice( __( 'An error occurred, We were unable to process your order, please try again.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
 						}
@@ -1955,7 +1962,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 					} else {
 						if ( isset( $response['name'] ) ) {
-							wc_add_notice( __( $response['name'] . ' error - ' . $response['details'][0]['description'], 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
+							wc_add_notice( $response['name'] . ' error - ' . $response['details'][0]['description'], 'error' );
 						} else {
 							wc_add_notice( __( 'An error occurred, We were unable to process your order, please try again.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
 						}
@@ -2787,7 +2794,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 				return $this->access_token;
 			} elseif ( isset( $response['error'] ) ) {
                 if($frontend){
-				wc_add_notice( __( $response['error'] . ' - ' . $response['error_description'], 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
+				wc_add_notice( $response['error'] . ' - ' . $response['error_description'], 'error' );
 				}
 				return false;
 			} else {
@@ -2820,14 +2827,16 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 		if ( strtolower( $p_status ) == 'completed' ) {
 
-			$order->add_order_note( __( 'Payment Status : ' . $p_status . '<br>[ ' . $p_time . ' ] <br>Transaction ID : ' . $p_id, 'express-checkout-paypal-payment-gateway-for-woocommerce' ) );
+			/* translators: 1: payment status, 2: payment time, 3: transaction ID */
+			$order->add_order_note( sprintf( __( 'Payment Status : %1$s<br>[ %2$s ] <br>Transaction ID : %3$s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), $p_status, $p_time, $p_id ) );
 			$order->payment_complete( $p_id );
 			
 			Eh_PayPal_Express_Payment::wt_paypal_order_db_operations($order_id, $order, 'add', '_eh_pe_details', $update, false); 
 
 		} else {
 			$order->update_status( 'failed' );
-			$order->add_order_note( __( 'Payment Status : ' . $p_status . ' [ ' . $p_time . ' ] <br>Transaction ID : ' . $p_id . '.<br>Reason : ' . $p_reason, 'express-checkout-paypal-payment-gateway-for-woocommerce' ) );
+			/* translators: 1: payment status, 2: payment time, 3: transaction ID, 4: reason */
+			$order->add_order_note( sprintf( __( 'Payment Status : %1$s [ %2$s ] <br>Transaction ID : %3$s.<br>Reason : %4$s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), $p_status, $p_time, $p_id, $p_reason ) );
 		} 
 		wc_clear_notices();
 		wp_safe_redirect( $this->get_return_url( $order ) );
@@ -2849,16 +2858,16 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 			wp_redirect( $this->make_redirect_url( $response['TOKEN'] ) );
 		} else {
 			if ( isset( $response['L_ERRORCODE0'] ) && isset( $response['L_LONGMESSAGE0'] ) ) {
-				wc_add_notice( __( $response['L_ERRORCODE0'] . ' error - ' . $response['L_LONGMESSAGE0'] . '. Refer to the <a style="text-decoration: underline;" href="https://www.themehigh.com/docs/trouble-shooting-guide/">article</a> to troubleshoot the error.', 'eh-paypal-express' ), 'error' );
+				wc_add_notice( $response['L_ERRORCODE0'] . ' error - ' . $response['L_LONGMESSAGE0'] . '. Refer to the <a style="text-decoration: underline;" href="https://www.themehigh.com/docs/trouble-shooting-guide/">article</a> to troubleshoot the error.', 'error' );
 
 			} elseif ( isset( $response['http_request_failed'] ) ) {
-				wc_add_notice( __( $response['http_request_failed'][0], 'eh-paypal-express' ), 'error' );
+				wc_add_notice( $response['http_request_failed'][0], 'error' );
 			} else {
 				if ( 'SetExpressCheckout' == $method ) {
-					wc_add_notice( __( 'An error occured.Please refresh and try again', 'eh-paypal-express' ), 'error' );
+					wc_add_notice( __( 'An error occured.Please refresh and try again', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
 
 				} else {
-					wc_add_notice( __( 'An error occurred, We were unable to process your order, please try again.', 'eh-paypal-express' ), 'error' );
+					wc_add_notice( __( 'An error occurred, We were unable to process your order, please try again.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
 				}
 			}
 		}
@@ -2891,7 +2900,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 		}
 
 		if ( is_wp_error( $order_id ) ) {
-			throw new Exception( $order_id->get_error_message() );
+			throw new Exception( esc_html( $order_id->get_error_message() ) );
 		}
 		$order       = wc_get_order( $order_id );
 		$set_address = $this->set_address_to_order( $order );

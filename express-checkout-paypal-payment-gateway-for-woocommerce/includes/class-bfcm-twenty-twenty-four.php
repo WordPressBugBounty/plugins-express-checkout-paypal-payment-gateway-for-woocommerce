@@ -67,22 +67,24 @@ if ( !class_exists( 'Wteh_Bfcm_Twenty_Twenty_Four' ) ) {
                     <div class="wteh-bfcm-banner-2024 notice is-dismissible">
                         <div class="wteh-bfcm-banner-body">
                             <div class="wteh-bfcm-banner-body-img-section">
-                                <img src="<?php echo plugins_url( 'assets/img/black-friday-2024.svg', dirname(__FILE__) ); ?>" alt="Black Friday Cyber Monday 2024">
+                                <img src="<?php echo esc_url( plugins_url( 'assets/img/black-friday-2024.svg', dirname(__FILE__) ) ); ?>" alt="Black Friday Cyber Monday 2024">
                             </div>
                             <div class="wteh-bfcm-banner-body-info">
                                 <div class="never-miss-this-deal">
-                                    <p><?php echo esc_html__( 'Never Miss This Deal', '' ); ?></p>
+                                    <p><?php echo esc_html__( 'Never Miss This Deal', 'express-checkout-paypal-payment-gateway-for-woocommerce' ); ?></p>
                                 </div>
                                 <div class="info">
-                                    <p><?php 
-                                        echo sprintf(
-                                                __( 'Your Last Chance to Avail %1$s on WebToffee Plugins. Grab the deal before it`s gone!', '' ), 
-                                                '<span>30% '.__("OFF","").'</span>'
+                                    <p><?php
+                                        $bfcm_offer_text = sprintf(
+                                                /* translators: %1$s: "30% OFF" text wrapped in a span tag */
+                                                __( 'Your Last Chance to Avail %1$s on WebToffee Plugins. Grab the deal before it`s gone!', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 
+                                                '<span>30% '.__('OFF','express-checkout-paypal-payment-gateway-for-woocommerce').'</span>'
                                             );
+                                            echo wp_kses_post( $bfcm_offer_text );
                                     ?></p>
                                 </div>
                                 <div class="wteh-bfcm-banner-body-button">
-                                    <a href="<?php echo self::$promotion_link; ?>" class="bfcm_cta_button" target="_blank"><?php echo esc_html__( 'View plugins', '' ); ?> <span class="dashicons dashicons-arrow-right-alt"></span></a>
+                                    <a href="<?php echo esc_url( self::$promotion_link ); ?>" class="bfcm_cta_button" target="_blank"><?php echo esc_html__( 'View plugins', 'express-checkout-paypal-payment-gateway-for-woocommerce' ); ?> <span class="dashicons dashicons-arrow-right-alt"></span></a>
                                 </div>
                             </div>
                         </div>

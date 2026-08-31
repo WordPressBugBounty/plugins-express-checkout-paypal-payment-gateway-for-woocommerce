@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Payment Gateway of PayPal for WooCommerce ( Free ) 1.9.4\n"
+"Project-Id-Version: Payment Gateway of PayPal for WooCommerce ( Free ) 1.9.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/express-checkout-paypal-payment-gateway-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-25T09:42:02+00:00\n"
+"POT-Creation-Date: 2026-08-27T08:46:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: express-checkout-paypal-payment-gateway-for-woocommerce\n"
@@ -59,6 +59,24 @@ msgstr ""
 msgid "Review"
 msgstr ""
 
+#: includes/class-bfcm-twenty-twenty-four.php:74
+msgid "Never Miss This Deal"
+msgstr ""
+
+#. translators: %1$s: "30% OFF" text wrapped in a span tag
+#: includes/class-bfcm-twenty-twenty-four.php:80
+#, php-format
+msgid "Your Last Chance to Avail %1$s on WebToffee Plugins. Grab the deal before it`s gone!"
+msgstr ""
+
+#: includes/class-bfcm-twenty-twenty-four.php:81
+msgid "OFF"
+msgstr ""
+
+#: includes/class-bfcm-twenty-twenty-four.php:87
+msgid "View plugins"
+msgstr ""
+
 #: includes/class-paypal-express-api.php:14
 msgid "PayPal Express"
 msgstr ""
@@ -67,233 +85,267 @@ msgstr ""
 msgid "Allow customers to checkout directly with PayPal Smart Buttons or Express Buttons."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:58
+#: includes/class-paypal-express-api.php:63
 msgid "Place Order"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:58
+#: includes/class-paypal-express-api.php:63
 msgid "Proceed to PayPal"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:248
+#: includes/class-paypal-express-api.php:138
+#: includes/class-paypal-express-api.php:155
+msgid "Invalid PayPal Credentials. Please check and enter valid credentials in the plugin settings here."
+msgstr ""
+
+#. translators: %s: image URL currently in use
+#: includes/class-paypal-express-api.php:256
 #, php-format
 msgid "Already using URL as image: %s"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:256
+#: includes/class-paypal-express-api.php:264
 msgid "Select a image to upload"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:257
+#: includes/class-paypal-express-api.php:265
 msgid "Use this image"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:258
-#: includes/class-paypal-express-api.php:261
+#: includes/class-paypal-express-api.php:266
+#: includes/class-paypal-express-api.php:269
 msgid "Add image"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:269
+#: includes/class-paypal-express-api.php:277
 msgid "Remove image"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:504
-#: includes/class-paypal-express-api.php:523
-#: includes/class-paypal-express-api.php:942
-#: includes/class-paypal-express-api.php:1657
-#: includes/class-paypal-express-api.php:1829
-#: includes/class-paypal-express-api.php:1911
+#: includes/class-paypal-express-api.php:512
+#: includes/class-paypal-express-api.php:531
+#: includes/class-paypal-express-api.php:951
+#: includes/class-paypal-express-api.php:1670
+#: includes/class-paypal-express-api.php:1842
+#: includes/class-paypal-express-api.php:1925
 msgid "Oops !"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:505
-#: includes/class-paypal-express-api.php:943
-#: includes/class-paypal-express-api.php:1658
-#: includes/class-paypal-express-api.php:1830
-#: includes/class-paypal-express-api.php:1912
+#: includes/class-paypal-express-api.php:513
+#: includes/class-paypal-express-api.php:952
+#: includes/class-paypal-express-api.php:1671
+#: includes/class-paypal-express-api.php:1843
+#: includes/class-paypal-express-api.php:1926
 msgid "Page Not Found"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:506
-#: includes/class-paypal-express-api.php:525
-#: includes/class-paypal-express-api.php:944
-#: includes/class-paypal-express-api.php:1659
-#: includes/class-paypal-express-api.php:1831
-#: includes/class-paypal-express-api.php:1913
+#: includes/class-paypal-express-api.php:514
+#: includes/class-paypal-express-api.php:533
+#: includes/class-paypal-express-api.php:953
+#: includes/class-paypal-express-api.php:1672
+#: includes/class-paypal-express-api.php:1844
+#: includes/class-paypal-express-api.php:1927
 msgid "Back"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:524
+#: includes/class-paypal-express-api.php:532
 msgid "Your Cart is Empty"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:541
-#: includes/class-paypal-express-api.php:935
-#: includes/class-paypal-express-api.php:1649
+#: includes/class-paypal-express-api.php:549
+#: includes/class-paypal-express-api.php:944
+#: includes/class-paypal-express-api.php:1662
 msgid "No shipping method has been selected."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:641
-#: includes/class-paypal-express-api.php:916
-#: includes/class-paypal-express-api.php:1208
-#: includes/class-paypal-express-api.php:1374
-#: includes/class-paypal-express-api.php:1634
-#: includes/class-paypal-express-api.php:1820
-#: includes/class-paypal-express-api.php:1900
-#: includes/class-paypal-express-api.php:1964
+#: includes/class-paypal-express-api.php:649
+#: includes/class-paypal-express-api.php:925
+#: includes/class-paypal-express-api.php:1220
+#: includes/class-paypal-express-api.php:1386
+#: includes/class-paypal-express-api.php:1647
+#: includes/class-paypal-express-api.php:1833
+#: includes/class-paypal-express-api.php:1914
+#: includes/class-paypal-express-api.php:1978
 msgid "Redirect to PayPal failed. Please try again later."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:782
-#: includes/class-paypal-express-api.php:1611
+#. translators: %s: shipping destination (prefix + country name)
+#: includes/class-paypal-express-api.php:791
 msgid "Unfortunately"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:782
-#: includes/class-paypal-express-api.php:1611
+#. translators: %s: shipping destination (prefix + country name)
+#: includes/class-paypal-express-api.php:791
 #, php-format
 msgid "we do not ship %s"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:782
-#: includes/class-paypal-express-api.php:1611
+#. translators: %s: shipping destination (prefix + country name)
+#: includes/class-paypal-express-api.php:791
 msgid ". Please enter an alternative shipping address."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1117
+#. translators: 1: payment status, 2: payment time, 3: payment source/type, 4: transaction ID
+#: includes/class-paypal-express-api.php:1127
 #, php-format
 msgid "Payment Status : %1$s <br>[ %2$s ] <br>Source : %3$s.<br>Transaction ID : %4$s"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1127
+#: includes/class-paypal-express-api.php:1137
 msgid "Address: The payment is pending because your customer did not include a confirmed shipping address and your Payment Receiving Preferences is set such that you want to manually accept or deny each of these payments. To change your preference, go to the Preferences section of your Profile."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1130
+#: includes/class-paypal-express-api.php:1140
 msgid "Authorization: The payment is pending because it has been authorized but not settled. You must capture the funds first."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1133
+#: includes/class-paypal-express-api.php:1143
 msgid "eCheck: The payment is pending because it was made by an eCheck that has not yet cleared."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1136
+#: includes/class-paypal-express-api.php:1146
 msgid "intl: The payment is pending because you hold a non-U.S. account and do not have a withdrawal mechanism. You must manually accept or deny this payment from your Account Overview."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1140
+#: includes/class-paypal-express-api.php:1150
 msgid "Multi-currency: You do not have a balance in the currency sent, and you do not have your Payment Receiving Preferences set to automatically convert and accept this payment. You must manually accept or deny this payment."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1143
+#: includes/class-paypal-express-api.php:1153
 msgid "Order: The payment is pending because it is part of an order that has been authorized but not settled."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1146
+#: includes/class-paypal-express-api.php:1156
 msgid "Payment Review: The payment is pending while it is being reviewed by PayPal for risk."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1149
+#: includes/class-paypal-express-api.php:1159
 msgid "Unilateral: The payment is pending because it was made to an email address that is not yet registered or confirmed."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1152
+#: includes/class-paypal-express-api.php:1162
 msgid "Verify: The payment is pending because you are not yet verified. You must verify your account before you can accept this payment."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1155
+#: includes/class-paypal-express-api.php:1165
 msgid "Other: For more information, contact PayPal customer service."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1159
+#: includes/class-paypal-express-api.php:1169
 msgid "No pending reason provided."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1166
-#: includes/class-paypal-express-api.php:1180
-#: includes/class-paypal-express-api.php:2811
-#: includes/class-paypal-express-api.php:2818
-msgid "Payment Status : "
+#. translators: 1: payment status, 2: payment time, 3: payment source/type, 4: transaction ID, 5: reason
+#: includes/class-paypal-express-api.php:1177
+#, php-format
+msgid "Payment Status : %1$s<br>[ %2$s ] <br>Source : %3$s.<br>Transaction ID : %4$s.<br>Reason : %5$s"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1221
-#: includes/class-paypal-express-api.php:1405
-#: includes/class-paypal-express-api.php:1551
-#: includes/class-paypal-express-api.php:1781
-#: includes/class-paypal-express-api.php:1809
-#: includes/class-paypal-express-api.php:1845
-#: includes/class-paypal-express-api.php:1889
-#: includes/class-paypal-express-api.php:1927
-#: includes/class-paypal-express-api.php:1953
-#: includes/class-paypal-express-api.php:2352
+#. translators: 1: payment status, 2: payment time, 3: payment source/type, 4: transaction ID, 5: reason
+#: includes/class-paypal-express-api.php:1192
+#, php-format
+msgid "Payment Status : %1$s [ %2$s ] <br>Source : %3$s.<br>Transaction ID : %4$s.<br>Reason : %5$s"
+msgstr ""
+
+#: includes/class-paypal-express-api.php:1233
+#: includes/class-paypal-express-api.php:1417
+#: includes/class-paypal-express-api.php:1563
+#: includes/class-paypal-express-api.php:1794
+#: includes/class-paypal-express-api.php:1822
+#: includes/class-paypal-express-api.php:1858
+#: includes/class-paypal-express-api.php:1903
+#: includes/class-paypal-express-api.php:1941
+#: includes/class-paypal-express-api.php:1967
+#: includes/class-paypal-express-api.php:2366
+#: includes/class-paypal-express-api.php:2870
 msgid "An error occurred, We were unable to process your order, please try again."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1334
-#: includes/class-paypal-express-api.php:1350
+#: includes/class-paypal-express-api.php:1346
+#: includes/class-paypal-express-api.php:1362
+#: includes/class-paypal-express-api.php:2867
 msgid "An error occured.Please refresh and try again"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1873
-msgid "Payment Status  : Pending <br> [ "
+#. translators: %s: shipping destination (prefix + country name)
+#: includes/class-paypal-express-api.php:1624
+#, php-format
+msgid "Unfortunately <strong>we do not ship %s</strong>. Please enter an alternative shipping address."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:1995
+#. translators: 1: payment time, 2: transaction ID
+#: includes/class-paypal-express-api.php:1887
+#, php-format
+msgid "Payment Status  : Pending <br> [ %1$s ] <br>Transaction ID : %2$s<br>Reason : The payment is pending because it has been authorized but not settled. You must capture the funds first."
+msgstr ""
+
+#: includes/class-paypal-express-api.php:2009
 #: includes/class-paypal-express-hook.php:49
 msgid "You have cancelled PayPal Express Checkout. Please try to process your order again."
 msgstr ""
 
-#: includes/class-paypal-express-api.php:2042
+#: includes/class-paypal-express-api.php:2056
 msgid "Edit Details"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:2048
+#: includes/class-paypal-express-api.php:2062
 msgid "First Name"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:2053
+#: includes/class-paypal-express-api.php:2067
 msgid "Last Name"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:2060
+#: includes/class-paypal-express-api.php:2074
 msgid "Company Name"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:2067
+#: includes/class-paypal-express-api.php:2081
 msgid "Email Address"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:2074
+#: includes/class-paypal-express-api.php:2088
 msgid "Country"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:2081
+#: includes/class-paypal-express-api.php:2095
 msgid "Address"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:2094
+#: includes/class-paypal-express-api.php:2108
 msgid "Town / City"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:2101
+#: includes/class-paypal-express-api.php:2115
 msgid "State"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:2106
+#: includes/class-paypal-express-api.php:2120
 msgid "Postcode / ZIP"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:2200
+#: includes/class-paypal-express-api.php:2214
 msgid "Seller Policy"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:2221
-#: includes/class-paypal-express-api.php:2224
+#: includes/class-paypal-express-api.php:2235
+#: includes/class-paypal-express-api.php:2238
 msgid "Cancel Order"
 msgstr ""
 
-#: includes/class-paypal-express-api.php:2783
+#: includes/class-paypal-express-api.php:2802
 msgid "An unknown error occured during authentication."
+msgstr ""
+
+#. translators: 1: payment status, 2: payment time, 3: transaction ID
+#: includes/class-paypal-express-api.php:2831
+#, php-format
+msgid "Payment Status : %1$s<br>[ %2$s ] <br>Transaction ID : %3$s"
+msgstr ""
+
+#. translators: 1: payment status, 2: payment time, 3: transaction ID, 4: reason
+#: includes/class-paypal-express-api.php:2839
+#, php-format
+msgid "Payment Status : %1$s [ %2$s ] <br>Transaction ID : %3$s.<br>Reason : %4$s"
 msgstr ""
 
 #: includes/class-paypal-express-hook.php:296
@@ -314,11 +366,11 @@ msgid "Enable PayPal payment"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:61
-#: includes/eh-paypal-express-settings-page.php:310
-#: includes/eh-paypal-express-settings-page.php:319
-#: includes/eh-paypal-express-settings-page.php:630
-#: includes/eh-paypal-express-settings-page.php:639
-#: includes/eh-paypal-express-settings-page.php:681
+#: includes/eh-paypal-express-settings-page.php:312
+#: includes/eh-paypal-express-settings-page.php:321
+#: includes/eh-paypal-express-settings-page.php:633
+#: includes/eh-paypal-express-settings-page.php:642
+#: includes/eh-paypal-express-settings-page.php:686
 msgid "Enable"
 msgstr ""
 
@@ -339,7 +391,7 @@ msgid "Smart Button"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:85
-#: includes/eh-paypal-express-settings-page.php:346
+#: includes/eh-paypal-express-settings-page.php:349
 msgid "PayPal Credentials"
 msgstr ""
 
@@ -348,7 +400,7 @@ msgid "<span class=\"express_toggle_display\">Select Live mode to accept payment
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:93
-#: includes/eh-paypal-express-settings-page.php:353
+#: includes/eh-paypal-express-settings-page.php:356
 msgid "Pre-requisites:"
 msgstr ""
 
@@ -377,22 +429,22 @@ msgid "Create keys if not done already. Else, copy the API Username, API Passwor
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:93
-#: includes/eh-paypal-express-settings-page.php:353
+#: includes/eh-paypal-express-settings-page.php:356
 msgid "Read documentation"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:96
-#: includes/eh-paypal-express-settings-page.php:356
+#: includes/eh-paypal-express-settings-page.php:359
 msgid "Environment"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:100
-#: includes/eh-paypal-express-settings-page.php:361
+#: includes/eh-paypal-express-settings-page.php:364
 msgid "Sandbox mode"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:101
-#: includes/eh-paypal-express-settings-page.php:362
+#: includes/eh-paypal-express-settings-page.php:365
 msgid "Live mode"
 msgstr ""
 
@@ -401,7 +453,7 @@ msgid "<div id=\"environment_alert_desc\"></div>"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:105
-#: includes/eh-paypal-express-settings-page.php:366
+#: includes/eh-paypal-express-settings-page.php:369
 msgid "Choose Sandbox mode to test payment using test API keys. Switch to live mode to accept payments with PayPal using live API keys."
 msgstr ""
 
@@ -438,35 +490,35 @@ msgid "<span class=\"express_toggle_display\">Includes PayPal as one of the avai
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:151
-#: includes/eh-paypal-express-settings-page.php:401
+#: includes/eh-paypal-express-settings-page.php:404
 msgid "Payment gateway title"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:154
-#: includes/eh-paypal-express-settings-page.php:404
+#: includes/eh-paypal-express-settings-page.php:407
 msgid "Input title for the payment gateway displayed at the checkout."
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:155
-#: includes/eh-paypal-express-settings-page.php:405
-#: includes/eh-paypal-express-settings-page.php:474
+#: includes/eh-paypal-express-settings-page.php:408
+#: includes/eh-paypal-express-settings-page.php:477
 msgid "PayPal"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:159
-#: includes/eh-paypal-express-settings-page.php:206
-#: includes/eh-paypal-express-settings-page.php:409
-#: includes/eh-paypal-express-settings-page.php:441
+#: includes/eh-paypal-express-settings-page.php:208
+#: includes/eh-paypal-express-settings-page.php:412
+#: includes/eh-paypal-express-settings-page.php:444
 msgid "Description"
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:163
-#: includes/eh-paypal-express-settings-page.php:413
+#: includes/eh-paypal-express-settings-page.php:416
 msgid "Input description for the payment gateway displayed at the checkout."
 msgstr ""
 
 #: includes/eh-paypal-express-settings-page.php:164
-#: includes/eh-paypal-express-settings-page.php:414
+#: includes/eh-paypal-express-settings-page.php:417
 msgid "Secure payment via PayPal."
 msgstr ""
 
@@ -478,577 +530,582 @@ msgstr ""
 msgid "<span class=\"express_toggle_display\">Express button exists seperately from the payment gateways section, and allows customers to proceed directly to PayPal for payment</span>"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:176
+#. translators: %s: "[Preview]" link that opens a thickbox image preview of the express button
+#: includes/eh-paypal-express-settings-page.php:177
 #, php-format
 msgid "Show Express button on %s"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:180
+#: includes/eh-paypal-express-settings-page.php:181
 msgid "Displays PayPal Express button on chosen pages."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:191
+#. translators: %s: "[Preview]" link that opens a thickbox image preview of the credit button
+#: includes/eh-paypal-express-settings-page.php:193
 #, php-format
 msgid "Show Express credit button on %s"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:195
+#: includes/eh-paypal-express-settings-page.php:197
 msgid "Displays a PayPal Credit button on selected pages. By using PayPal Credit, store owner will receive the payment upfront but customers can opt for financing and pay over time."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:210
+#: includes/eh-paypal-express-settings-page.php:212
 msgid "Input description displayed above the PayPal Express button."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:211
-#: includes/eh-paypal-express-settings-page.php:446
+#: includes/eh-paypal-express-settings-page.php:213
+#: includes/eh-paypal-express-settings-page.php:449
 msgid "Reduce the number of clicks with PayPal Express."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:215
+#: includes/eh-paypal-express-settings-page.php:217
 msgid "Button size"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:218
+#: includes/eh-paypal-express-settings-page.php:220
 msgid "Choose the size of the button as either small, medium or large."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:222
-#: includes/eh-paypal-express-settings-page.php:457
+#: includes/eh-paypal-express-settings-page.php:224
+#: includes/eh-paypal-express-settings-page.php:460
 msgid "Small"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:223
-#: includes/eh-paypal-express-settings-page.php:458
+#: includes/eh-paypal-express-settings-page.php:225
+#: includes/eh-paypal-express-settings-page.php:461
 msgid "Medium"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:224
-#: includes/eh-paypal-express-settings-page.php:459
+#: includes/eh-paypal-express-settings-page.php:226
+#: includes/eh-paypal-express-settings-page.php:462
 msgid "Large"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:229
-#: includes/eh-paypal-express-settings-page.php:556
+#: includes/eh-paypal-express-settings-page.php:231
+#: includes/eh-paypal-express-settings-page.php:559
 msgid "Branding"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:231
+#: includes/eh-paypal-express-settings-page.php:233
 msgid "<span class=\"express_toggle_display\">Set your brand identity at the PayPal end by giving a brand name, logo etc. It will be visible for customers on the PayPal site on choosing to pay via PayPal.</span>"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:235
-#: includes/eh-paypal-express-settings-page.php:562
+#: includes/eh-paypal-express-settings-page.php:237
+#: includes/eh-paypal-express-settings-page.php:565
 msgid "Brand name"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:238
-#: includes/eh-paypal-express-settings-page.php:565
+#: includes/eh-paypal-express-settings-page.php:240
+#: includes/eh-paypal-express-settings-page.php:568
 msgid "Input the name of your store that will appear on the PayPal end."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:245
-#: includes/eh-paypal-express-settings-page.php:572
+#: includes/eh-paypal-express-settings-page.php:247
+#: includes/eh-paypal-express-settings-page.php:575
 msgid "Landing page"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:249
+#: includes/eh-paypal-express-settings-page.php:251
 msgid "PayPal login"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:250
-#: includes/eh-paypal-express-settings-page.php:577
+#: includes/eh-paypal-express-settings-page.php:252
+#: includes/eh-paypal-express-settings-page.php:580
 msgid "PayPal Billing"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:252
-#: includes/eh-paypal-express-settings-page.php:579
+#: includes/eh-paypal-express-settings-page.php:254
+#: includes/eh-paypal-express-settings-page.php:582
 msgid "Customers will be redirected to the chosen page. By default, the billing page is taken."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:257
+#: includes/eh-paypal-express-settings-page.php:259
 msgid "Logo (190 x 90)"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:260
+#: includes/eh-paypal-express-settings-page.php:262
 msgid "Upload a company logo that will appear on the PayPal end. Image requires an SSL host."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:265
-#: includes/eh-paypal-express-settings-page.php:585
+#: includes/eh-paypal-express-settings-page.php:267
+#: includes/eh-paypal-express-settings-page.php:588
 msgid "PayPal locale"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:268
-#: includes/eh-paypal-express-settings-page.php:588
+#: includes/eh-paypal-express-settings-page.php:270
+#: includes/eh-paypal-express-settings-page.php:591
 msgid "Use store locale"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:270
+#: includes/eh-paypal-express-settings-page.php:272
 msgid "Check to set the PayPal locale same as the store locale."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:274
-#: includes/eh-paypal-express-settings-page.php:594
+#: includes/eh-paypal-express-settings-page.php:276
+#: includes/eh-paypal-express-settings-page.php:597
 msgid "Advanced Options"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:279
-#: includes/eh-paypal-express-settings-page.php:599
+#: includes/eh-paypal-express-settings-page.php:281
+#: includes/eh-paypal-express-settings-page.php:602
 msgid "Invoice prefix"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:282
-#: includes/eh-paypal-express-settings-page.php:602
+#: includes/eh-paypal-express-settings-page.php:284
+#: includes/eh-paypal-express-settings-page.php:605
 msgid "Enter an invoice prefix to identify transactions from your site."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:288
-#: includes/eh-paypal-express-settings-page.php:608
+#: includes/eh-paypal-express-settings-page.php:290
+#: includes/eh-paypal-express-settings-page.php:611
 msgid "Disable address override"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:291
-#: includes/eh-paypal-express-settings-page.php:611
+#: includes/eh-paypal-express-settings-page.php:293
+#: includes/eh-paypal-express-settings-page.php:614
 msgid "Enable to prevent checkout address being changed at the PayPal end."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:293
-#: includes/eh-paypal-express-settings-page.php:613
+#: includes/eh-paypal-express-settings-page.php:295
+#: includes/eh-paypal-express-settings-page.php:616
 msgid "Enabling this will affect Express checkout and PayPal will strictly verify the address."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:297
-#: includes/eh-paypal-express-settings-page.php:618
+#: includes/eh-paypal-express-settings-page.php:299
+#: includes/eh-paypal-express-settings-page.php:621
 msgid "Send shipping address instead of billing"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:300
-#: includes/eh-paypal-express-settings-page.php:621
+#: includes/eh-paypal-express-settings-page.php:302
+#: includes/eh-paypal-express-settings-page.php:624
 msgid "Enable to send shipping details to PayPal instead of billing."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:302
-#: includes/eh-paypal-express-settings-page.php:623
+#: includes/eh-paypal-express-settings-page.php:304
+#: includes/eh-paypal-express-settings-page.php:626
 msgid "PayPal accepts only one among shipping/billing addresses. It is recommended to validate PayPal Seller protection to submit shipping details to PayPal."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:307
-#: includes/eh-paypal-express-settings-page.php:627
+#: includes/eh-paypal-express-settings-page.php:309
+#: includes/eh-paypal-express-settings-page.php:630
 msgid "Hide order review page"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:312
-#: includes/eh-paypal-express-settings-page.php:632
+#: includes/eh-paypal-express-settings-page.php:314
+#: includes/eh-paypal-express-settings-page.php:635
 msgid "If enabled, customers returning from PayPal will directly go to the order received page."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:316
-#: includes/eh-paypal-express-settings-page.php:636
+#: includes/eh-paypal-express-settings-page.php:318
+#: includes/eh-paypal-express-settings-page.php:639
 msgid "Save abandoned orders"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:321
+#: includes/eh-paypal-express-settings-page.php:323
 msgid "Save pending order if payment is cancelled from PayPal’s side."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:325
-#: includes/eh-paypal-express-settings-page.php:645
+#: includes/eh-paypal-express-settings-page.php:327
+#: includes/eh-paypal-express-settings-page.php:648
 msgid "Manage subtotal mismatch"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:328
-#: includes/eh-paypal-express-settings-page.php:648
+#: includes/eh-paypal-express-settings-page.php:330
+#: includes/eh-paypal-express-settings-page.php:651
 msgid "Enable to add/remove extra line item to handle subtotal mismatch"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:330
+#: includes/eh-paypal-express-settings-page.php:332
 msgid "Automatically add/remove additional line items to handle mismatch between order total and subtotal before sending to PayPal."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:331
-#: includes/eh-paypal-express-settings-page.php:651
+#: includes/eh-paypal-express-settings-page.php:333
+#: includes/eh-paypal-express-settings-page.php:654
 msgid "The plugin will add discounts or remove shipping charges (as the case may be) from the order to equate both order total and subtotal after currency conversion or on using a third party plugin, etc."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:334
-#: includes/eh-paypal-express-settings-page.php:662
+#: includes/eh-paypal-express-settings-page.php:336
+#: includes/eh-paypal-express-settings-page.php:665
 msgid "Seller policy"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:338
-#: includes/eh-paypal-express-settings-page.php:666
+#: includes/eh-paypal-express-settings-page.php:340
+#: includes/eh-paypal-express-settings-page.php:669
 msgid "Enter the seller protection policy or customized text which will be displayed in order review page."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:339
-#: includes/eh-paypal-express-settings-page.php:667
+#. translators: %s: site/store name
+#: includes/eh-paypal-express-settings-page.php:342
+#: includes/eh-paypal-express-settings-page.php:671
 #, php-format
 msgid "You are Protected by %s Policy"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:349
+#: includes/eh-paypal-express-settings-page.php:352
 msgid "<span class=\"smart_button_toggle_display\">Select Live mode to accept payments and Sandbox mode to test payments.</span>"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:353
+#: includes/eh-paypal-express-settings-page.php:356
 msgid "Requires a PayPal Developer account and Business account linked with confirmed identity, email, and bank account."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:353
+#: includes/eh-paypal-express-settings-page.php:356
 msgid "To get the Client ID and Secret:"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:353
+#: includes/eh-paypal-express-settings-page.php:356
 msgid "Login to your PayPal business account."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:353
+#: includes/eh-paypal-express-settings-page.php:356
 msgid "Go to Activity > API Access OR from Account Settings > API Access."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:353
+#: includes/eh-paypal-express-settings-page.php:356
 msgid "Scroll down to the REST API Integration section and click Manage API apps and credentials. The REST API apps window opens up."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:353
+#: includes/eh-paypal-express-settings-page.php:356
 msgid "Click on the PayPal Developer experience link to create or manage apps."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:353
+#: includes/eh-paypal-express-settings-page.php:356
 msgid "Next, Login to developer account or Signup a new developer account. Click on the  create a new application or default application for your business account. Then, copy the Client ID and Secret."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:353
+#: includes/eh-paypal-express-settings-page.php:356
 msgid "Paste the Client ID and Secret in the respective fields of the plugin."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:364
+#: includes/eh-paypal-express-settings-page.php:367
 msgid "<div id=\"environment_alert_desc \"></div>"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:369
+#: includes/eh-paypal-express-settings-page.php:372
 msgid "Sandbox client ID"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:375
+#: includes/eh-paypal-express-settings-page.php:378
 msgid "Sandbox client secret"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:381
+#: includes/eh-paypal-express-settings-page.php:384
 msgid "Live client ID"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:387
+#: includes/eh-paypal-express-settings-page.php:390
 msgid "Live client secret"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:394
+#: includes/eh-paypal-express-settings-page.php:397
 msgid "PayPal payment gateway"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:397
+#: includes/eh-paypal-express-settings-page.php:400
 msgid "<span class=\"smart_button_toggle_display\">Includes PayPal as one of the available payment gateways, alongside other supported options.</span>"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:419
+#: includes/eh-paypal-express-settings-page.php:422
 msgid "PayPal Smart Button"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:422
+#: includes/eh-paypal-express-settings-page.php:425
 msgid "<span class=\"smart_button_toggle_display\">Smart button exists separately from the payment methods section, and allows buyers to proceed directly to PayPal without filling the Checkout form.</span>"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:426
+#: includes/eh-paypal-express-settings-page.php:429
 msgid "Show Smart button on"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:430
+#: includes/eh-paypal-express-settings-page.php:433
 msgid "Displays PayPal smart button on chosen pages."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:445
+#: includes/eh-paypal-express-settings-page.php:448
 msgid "Input description displayed above the PayPal Smart button."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:450
+#: includes/eh-paypal-express-settings-page.php:453
 msgid "Size"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:453
+#: includes/eh-paypal-express-settings-page.php:456
 msgid "Choose the size of the button as either small, medium, large or responsive."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:460
+#: includes/eh-paypal-express-settings-page.php:463
 msgid "Responsive"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:464
+#: includes/eh-paypal-express-settings-page.php:467
 msgid "Button label"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:467
+#: includes/eh-paypal-express-settings-page.php:470
 msgid "Choose a pre-defined button label provided by PayPal."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:471
+#: includes/eh-paypal-express-settings-page.php:474
 msgid "Checkout"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:472
+#: includes/eh-paypal-express-settings-page.php:475
 msgid "Pay"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:473
+#: includes/eh-paypal-express-settings-page.php:476
 msgid "Buy Now"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:478
+#: includes/eh-paypal-express-settings-page.php:481
 msgid "Tagline"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:481
+#: includes/eh-paypal-express-settings-page.php:484
 msgid "Choose whether to show or hide the button tagline."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:485
+#: includes/eh-paypal-express-settings-page.php:488
 msgid "Show"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:486
+#: includes/eh-paypal-express-settings-page.php:489
 msgid "Hide"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:490
+#: includes/eh-paypal-express-settings-page.php:493
 msgid "Button color"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:493
+#: includes/eh-paypal-express-settings-page.php:496
 msgid "Choose the color of the smart checkout button."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:497
+#: includes/eh-paypal-express-settings-page.php:500
 msgid "Gold"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:498
+#: includes/eh-paypal-express-settings-page.php:501
 msgid "Blue"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:499
+#: includes/eh-paypal-express-settings-page.php:502
 msgid "Silver"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:500
+#: includes/eh-paypal-express-settings-page.php:503
 msgid "White"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:501
+#: includes/eh-paypal-express-settings-page.php:504
 msgid "Black"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:506
+#: includes/eh-paypal-express-settings-page.php:509
 msgid "Shape"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:509
+#: includes/eh-paypal-express-settings-page.php:512
 msgid "Choose the button shape as either Rect (squared) or Pill (rounded)."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:513
+#: includes/eh-paypal-express-settings-page.php:516
 msgid "Rect"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:514
+#: includes/eh-paypal-express-settings-page.php:517
 msgid "Pill"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:519
+#: includes/eh-paypal-express-settings-page.php:522
 msgid "Layout"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:522
+#: includes/eh-paypal-express-settings-page.php:525
 msgid "Choose the button layout as either Vertical or Horizontal."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:526
+#: includes/eh-paypal-express-settings-page.php:529
 msgid "Vertical"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:527
+#: includes/eh-paypal-express-settings-page.php:530
 msgid "Horizontal"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:532
+#: includes/eh-paypal-express-settings-page.php:535
 msgid "Disable funding sources"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:535
+#: includes/eh-paypal-express-settings-page.php:538
 msgid "Disable a funding source by choosing it from the available options. <br>Note: The eligible funding sources are shown by PayPal on the checkout based on buyer country or devices."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:539
+#: includes/eh-paypal-express-settings-page.php:542
 msgid "Credit or debit cards"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:540
+#: includes/eh-paypal-express-settings-page.php:543
 msgid "PayPal Credit"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:541
+#: includes/eh-paypal-express-settings-page.php:544
 msgid "Bancontact"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:542
+#: includes/eh-paypal-express-settings-page.php:545
 msgid "BLIK"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:543
+#: includes/eh-paypal-express-settings-page.php:546
 msgid "eps"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:544
+#: includes/eh-paypal-express-settings-page.php:547
 msgid "giropay"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:545
+#: includes/eh-paypal-express-settings-page.php:548
 msgid "iDEAL"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:546
+#: includes/eh-paypal-express-settings-page.php:549
 msgid "Mercado Pago"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:547
+#: includes/eh-paypal-express-settings-page.php:550
 msgid "MyBank"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:548
+#: includes/eh-paypal-express-settings-page.php:551
 msgid "Przelewy24"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:549
+#: includes/eh-paypal-express-settings-page.php:552
 msgid "SEPA-Lastschrift"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:550
+#: includes/eh-paypal-express-settings-page.php:553
 msgid "Sofort"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:551
+#: includes/eh-paypal-express-settings-page.php:554
 msgid "Venmo"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:559
+#: includes/eh-paypal-express-settings-page.php:562
 msgid "<span class=\"smart_button_toggle_display\"> Set your brand identity at the PayPal end by giving a brand name. It will be visible for customers on the PayPal site on choosing to pay via PayPal.</span>"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:576
+#: includes/eh-paypal-express-settings-page.php:579
 msgid "PayPal Login"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:590
+#: includes/eh-paypal-express-settings-page.php:593
 msgid "Choose to set the PayPal locale same as the store locale."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:641
+#: includes/eh-paypal-express-settings-page.php:644
 msgid "Save pending order even if payment is cancelled from PayPal’s side."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:650
+#: includes/eh-paypal-express-settings-page.php:653
 msgid "Enabling will add/remove an additional line item from the order to handle mismatch between order total and sub total, before sending to PayPal."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:656
+#: includes/eh-paypal-express-settings-page.php:659
 msgid "Remove line item"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:658
+#: includes/eh-paypal-express-settings-page.php:661
 msgid "Enabling will remove the line item and send only the subtotal to paypal."
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:674
+#: includes/eh-paypal-express-settings-page.php:678
 msgid "Debug Logs"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:677
+#. translators: %1$s: opening anchor tag linking to the WooCommerce status logs page, %2$s: closing anchor tag
+#: includes/eh-paypal-express-settings-page.php:682
 #, php-format
 msgid "Records PayPal payment transactions into WooCommerce status log. %1$s  View log %2$s"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:680
+#: includes/eh-paypal-express-settings-page.php:685
 msgid " Log"
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:683
+#. translators: %1$s: opening span tag, %2$s: closing span tag, %3$s: log file name
+#: includes/eh-paypal-express-settings-page.php:689
 #, php-format
 msgid "%1$sLog File%2$s: %3$s () "
 msgstr ""
 
-#: includes/eh-paypal-express-settings-page.php:686
+#: includes/eh-paypal-express-settings-page.php:692
 msgid " Enable to record PayPal payment transactions in a log file."
 msgstr ""
 
-#: includes/market.php:152
+#: includes/market.php:157
 msgid "PayPal Express Checkout Payment Gateway"
 msgstr ""
 
-#: includes/market.php:160
+#: includes/market.php:165
 msgid "Add PayPal Smart Buttons on product pages."
 msgstr ""
 
-#: includes/market.php:161
+#: includes/market.php:166
 msgid "Provide alternative payment methods based on customer’s country."
 msgstr ""
 
-#: includes/market.php:162
+#: includes/market.php:167
 msgid "Add PayPal Express Checkout buttons on product pages and mini-cart."
 msgstr ""
 
-#: includes/market.php:163
+#: includes/market.php:168
 msgid "Authorize payments and capture funds later."
 msgstr ""
 
-#: includes/market.php:164
+#: includes/market.php:169
 msgid "Process full or partial refunds directly from order edit pages."
 msgstr ""
 
-#: includes/market.php:165
+#: includes/market.php:170
 msgid "Tailor button styles, positions, and more to fit your store’s design."
 msgstr ""
 
-#: includes/market.php:166
+#: includes/market.php:171
 msgid "In-context checkout for secure payment using PayPal without leaving your site."
 msgstr ""
 
-#: includes/market.php:167
+#: includes/market.php:172
 msgid "Compatible with WooCommerce Subscriptions."
 msgstr ""
 
-#: includes/market.php:168
+#: includes/market.php:173
 msgid "Set up a specific PayPal locale."
 msgstr ""
 
-#: includes/market.php:169
+#: includes/market.php:174
 msgid "Add PayPal Express buttons anywhere with shortcode integration."
 msgstr ""
 
-#: includes/market.php:170
+#: includes/market.php:175
 msgid "Receive timely compatibility updates and bug fixes."
 msgstr ""
 
-#: includes/market.php:179
+#: includes/market.php:184
 msgid "Upgrade to Premium"
 msgstr ""
 
-#: includes/market.php:184
+#: includes/market.php:189
 msgid "Try with confidence"
 msgstr ""
 
-#: includes/market.php:190
+#: includes/market.php:195
 msgid "100% No Risk Money Back Guarantee"
 msgstr ""
 
-#: includes/market.php:194
+#: includes/market.php:199
 msgid "Fast and Proirity Support with 99% Satisfaction Rating"
 msgstr ""

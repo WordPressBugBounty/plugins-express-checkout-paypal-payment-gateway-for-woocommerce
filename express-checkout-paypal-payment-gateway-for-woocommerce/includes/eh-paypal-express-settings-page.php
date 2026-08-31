@@ -49,7 +49,7 @@ if ( isset( $eh_paypal['express_enabled'] ) ) {
 $log_file = '';
 if ( function_exists( 'wp_hash' ) ) {
 	$handle = 'eh_paypal_express_log';
-	$date_suffix = date( 'Y-m-d', time() );
+	$date_suffix = date( 'Y-m-d', time() ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date -- must match WC_Log_Handler_File::get_log_file_name() date format exactly.
 	$hash_suffix = wp_hash( $handle );
 	$log_file = sanitize_file_name( implode( '-', array( $handle, $date_suffix, $hash_suffix ) ) . '.log' );
 }
@@ -173,6 +173,7 @@ return array(
 	),
 
 	'express_button_on_pages'            => array(
+		/* translators: %s: "[Preview]" link that opens a thickbox image preview of the express button */
 		'title'    => sprintf(__( 'Show Express button on %s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), '<a  class="thickbox" href="' . EH_PAYPAL_MAIN_URL . 'assets/img/express_button_preview.png?TB_iframe=true&width=100&height=100"> <small> [Preview] </small> </a>'),
 		'type'     => 'multiselect',
 		'class'    => 'chosen_select express_toggle_display',
@@ -188,6 +189,7 @@ return array(
 		),
 	),
 	'credit_button_on_pages'             => array(
+		/* translators: %s: "[Preview]" link that opens a thickbox image preview of the credit button */
 		'title'    => sprintf(__( 'Show Express credit button on %s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), '<a  class="thickbox" href="' . EH_PAYPAL_MAIN_URL . 'assets/img/credit_button_preview.png?TB_iframe=true&width=100&height=100"> <small> [Preview] </small> </a>'),
 		'type'     => 'multiselect',
 		'class'    => 'chosen_select express_toggle_display',
@@ -236,7 +238,7 @@ return array(
 		'type'        => 'text',
 		'class'       => 'express_toggle_display',
 		'description' => __( 'Input the name of your store that will appear on the PayPal end.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
-		'default'     => sprintf(__( get_bloginfo( 'name', 'display' ) , 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
+		'default'     => get_bloginfo( 'name', 'display' ),
 		'desc_tip'    => true,
 		'custom_attributes' => array('maxlength'=>127),
 	),
@@ -336,6 +338,7 @@ return array(
 		'class'       => 'express_toggle_display',
 		'css'         => 'width:25em',
 		'description' => __( 'Enter the seller protection policy or customized text which will be displayed in order review page.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		/* translators: %s: site/store name */
 		'default'     => sprintf(__( 'You are Protected by %s Policy', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), get_bloginfo( 'name', 'display' )),
 		'desc_tip'    => true,
 	),
@@ -563,7 +566,7 @@ return array(
 		'type'        => 'text',
 		'class'       => 'smart_button_toggle_display',
 		'description' => __( 'Input the name of your store that will appear on the PayPal end.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
-		'default'     => sprintf(__( get_bloginfo( 'name', 'display' ), 'express-checkout-paypal-payment-gateway-for-woocommerce' )),
+		'default'     => get_bloginfo( 'name', 'display' ),
 		'desc_tip'    => true,
 		'custom_attributes' => array('maxlength'=>127),
 	),
@@ -664,6 +667,7 @@ return array(
 		'class'       => 'smart_button_toggle_display',
 		'css'         => 'width:25em',
 		'description' => __( 'Enter the seller protection policy or customized text which will be displayed in order review page.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
+		/* translators: %s: site/store name */
 		'default'     => sprintf(__( 'You are Protected by %s Policy', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), get_bloginfo( 'name', 'display' ) ),
 		'desc_tip'    => true,
 	),
@@ -674,12 +678,14 @@ return array(
 		'title'       => sprintf( __( 'Debug Logs', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
 		'type'        => 'title',
 		'class'       => 'eh-css-class',
+		/* translators: %1$s: opening anchor tag linking to the WooCommerce status logs page, %2$s: closing anchor tag */
 		'description' => sprintf( __( 'Records PayPal payment transactions into WooCommerce status log. %1$s  View log %2$s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), '<a href="' . admin_url( 'admin.php?page=wc-status&tab=logs' ) . '" target="_blank">', '</a>' ),
 	),
 	'paypal_logging'                     => array(
 		'title'       => __( ' Log', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'label'       => __( 'Enable', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		'type'        => 'checkbox',
+		/* translators: %1$s: opening span tag, %2$s: closing span tag, %3$s: log file name */
         'description' => sprintf(__('%1$sLog File%2$s: %3$s () ', 'express-checkout-paypal-payment-gateway-for-woocommerce'), '<span style="color:green">', '</span>', $log_file ),
 
 		'default'     => 'yes',
