@@ -28,6 +28,7 @@ class Eh_Paypal_Express_Hooks {
 			add_action( 'woocommerce_before_checkout_form', array( $this, 'eh_express_checkout_hook' ) ); // add express button in checkout page
 		}
 
+		add_filter( 'woocommerce_update_order_review_fragments', array( $this, 'paypal_cart_total_fragment' ) );
 		add_action( 'woocommerce_proceed_to_checkout', array( $this, 'eh_express_checkout_hook' ), 20 );
 		add_action( 'wp', array( $this, 'unset_express' ) );
 		add_action( 'woocommerce_cart_emptied', array( $this, 'unset_expres_cart_empty' ) );
@@ -35,8 +36,18 @@ class Eh_Paypal_Express_Hooks {
 		add_action( 'wp_ajax_eh_smart_button_recalculate_totals',        array( $this, 'eh_smart_button_recalculate_totals' ) );
 		add_action( 'wp_ajax_nopriv_eh_smart_button_recalculate_totals', array( $this, 'eh_smart_button_recalculate_totals' ) );
 	}
+	/** Keep BLIK's minimum amount check current after checkout totals change. */
+	public function paypal_cart_total_fragment( $fragments ) {
+		$fragments['#eh-paypal-cart-total'] = '<span id="eh-paypal-cart-total" hidden data-total="' . esc_attr( WC()->cart ? WC()->cart->get_total( 'edit' ) : 0 ) . '"></span>';
+		return $fragments;
+	}
+
 	public function unset_express() {
+		if ( ! WC()->session ) {
+			return;
+		}
 		if ( ( isset( $_REQUEST['cancel_express_checkout'] ) && ( 'cancel' === $_REQUEST['cancel_express_checkout'] ) ) ) {
+			WC()->session->set( 'eh_pe_created_paypal_order_id', null );
 			if ( isset( WC()->session->eh_pe_billing ) ) {
 				unset( WC()->session->eh_pe_billing );
 			}
@@ -51,6 +62,10 @@ class Eh_Paypal_Express_Hooks {
 		}
 	}
 	public function unset_expres_cart_empty() {
+		if ( ! WC()->session ) {
+			return;
+		}
+		WC()->session->set( 'eh_pe_created_paypal_order_id', null );
 		if ( isset( WC()->session->eh_pe_billing ) ) {
 			unset( WC()->session->eh_pe_billing );
 		}
@@ -69,10 +84,17 @@ class Eh_Paypal_Express_Hooks {
 		$state           = isset( $_POST['state'] )           ? wc_clean( wp_unslash( $_POST['state'] ) )           : '';
 		$postcode        = isset( $_POST['postcode'] )        ? wc_clean( wp_unslash( $_POST['postcode'] ) )        : '';
 		$city            = isset( $_POST['city'] )            ? wc_clean( wp_unslash( $_POST['city'] ) )            : '';
-		$paypal_order_id = isset( $_POST['paypal_order_id'] ) ? wc_clean( wp_unslash( $_POST['paypal_order_id'] ) ) : '';
+		$paypal_order_id = isset( $_POST['paypal_order_id'] ) && is_string( $_POST['paypal_order_id'] ) ? wp_unslash( $_POST['paypal_order_id'] ) : '';
  
 		if ( empty( $country ) || empty( $paypal_order_id ) ) {
 			wp_send_json( array( 'success' => false, 'allowed' => false, 'message' => 'Missing required parameters' ) );
+			return;
+		}
+
+		// Only patch the order created by the server for this visitor's session.
+		$session_order_id = WC()->session ? WC()->session->get( 'eh_pe_created_paypal_order_id' ) : null;
+		if ( ! preg_match( '/\A[A-Z0-9]{1,36}\z/', $paypal_order_id ) || ! is_string( $session_order_id ) || $session_order_id !== $paypal_order_id ) {
+			wp_send_json( array( 'success' => false, 'allowed' => false, 'message' => 'Invalid PayPal order' ) );
 			return;
 		}
  
@@ -178,7 +200,7 @@ class Eh_Paypal_Express_Hooks {
 			'timeout'     => 30,
 			'redirection' => 0,
 			'httpversion' => '1.1',
-			'sslverify'   => false,
+			'sslverify'   => true,
 			'blocking'    => true,
 			'headers'     => $headers,
 			'body'        => wp_json_encode( $patch_payload ),
@@ -262,7 +284,7 @@ class Eh_Paypal_Express_Hooks {
 			if ( isset( $this->eh_paypal_express_options['smart_button_description'] ) && '' !== $this->eh_paypal_express_options['smart_button_description'] ) {
 				$desc = '<div class="eh_paypal_express_description" ><small>-- ' . $this->eh_paypal_express_options['smart_button_description'] . ' --</small></div>';
 			}
-			$ex_button_output = '<center>';
+			$ex_button_output = $this->paypal_cart_total_fragment( array() )['#eh-paypal-cart-total'] . '<center>';
 			if ( $this->eh_express_button_enabled() ) {
 				if ( isset( $this->eh_paypal_express_options['smart_button_size'] ) ) {
 					if ( 'small' == $this->eh_paypal_express_options['smart_button_size'] ) {
@@ -409,18 +431,24 @@ class Eh_Paypal_Express_Hooks {
 				);
 				$c                 = 'create_order';
 				$intent            = 'capture';
+				$currency          = get_woocommerce_currency();
 				$locale            = ( 'yes' === $this->eh_paypal_express_options['smart_button_paypal_locale'] ) ? $this->get_locale( get_locale() ) : false;
 				$commit            = ( 'yes' === $this->eh_paypal_express_options['smart_button_skip_review'] ? 'true' : 'false' );
+				$funding_sources_disabled = ! empty( $this->eh_paypal_express_options['disable_funding_source'] ) ? (array) $this->eh_paypal_express_options['disable_funding_source'] : array();
+				$bancontact_enabled = ( 'EUR' === $currency && ! in_array( 'bancontact', $funding_sources_disabled, true ) );
+				$ideal_enabled = ( 'EUR' === $currency && ! in_array( 'ideal', $funding_sources_disabled, true ) );
+				$blik_enabled = ( 'PLN' === $currency && ! in_array( 'blik', $funding_sources_disabled, true ) );
+				$components = ( $bancontact_enabled || $ideal_enabled || $blik_enabled ) ? 'buttons,payment-fields,marks,funding-eligibility' : 'buttons';
 
-				 $paypal_script_url = esc_url(
+				 $paypal_script_url = esc_url_raw(
 					add_query_arg(
 						array(
 							'client-id'  => $client_id,
 							'intent'     => $intent,
-							'currency'   => get_woocommerce_currency(),
+							'currency'   => $currency,
 							'locale'     => $locale,
 							'commit'     => $commit,
-							'components' => 'buttons',
+							'components' => $components,
 							'debug'      => 'false',
 						),
 						'https://www.paypal.com/sdk/js'
@@ -429,28 +457,23 @@ class Eh_Paypal_Express_Hooks {
 
 				// Funding sources supported by paypal
 				$supported_payment_methods = array( 'paylater', 'venmo' );
+				if ( $bancontact_enabled ) {
+					$supported_payment_methods[] = 'bancontact';
+				}
+				if ( $ideal_enabled ) {
+					$supported_payment_methods[] = 'ideal';
+				}
 
-				if ( isset( $this->eh_paypal_express_options['disable_funding_source'] ) && ! empty( $this->eh_paypal_express_options['disable_funding_source'] ) ) {
+				if ( $blik_enabled ) {
+					$supported_payment_methods[] = 'blik';
+				}
 
-					$funding_sources_disabled = $this->eh_paypal_express_options['disable_funding_source'];
-					// get the funding sources except the disabled ones
-					$enabled_funding_sources = array_diff( $supported_payment_methods, $funding_sources_disabled );
-
-					if ( isset( $enabled_funding_sources ) && ! empty( $enabled_funding_sources ) ) {
-						// array to string conversion
-						$enabled_funding = implode( ',', $enabled_funding_sources );
-						// enable fundings except the disabled one
-						$paypal_script_url .= '&enable-funding=' . $enabled_funding;
-					}
-
-					$disabled_funding = implode( ',', $funding_sources_disabled );
-					if ( ! empty( $disabled_funding ) ) {
-						$paypal_script_url .= '&disable-funding=' . $disabled_funding;
-					}
-				} else {
-					// if there is no disabled funding, then enable all supported  fundings by PayPal
-					 $enabled_funding   = implode( ',', $supported_payment_methods );
-					$paypal_script_url .= '&enable-funding=' . $enabled_funding;
+				$enabled_funding_sources = array_diff( $supported_payment_methods, $funding_sources_disabled );
+				if ( ! empty( $enabled_funding_sources ) ) {
+					$paypal_script_url .= '&enable-funding=' . implode( ',', $enabled_funding_sources );
+				}
+				if ( ! empty( $funding_sources_disabled ) ) {
+					$paypal_script_url .= '&disable-funding=' . implode( ',', $funding_sources_disabled );
 				}
 
 				$paypal_script_url = apply_filters( 'wt_paypal_alter_script_url', $paypal_script_url );
@@ -476,7 +499,16 @@ class Eh_Paypal_Express_Hooks {
 					'label'          => $this->eh_paypal_express_options['button_label'],
 					'tagline'        => $this->eh_paypal_express_options['button_tagline'],
 					'locale'         => $locale,
+					'bancontact_enabled' => $bancontact_enabled ? 'yes' : 'no',
+					'ideal_enabled' => $ideal_enabled ? 'yes' : 'no',
+					'blik_enabled' => $blik_enabled ? 'yes' : 'no',
 					'page_name'      => $pagename,
+					'cart_billing_country'  => WC()->customer ? WC()->customer->get_billing_country() : '',
+					'cart_shipping_country' => WC()->customer ? WC()->customer->get_shipping_country() : '',
+					'cart_billing_first_name' => WC()->customer ? WC()->customer->get_billing_first_name() : '',
+					'cart_billing_last_name'  => WC()->customer ? WC()->customer->get_billing_last_name() : '',
+					'cart_billing_email'      => WC()->customer ? WC()->customer->get_billing_email() : '',
+					'cart_billing_phone'      => WC()->customer ? WC()->customer->get_billing_phone() : '',
 					'ajax_url'       => admin_url( 'admin-ajax.php' ),
 					'nonce'          => wp_create_nonce( 'eh_paypal_nonce' ),
 				);

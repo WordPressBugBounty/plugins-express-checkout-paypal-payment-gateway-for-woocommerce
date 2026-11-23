@@ -69,14 +69,17 @@ return array(
 		'label'       => sprintf( __( 'Express checkout', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
 		'type'        => 'checkbox',
 		'class'       => 'eh_paypal_mode',
-		'description' => 'Accept subscription payments with limited payment options and customization',
+		'description' => 'Accept subscription payments with limited payment options and customization'
+		    . '<div class="express_button_alert" style="color:#856404;background-color:#fff3cd;border-color:#ffeeba;padding:0.75rem 1.25rem;width:65%;margin-top:.6em;">'
+            . '⚠ Express Checkout is deprecated and will be removed in a future version. We recommend <br> switching to Smart Button.'
+            . '</div>',
 		'default'     => $express_button_default,
 	),
 	'smart_button_enabled'               => array(
 		'label'       => sprintf( __( 'Smart Button', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
 		'type'        => 'checkbox',
 		'class'       => 'eh_paypal_mode',
-		'description' => '<div class="eh_paypal_mode_desc"><div>Customize PayPal checkout and accept various payment options</div><div class="smart_button_alert"> <span>&#9888;</span> Subscription payments will be supported by express checkout only.</div></div>',
+		'description' => '<div class="eh_paypal_mode_desc"><div>Customize PayPal checkout and accept various payment options</div></div>',
 		'default'     => $smart_button_default,
 	),
 
@@ -364,7 +367,7 @@ return array(
 			'sandbox' => __( 'Sandbox mode', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 			'live'    => __( 'Live mode', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 		),
-		'description' => sprintf( __( '<div id="environment_alert_desc "></div>', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
+		'description' => sprintf( __( '<div id="smart_environment_alert_desc"></div>', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ),
 		'default'     => 'sandbox',
 		'desc_tip'    => __( 'Choose Sandbox mode to test payment using test API keys. Switch to live mode to accept payments with PayPal using live API keys.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ),
 	),

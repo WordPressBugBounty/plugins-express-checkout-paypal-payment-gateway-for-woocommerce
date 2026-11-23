@@ -5,10 +5,10 @@
  * Description: Accepts payments via PayPal, Credit/Debit cards, Paypal Credit, or Local Payment Methods based on country/device using PayPal Express/Smart button checkout.
  * Author: ThemeHigh
  * Author URI: https://www.themehigh.com/product/paypal-express-checkout-gateway-for-woocommerce/
- * Version: 1.9.5
+ * Version: 1.9.6
  * Requires Plugins:  woocommerce
  * WC requires at least: 9.5
- * WC tested up to: 11.0
+ * WC tested up to: 11.3
  * Text Domain: express-checkout-paypal-payment-gateway-for-woocommerce
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -25,8 +25,98 @@ if ( ! defined( 'EH_PAYPAL_MAIN_URL' ) ) {
 	define( 'EH_PAYPAL_MAIN_URL', plugin_dir_url( __FILE__ ) );
 }
 if ( ! defined( 'EH_PAYPAL_VERSION' ) ) {
-	define( 'EH_PAYPAL_VERSION', '1.9.5' );
+	define( 'EH_PAYPAL_VERSION', '1.9.6' );
 }
+
+/** Store the first activation time for time-based plugin notices and offers. */
+function eh_paypal_express_store_since() {
+	add_option( 'eh_paypal_express_since', time(), '', 'no' );
+}
+register_activation_hook( __FILE__, 'eh_paypal_express_store_since' );
+// Initialize the option for sites where the plugin was active before it existed.
+add_action( 'admin_init', 'eh_paypal_express_store_since' );
+
+/** Save a user's decision to dismiss the upgrade announcement. */
+function eh_paypal_express_discount_popup_actions() {
+	if ( ! isset( $_GET['eh_paypal_express_discount_popup_dismiss'] ) ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		return;
+	}
+
+	$nonce = isset( $_GET['eh_paypal_express_discount_popup_nonce'] )
+		? sanitize_text_field( wp_unslash( $_GET['eh_paypal_express_discount_popup_nonce'] ) )
+		: '';
+	if ( ! wp_verify_nonce( $nonce, 'eh_paypal_express_discount_popup_security' ) ) {
+		return;
+	}
+
+	update_user_meta( get_current_user_id(), 'eh_paypal_express_discount_popup', true );
+	wp_safe_redirect( remove_query_arg( array( 'eh_paypal_express_discount_popup_dismiss', 'eh_paypal_express_discount_popup_nonce' ) ) );
+	exit;
+}
+add_action( 'admin_init', 'eh_paypal_express_discount_popup_actions' );
+
+/** Display the upgrade offer on the PayPal gateway settings screen. */
+function eh_paypal_express_display_discount_announcement() {
+	if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		return;
+	}
+
+	$page    = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+	$tab     = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : '';
+	$section = isset( $_GET['section'] ) ? sanitize_key( wp_unslash( $_GET['section'] ) ) : '';
+	if ( 'wc-settings' !== $page || 'eh_paypal_express' !== $section || ! in_array( $tab, array( 'checkout', 'payments' ), true ) ) {
+		return;
+	}
+
+	$eh_paypal_express_since = get_option( 'eh_paypal_express_since', false );
+	if ( ! $eh_paypal_express_since || get_user_meta( get_current_user_id(), 'eh_paypal_express_discount_popup', true ) ) {
+		return;
+	}
+
+	$render_time = apply_filters( 'eh_paypal_express_show_discount_popup_render_time', 15 * DAY_IN_SECONDS );
+	if ( time() <= (int) $eh_paypal_express_since + $render_time ) {
+		return;
+	}
+
+	$settings_url = admin_url( 'admin.php?page=wc-settings&tab=' . $tab . '&section=eh_paypal_express' );
+	$dismiss_url  = add_query_arg(
+		array(
+			'eh_paypal_express_discount_popup_dismiss' => 'true',
+			'eh_paypal_express_discount_popup_nonce'   => wp_create_nonce( 'eh_paypal_express_discount_popup_security' ),
+		),
+		$settings_url
+	);
+	$offer_url = 'https://www.themehigh.com/?edd_action=add_to_cart&download_id=167872&cp=lyCDSy&utm_source=paypal_free&utm_medium=flat50&utm_campaign=paypal';
+	?>
+	<div class="eh-paypal-discount-popup" role="dialog" aria-modal="true" aria-labelledby="eh-paypal-discount-title">
+		<div class="eh-paypal-discount-popup__panel">
+			<div class="eh-paypal-discount-popup__offer">
+				<a class="eh-paypal-discount-popup__close" href="<?php echo esc_url( $dismiss_url ); ?>" aria-label="<?php esc_attr_e( 'Close offer', 'express-checkout-paypal-payment-gateway-for-woocommerce' ); ?>"><img src="<?php echo esc_url( EH_PAYPAL_MAIN_URL . 'assets/img/close.png' ); ?>" alt="" width="16" height="16"></a>
+				<p class="eh-paypal-discount-popup__intro"><?php esc_html_e( 'Exclusive offer for you.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ); ?></p>
+				<strong id="eh-paypal-discount-title"><?php esc_html_e( 'Flat 50% off', 'express-checkout-paypal-payment-gateway-for-woocommerce' ); ?></strong>
+				<p class="eh-paypal-discount-popup__subtitle"><?php esc_html_e( 'on your plan upgrade.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ); ?></p>
+				<p class="eh-paypal-discount-popup__expiry"><?php esc_html_e( 'Grab it before the offer ends.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ); ?></p>
+			</div>
+			<div class="eh-paypal-discount-popup__body">
+				<p><?php esc_html_e( 'Upgrade to PayPal Express Checkout Pro to unlock more payment options and checkout features.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ); ?></p>
+				<a class="eh-paypal-discount-popup__claim" href="<?php echo esc_url( $offer_url ); ?>" target="_blank" rel="noopener noreferrer" data-dismiss-url="<?php echo esc_url( $dismiss_url ); ?>"><?php esc_html_e( 'Claim Now', 'express-checkout-paypal-payment-gateway-for-woocommerce' ); ?></a>
+			</div>
+		</div>
+	</div>
+	<script>
+		document.querySelector('.eh-paypal-discount-popup__claim').addEventListener('click', function () {
+			window.setTimeout(function () {
+				window.location.assign(document.querySelector('.eh-paypal-discount-popup__claim').dataset.dismissUrl);
+			}, 0);
+		});
+	</script>
+	<?php
+}
+add_action( 'admin_footer', 'eh_paypal_express_display_discount_announcement' );
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
@@ -182,9 +272,19 @@ if ( ! function_exists( 'eh_express_checkout_paypal_payment_gateway_for_woocomme
 	}
 }
 
-//Decale compatibility with HPOS table
+//Declare compatibility with HPOS table and checkout/cart blocks
 add_action( 'before_woocommerce_init', function() {
     if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
         \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
     }
+} );
+
+// Register WooCommerce Checkout Block payment method integrations
+add_action( 'woocommerce_blocks_payment_method_type_registration', function( $registry ) {
+	if ( ! class_exists( 'Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType' ) ) {
+		return;
+	}
+	require_once EH_PAYPAL_MAIN_PATH . 'blocks/class-eh-paypal-smart-button-blocks.php';
+	$registry->register( new EH_PayPal_Smart_Button_Blocks() );
 } );

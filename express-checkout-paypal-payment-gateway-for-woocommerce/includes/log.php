@@ -14,18 +14,17 @@ class Eh_PayPal_Log {
 	public static function remove_data( $incoming_data ) {
 		$data = (array) $incoming_data;
 
-		if ( apply_filters( 'wt_paypal_show_sensitive_data', false ) === true ) {
-			return $data;
-		} else {
-			unset( $data['USER'] );
-			unset( $data['PWD'] );
-			unset( $data['SIGNATURE'] );
-			unset( $data['VERSION'] );
-			unset( $data['client_id'] );
-			unset( $data['client_secret'] );
-			unset( $data['access_token'] );
-			return $data;
+		$show_sensitive = true === apply_filters( 'wt_paypal_show_sensitive_data', false );
+		$sensitive_keys = array( 'USER', 'PWD', 'SIGNATURE', 'VERSION', 'client_id', 'client_secret', 'access_token' );
+		foreach ( $data as $key => $value ) {
+			// Never log HTTP authentication headers, including encoded credentials.
+			if ( 'authorization' === strtolower( (string) $key ) || ( ! $show_sensitive && in_array( $key, $sensitive_keys, true ) ) ) {
+				unset( $data[ $key ] );
+			} elseif ( is_array( $value ) ) {
+				$data[ $key ] = self::remove_data( $value );
+			}
 		}
+		return $data;
 	}
 
 	public static function log_update( $mg, $title, $type = null ) {

@@ -17,24 +17,10 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 		$this->supports           = array(
 			'products',
 		);
-        $this->payment_mode = isset( $_POST['woocommerce_eh_paypal_express_smart_button_enabled'] ) 
-			? 'yes' 
-			: ( isset( $_POST['woocommerce_eh_paypal_express_express_checkout'] ) 
-				? 'no'                                    // admin saving with express checked
-				: $this->get_option( 'smart_button_enabled' ) // frontend – read from DB
-			);
-		
 		$this->init_form_fields();
 		$this->init_settings();
 		$this->enabled                     = $this->get_option( 'enabled' );
-        $this->environment = (isset($_POST['woocommerce_eh_paypal_express_environment'])) ? sanitize_text_field( $_POST['woocommerce_eh_paypal_express_environment'] ) : $this->get_option('environment');  
-        $this->smart_button_environment = (isset($_POST['woocommerce_eh_paypal_express_smart_button_environment'])) ? sanitize_text_field( $_POST['woocommerce_eh_paypal_express_smart_button_environment'] ) : $this->get_option('smart_button_environment'); 
-        $this->sandbox_username = (isset($_POST["woocommerce_eh_paypal_express_sandbox_username"])) ? sanitize_text_field( $_POST["woocommerce_eh_paypal_express_sandbox_username"] ) : $this->get_option("sandbox_username");
-        $this->sandbox_password = (isset($_POST["woocommerce_eh_paypal_express_sandbox_password"])) ? sanitize_text_field( $_POST["woocommerce_eh_paypal_express_sandbox_password"] ) : $this->get_option("sandbox_password");
-        $this->sandbox_signature = (isset($_POST["woocommerce_eh_paypal_express_sandbox_signature"])) ? sanitize_text_field( $_POST["woocommerce_eh_paypal_express_sandbox_signature"] ) : $this->get_option("sandbox_signature");
-        $this->live_username = (isset($_POST["woocommerce_eh_paypal_express_live_username"])) ? sanitize_text_field( $_POST["woocommerce_eh_paypal_express_live_username"] ) : $this->get_option('live_username');
-        $this->live_password = (isset($_POST["woocommerce_eh_paypal_express_live_password"])) ? sanitize_text_field( $_POST["woocommerce_eh_paypal_express_live_password"] ) : $this->get_option('live_password');
-        $this->live_signature = (isset($_POST["woocommerce_eh_paypal_express_live_signature"])) ? sanitize_text_field( $_POST["woocommerce_eh_paypal_express_live_signature"] ) : $this->get_option('live_signature');
+		$this->load_api_settings();
 
         $this->express_enabled = ("yes" === $this->get_option('express_enabled'));
         $this->credit_checkout = ("yes" === $this->get_option('credit_checkout'));
@@ -66,37 +52,12 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
             $this->title = $this->get_option('smart_button_title');            
             $this->description = $this->get_option('smart_button_gateway_description');
 			
-			if ( 'sandbox' === $this->smart_button_environment ) {
-				$this->client_id     = (isset($_POST["woocommerce_eh_paypal_express_sandbox_client_id"])) ? sanitize_text_field( $_POST["woocommerce_eh_paypal_express_sandbox_client_id"] ) : $this->get_option("sandbox_client_id");
-				$this->client_secret = (isset($_POST["woocommerce_eh_paypal_express_sandbox_client_secret"])) ? sanitize_text_field( $_POST["woocommerce_eh_paypal_express_sandbox_client_secret"] ) : $this->get_option("sandbox_client_secret");
-				$this->rest_api_url  = 'https://api-m.sandbox.paypal.com';
-			} else {
-				$this->client_id     = (isset($_POST["woocommerce_eh_paypal_express_live_client_id"])) ? sanitize_text_field( $_POST["woocommerce_eh_paypal_express_live_client_id"] ) : $this->get_option("live_client_id");
-				$this->client_secret = (isset($_POST["woocommerce_eh_paypal_express_live_client_secret"])) ? sanitize_text_field( $_POST["woocommerce_eh_paypal_express_live_client_secret"] ) : $this->get_option("live_client_secret");
-				$this->rest_api_url  = 'https://api-m.paypal.com';
-			}
-
-
             //Override seller policy
             $this->policy_notes = $this->get_option('smart_button_policy_notes');
 
 		} else {
 			$this->title = $this->get_option( 'title' );
 			$this->description = $this->get_option( 'description' );
-
-			if ( 'sandbox' === $this->environment ) {
-				$this->api_username  = $this->sandbox_username;
-				$this->api_password  = $this->sandbox_password;
-				$this->api_signature = $this->sandbox_signature;
-				$this->nvp_url       = 'https://api-3t.sandbox.paypal.com/nvp';
-				$this->scr_url       = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-			} else {
-				$this->api_username  = $this->live_username;
-				$this->api_password  = $this->live_password;
-				$this->api_signature = $this->live_signature;
-				$this->nvp_url       = 'https://api-3t.paypal.com/nvp';
-				$this->scr_url       = 'https://www.paypal.com/cgi-bin/webscr';
-			}
 		}
 
 		// if (!has_action('woocommerce_api_' . strtolower('Eh_PayPal_Express_Payment'))) {
@@ -112,6 +73,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 		add_action( 'wp_enqueue_scripts', array( $this, 'payment_scripts' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_review_order_after_payment', array( $this, 'add_policy_notes' ) );
+		add_action( 'woocommerce_after_calculate_totals', array( $this, 'eh_sync_review_order_cart_hash' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
         add_action( 'admin_enqueue_scripts', array($this, 'wt_paypal_load_media') );
 
@@ -123,20 +85,86 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 	public function init_form_fields() {
 		$this->form_fields = include 'eh-paypal-express-settings-page.php';
+		// Remove Express Checkout fields for new users.
+        if ( ! self::is_legacy_express_user() ) {
+            $express_keys = array(
+                'express_checkout',
+                'paypal_prerequesties',
+            );
+
+            foreach ( $express_keys as $key ) {
+                unset( $this->form_fields[ $key ] );
+            }
+        }
+	}
+
+	/**
+	 * Load the connection from saved options, or validated admin settings.
+	 *
+	 * @param array $settings Validated settings supplied by the admin save handler.
+	 */
+	protected function load_api_settings( $settings = array() ) {
+		$keys = array(
+			'smart_button_enabled', 'environment', 'smart_button_environment',
+			'sandbox_username', 'sandbox_password', 'sandbox_signature',
+			'live_username', 'live_password', 'live_signature',
+			'sandbox_client_id', 'sandbox_client_secret', 'live_client_id', 'live_client_secret',
+		);
+		foreach ( $keys as $key ) {
+			$settings[ $key ] = array_key_exists( $key, $settings ) ? $settings[ $key ] : $this->get_option( $key );
+		}
+
+		$this->payment_mode = $settings['smart_button_enabled'];
+		$this->environment = $settings['environment'];
+		$this->smart_button_environment = $settings['smart_button_environment'];
+		foreach ( array( 'sandbox_username', 'sandbox_password', 'sandbox_signature', 'live_username', 'live_password', 'live_signature' ) as $key ) {
+			$this->$key = $settings[ $key ];
+		}
+
+		$rest_environment = 'sandbox' === $this->smart_button_environment ? 'sandbox' : 'live';
+		$this->client_id = $settings[ $rest_environment . '_client_id' ];
+		$this->client_secret = $settings[ $rest_environment . '_client_secret' ];
+		$this->rest_api_url = 'sandbox' === $rest_environment ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
+
+		$environment = 'sandbox' === $this->environment ? 'sandbox' : 'live';
+		$this->api_username = $settings[ $environment . '_username' ];
+		$this->api_password = $settings[ $environment . '_password' ];
+		$this->api_signature = $settings[ $environment . '_signature' ];
+		$this->nvp_url = 'sandbox' === $environment ? 'https://api-3t.sandbox.paypal.com/nvp' : 'https://api-3t.paypal.com/nvp';
+		$this->scr_url = 'sandbox' === $environment ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
 	}
 
 	public function process_admin_options() {
+		// WooCommerce checks these before firing the save hook; also guard direct calls.
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			return false;
+		}
+		check_admin_referer( 'woocommerce-settings' );
+
+		$post_data = $this->get_post_data();
+		$settings = array();
+		try {
+			foreach ( $this->get_form_fields() as $key => $field ) {
+				if ( 'title' !== $this->get_field_type( $field ) ) {
+					$settings[ $key ] = $this->get_field_value( $key, $field, $post_data );
+				}
+			}
+		} catch ( Exception $e ) {
+			WC_Admin_Settings::add_error( $e->getMessage() );
+			return false;
+		}
+		$previous_token_key = $this->get_access_token_transient_key();
+		$this->load_api_settings( $settings );
 
 		if ( 'yes' == $this->payment_mode ) { 
-			if ( false !== get_transient( 'eh_access_token' ) ) {
-				delete_transient( 'eh_access_token' );
-			}
+			delete_transient( $this->get_access_token_transient_key() );
             $request_process = new Eh_PE_Process_Request();
             $request_build = $this->new_rest_request(); 
             $token = $this->get_access_token($request_process, $request_build, false);
             if(false ===  $token){ 
                 WC_Admin_Settings::add_error(__('Invalid PayPal Credentials. Please check and enter valid credentials in the plugin settings here.', 'express-checkout-paypal-payment-gateway-for-woocommerce'));
-				return;
+				$this->load_api_settings();
+				return false;
             }			
 		}
 		else{ 
@@ -153,7 +181,8 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
                 update_option('eh_paypal_express_payer_id', $response['PAL']);
             } else {
                 WC_Admin_Settings::add_error(__('Invalid PayPal Credentials. Please check and enter valid credentials in the plugin settings here.', 'express-checkout-paypal-payment-gateway-for-woocommerce'));
-				return;
+				$this->load_api_settings();
+				return false;
             }
 		}
 
@@ -174,6 +203,10 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 			$eh_paypal['express_on_checkout_page'] = 'no';
 		}
 		update_option( 'woocommerce_eh_paypal_express_settings', $eh_paypal );
+		delete_transient( 'eh_access_token' );
+		if ( $previous_token_key !== $this->get_access_token_transient_key() || 'yes' !== $this->payment_mode ) {
+			delete_transient( $previous_token_key );
+		}
 	}
 
 	public function is_available() {
@@ -430,12 +463,12 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
                                 if ( 'live' === $( this ).val() ) {
                                         $( eh_paypal_smart_live  ).show();
                                         $( eh_paypal_smart_sandbox ).hide();
-                                        $( '#environment_alert_desc').html('Get your <a target=\'_blank\' href=\'https://www.paypal.com/us/cgi-bin/webscr?cmd=_login-api-run\'> Live</a> API credentials from PayPal account.');
+                                        $( '#smart_environment_alert_desc').html('Get your <a target=\'_blank\' href=\'https://www.paypal.com/us/cgi-bin/webscr?cmd=_login-api-run\'> Live</a> API credentials from PayPal account.');
 
                                 } else {
                                         $( eh_paypal_smart_live ).hide();
                                         $( eh_paypal_smart_sandbox ).show();
-                                        $( '#environment_alert_desc').html('Get your <a href=\'https://developer.paypal.com/developer/accounts/\'> Sandbox</a> API credentials from PayPal developer account.');
+                                        $( '#smart_environment_alert_desc').html('Get your <a href=\'https://developer.paypal.com/developer/accounts/\'> Sandbox</a> API credentials from PayPal developer account.');
                                     
                                 }
                             }).change();
@@ -497,7 +530,26 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 			}
 		}
 
+		if ( ! isset( WC()->session->post_data ) || ! is_array( WC()->session->post_data ) ) {
+			WC()->session->post_data = array();
+		}
+		$has_checkout_form_data = isset( $_REQUEST['eh_paypal_checkout_form_data'] ) && is_string( $_REQUEST['eh_paypal_checkout_form_data'] );
+		if ( $has_checkout_form_data ) {
+			$form_data = array();
+			parse_str( wp_unslash( $_REQUEST['eh_paypal_checkout_form_data'] ), $form_data );
+			unset( $form_data['payment_method'], $form_data['createaccount'], $form_data['account_username'], $form_data['account_password'] );
+			// Missing inputs (for example an unchecked required checkbox) must not retain a previous value.
+			WC()->session->post_data = wc_clean( $form_data );
+			unset( $_REQUEST['eh_paypal_checkout_form_data'] );
+		}
+		// Checkout Blocks sends its current billing details with local payment requests.
 		$checkout_post = WC()->session->post_data;
+		foreach ( array( 'billing_first_name', 'billing_last_name', 'billing_country', 'billing_email', 'billing_phone' ) as $billing_key ) {
+			if ( isset( $_REQUEST[ $billing_key ] ) && is_string( $_REQUEST[ $billing_key ] ) ) {
+				$checkout_post[ $billing_key ] = sanitize_text_field( wp_unslash( $_REQUEST[ $billing_key ] ) );
+			}
+		}
+		WC()->session->post_data = $checkout_post;
 
 		if ( empty( $_GET ) && isset( $_SERVER['REQUEST_URI'] ) ) {         // #5015   https://mozilor.atlassian.net/browse/PECPGFW-45   $_GET has empty data on finish_express
 			$parts = wp_parse_url( esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
@@ -1223,7 +1275,34 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 				exit;
 			// -----------------------------start smart button integration API calls-------------------//
 			case 'create_order':
+				// A new attempt must not retain authorization to update an older order.
+				WC()->session->set( 'eh_pe_created_paypal_order_id', null );
+				WC()->session->set( 'eh_pe_funding_source', null );
 				$eh_paypal = get_option( 'woocommerce_eh_paypal_express_settings' );
+				$funding_source = isset( $_REQUEST['funding_source'] ) && is_string( $_REQUEST['funding_source'] )
+					? sanitize_text_field( wp_unslash( $_REQUEST['funding_source'] ) ) : '';
+				if ( $has_checkout_form_data && in_array( $funding_source, array( 'bancontact', 'ideal', 'blik' ), true ) && ! isset( $_REQUEST['pay_for_order'] ) ) {
+					$validator = new Eh_PE_Checkout_Validation();
+					list( $checkout_post, $field_errors ) = $validator->validate_fields( $checkout_post, ! empty( $_REQUEST['eh_paypal_block_checkout'] ) );
+					if ( $field_errors->has_errors() ) {
+						foreach ( $field_errors->get_error_messages() as $message ) {
+							wc_add_notice( $message, 'error' );
+						}
+						wp_send_json( array(
+							'error'    => implode( ' ', array_map( 'wp_strip_all_tags', $field_errors->get_error_messages() ) ),
+							'messages' => wc_print_notices( true ),
+						), 400 );
+					}
+					WC()->session->post_data = $checkout_post;
+				}
+				$disabled_funding = ! empty( $eh_paypal['disable_funding_source'] ) ? (array) $eh_paypal['disable_funding_source'] : array();
+				if ( 'ideal' === $funding_source && ( 'EUR' !== get_woocommerce_currency() || in_array( 'ideal', $disabled_funding, true ) || 'NL' !== ( $checkout_post['billing_country'] ?? '' ) ) ) {
+					wp_send_json( array( 'error' => __( 'iDEAL is available only for customers in the Netherlands paying in EUR.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ), 400 );
+				}
+				if ( 'blik' === $funding_source && ( 'PLN' !== get_woocommerce_currency() || in_array( 'blik', $disabled_funding, true ) || 'PL' !== ( $checkout_post['billing_country'] ?? '' ) || ! WC()->cart || (float) WC()->cart->get_total( 'edit' ) < 1 ) ) {
+					wp_send_json( array( 'error' => __( 'BLIK requires a Polish billing country and a payment of at least 1 PLN.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) ), 400 );
+				}
+				$funding_source = ( in_array( $funding_source, array( 'ideal', 'blik' ), true ) || ( 'bancontact' === $funding_source && 'EUR' === get_woocommerce_currency() && ! in_array( 'bancontact', $disabled_funding, true ) ) ) ? $funding_source : '';
 
 				$request_process = new Eh_PE_Process_Request();
 				$request_build   = $this->new_rest_request();
@@ -1314,12 +1393,15 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 							'pay_for_order'        => isset( $_REQUEST['pay_for_order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['pay_for_order'] ) ) : false,
 							'save_abandoned_order' => $this->save_abandoned_order,
 							'user_action'          => ( 'yes' == $eh_paypal['smart_button_skip_review'] ) ? 'PAY_NOW' : 'CONTINUE',
+							'funding_source'       => $funding_source,
 						)
 					);
 
 					$response = $request_process->process_request( $request_params, $this->rest_api_url . '/v2/checkout/orders', true );
 					Eh_PayPal_Log::log_update( wp_json_encode( $response, JSON_PRETTY_PRINT ), 'Response on Create Order API', 'json' );
 					if ( isset( $response['id'] ) && ! empty( $response['id'] ) ) {
+						WC()->session->set( 'eh_pe_created_paypal_order_id', $response['id'] );
+						WC()->session->set( 'eh_pe_funding_source', $funding_source );
 						if ( isset( $_REQUEST['type'] ) && 'ajax' == $_REQUEST['type'] ) {
 
 							print wp_json_encode( $response );
@@ -1395,6 +1477,13 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 				break;
 
 			case 'order_details':
+				// Validate the return token before creating a WooCommerce order or contacting PayPal.
+				$paypal_order_id = isset( $_REQUEST['token'] ) && is_string( $_REQUEST['token'] ) ? wp_unslash( $_REQUEST['token'] ) : '';
+				$session_order_id = WC()->session ? WC()->session->get( 'eh_pe_created_paypal_order_id' ) : null;
+				if ( ! preg_match( '/\A[A-Z0-9]{1,36}\z/', $paypal_order_id ) || ! is_string( $session_order_id ) || $session_order_id !== $paypal_order_id ) {
+					wc_add_notice( __( 'Your PayPal checkout session is invalid or has expired. Please start checkout again.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
+					return;
+				}
 				// create order only if save abondoned orderis disabled and is not an order pay page
 				if ( ( ! isset( $_REQUEST['pay_for_order'] ) || ! sanitize_text_field( wp_unslash( $_REQUEST['pay_for_order'] ) ) ) && ! $this->save_abandoned_order ) {
 					$order_id = $this->create_wc_order( $checkout_post );
@@ -1404,10 +1493,6 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 					WC()->session->invoice_id_exist = 'no';
 
 				}
-				if ( ! isset( $_REQUEST['token'] ) ) {
-					return;
-				}
-				$paypal_order_id = sanitize_text_field( wp_unslash( $_REQUEST['token'] ) );
 				try {
 					$eh_paypal          = get_option( 'woocommerce_eh_paypal_express_settings' );
 					$request_process    = new Eh_PE_Process_Request();
@@ -1427,7 +1512,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 					$response = $request_process->process_request( $request_params, $this->rest_api_url . '/v2/checkout/orders/' . $paypal_order_id, true );
 					Eh_PayPal_Log::log_update( wp_json_encode( $response, JSON_PRETTY_PRINT ), 'Response on Order Details', 'json' );
-					if ( ! empty( $response ) && isset( $response['status'] ) && 'APPROVED' == $response['status'] ) {
+					if ( ! empty( $response ) && isset( $response['status'] ) && in_array( $response['status'], array( 'APPROVED', 'COMPLETED' ), true ) ) {
 						if ( ! isset( $order ) ) {
 							$order_id = ( isset( $response['purchase_units'][0]['invoice_id'] ) ? $response['purchase_units'][0]['invoice_id'] : null );
 							if ( isset( $eh_paypal['smart_button_invoice_prefix'] ) && ! empty( $eh_paypal['smart_button_invoice_prefix'] ) ) {
@@ -1544,14 +1629,16 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 							}
 						}
 
+						$is_sdk_apm = in_array( WC()->session->get( 'eh_pe_funding_source' ), array( 'ideal', 'blik' ), true );
+						$paypal_shipping = ! empty( $response['purchase_units'][0]['shipping']['address'] );
 						WC()->session->eh_pe_checkout        = array(
 							'paypal_order_id' => $response['id'],
-							'shipping'        => $this->shipping_parse( $response, 'rest' ),
+							'shipping'        => ( $is_sdk_apm && ! $paypal_shipping ) ? $order->get_address( 'shipping' ) : $this->shipping_parse( $response, 'rest' ),
 							'payer_id'        => isset( $response['payer']['payer_id'] ) ? $response['payer']['payer_id'] : '',
 							'order_id'        => $order_id,
 						);
 						WC()->session->shiptoname            = isset( $response['purchase_units'][0]['shipping']['name']['full_name'] ) ? $response['purchase_units'][0]['shipping']['name']['full_name'] : '';
-						WC()->session->payeremail            = $response['payer']['email_address'];
+						WC()->session->payeremail            = isset( $response['payer']['email_address'] ) ? $response['payer']['email_address'] : ( isset( $checkout_post['billing_email'] ) ? $checkout_post['billing_email'] : WC()->customer->get_billing_email() );
 						WC()->session->chosen_payment_method = get_class( $this );
 						wc_clear_notices();
 					} elseif ( isset( $response['name'] ) ) {
@@ -1569,7 +1656,8 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 					// user's billing address is set to address from paypal response if payment processed by smart button
 					$req_type = ( ( isset( $_REQUEST['type'] ) && 'ajax' == $_REQUEST['type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['type'] ) ) : '' );
 
-					if ( !empty( $req_type ) && 'ajax' === $req_type ) {
+					$has_paypal_shipping = ! empty( $response['purchase_units'][0]['shipping']['address'] );
+					if ( !empty( $req_type ) && 'ajax' === $req_type && ( ( ! $is_sdk_apm && 'COMPLETED' !== $response['status'] ) || $has_paypal_shipping ) ) {
 						$alter_billing = apply_filters('eh_paypal_alter_billing_address_with_paypal_response', true);
 					
 						if ( $alter_billing ) {
@@ -1579,7 +1667,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 					}
 
                     //if order contain only virtual products then no need to set shipping address 
-                    if(false === $this->wt_order_contain_virtual_products($order)){ 
+                    if ( false === $this->wt_order_contain_virtual_products( $order ) && ( ( ! $is_sdk_apm && 'COMPLETED' !== $response['status'] ) || $has_paypal_shipping ) ) {
 						$order = wc_get_order( $order_id );					 					 
 						$order->set_address( WC()->session->eh_pe_checkout['shipping'], 'shipping' );
 						$order->save();
@@ -1587,6 +1675,37 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 					}
 
 					$order->set_payment_method( WC()->session->chosen_payment_method );
+
+					if ( 'COMPLETED' === $response['status'] ) {
+							if ( $this->eh_should_empty_cart_after_capture( $response ) ) {
+								WC()->cart->empty_cart();
+							}
+						$this->finish_rest_request( $response, $order_id, $order );
+						return;
+					}
+					if ( $is_sdk_apm ) {
+						$capture_params = $request_build->capture_order(
+							array(
+								'access_token' => $this->access_token,
+								'id'           => $paypal_order_id,
+							)
+						);
+						$capture_response = $request_process->process_request( $capture_params, $this->rest_api_url . '/v2/checkout/orders/' . $paypal_order_id . '/capture/', true );
+						Eh_PayPal_Log::log_update( wp_json_encode( $capture_response, JSON_PRETTY_PRINT ), 'Response on Local Payment Capture Order', 'json' );
+						if ( isset( $capture_response['status'] ) && 'COMPLETED' === $capture_response['status'] ) {
+								if ( $this->eh_should_empty_cart_after_capture( $capture_response ) ) {
+									WC()->cart->empty_cart();
+								}
+							$this->finish_rest_request( $capture_response, $order_id, $order );
+							return;
+						}
+							if ( 'blik' === WC()->session->get( 'eh_pe_funding_source' ) ) {
+								$this->eh_clear_failed_blik_checkout();
+							}
+						wc_add_notice( __( 'The local payment could not be confirmed. Please try again or contact the store.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
+						wp_safe_redirect( wc_get_checkout_url() );
+						return;
+					}
 
 					if ( 'yes' == $eh_paypal['smart_button_skip_review'] ) {
 
@@ -1634,6 +1753,8 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
                         //set this session to exclude the stock held by the current order
                         WC()->session->set( 'order_awaiting_payment', $order_id );
+                        WC()->session->set( 'store_api_draft_order', $order_id );
+						$this->eh_sync_review_order_cart_hash( WC()->cart );
 
 						wp_safe_redirect( wc_get_checkout_url() );
 					}
@@ -1981,6 +2102,7 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 				break;
 
 			case 'cancel_order':
+				WC()->session->set( 'eh_pe_funding_source', null );
 				$cancel_url = WC()->session->get( 'eh_cancel_url' );
 				if ( ! empty( $cancel_url ) ) {
 					wp_safe_redirect( $cancel_url );
@@ -2319,6 +2441,31 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 				'redirect' => $return_url,
 			);
 			wp_safe_redirect( $result['redirect'] );
+		} elseif ( isset( $eh_settings['smart_button_enabled'] ) && 'yes' === $eh_settings['smart_button_enabled'] && ! isset( WC()->session->eh_pe_checkout ) ) {
+			$redirect_url = add_query_arg(
+				array(
+					'p'             => wc_get_checkout_url(),
+					'order_id'      => $order_id,
+					'pay_for_order' => 1,
+				),
+				eh_paypal_express_run()->hook_include->make_express_url( 'create_order' )
+			);
+
+			$result = array(
+				'result'   => 'success',
+				'redirect' => $redirect_url,
+			);
+
+			// The Store API reads the redirect from the gateway's return value.
+			if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+				return $result;
+			}
+
+			if ( wp_doing_ajax() ) {
+				wp_send_json( $result );
+			} else {
+				wp_safe_redirect( $result['redirect'] );
+			}
 		} elseif ( isset( WC()->session->eh_pe_checkout ) ) {
 
 			// if payment via express checkout
@@ -2356,6 +2503,9 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 					'redirect' => $return_url,
 				);
 
+			}
+			if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+				return $result;
 			}
 			if ( wp_doing_ajax() ) {
 				wp_send_json( $result );
@@ -2779,8 +2929,18 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 		return $icon;
 	}
 
+	/**
+	 * Keep OAuth tokens isolated by PayPal environment and account.
+	 *
+	 * @return string
+	 */
+	protected function get_access_token_transient_key() {
+		return 'eh_access_token_' . hash( 'sha256', $this->rest_api_url . '|' . $this->client_id );
+	}
+
 	public function get_access_token( $request_process, $request_build, $frontend = true ) {
-		$this->access_token = get_transient( 'eh_access_token' );
+		$token_key = $this->get_access_token_transient_key();
+		$this->access_token = get_transient( $token_key );
 		if ( false === $this->access_token ) { 
 			$auth_token_rqst = $request_build->get_token($this);
 			$response        = $request_process->process_request( $auth_token_rqst, $this->rest_api_url . '/v1/oauth2/token', true );
@@ -2788,8 +2948,11 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 			Eh_PayPal_Log::log_update(json_encode($auth_token_rqst, JSON_PRETTY_PRINT),'Access token request', 'json');
 			Eh_PayPal_Log::log_update(json_encode($response, JSON_PRETTY_PRINT),'Access token response', 'json');
 			if ( ! empty( $response ) && isset( $response['access_token'] ) ) {
-				// store access token together with it's expiration
-				set_transient( 'eh_access_token', $response['access_token'], $response['expires_in'] );
+				// Cache only a known lifetime, with a buffer for network and clock delays.
+				$expires_in = isset( $response['expires_in'] ) && is_numeric( $response['expires_in'] ) ? (int) $response['expires_in'] : 0;
+				if ( $expires_in > 60 ) {
+					set_transient( $token_key, $response['access_token'], $expires_in - 60 );
+				}
 				$this->access_token = $response['access_token'];
 				return $this->access_token;
 			} elseif ( isset( $response['error'] ) ) {
@@ -2810,9 +2973,32 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 
 
 
+	/** Keep the cart available when a completed PayPal order contains an unsuccessful BLIK capture. */
+	protected function eh_should_empty_cart_after_capture( $response ) {
+		if ( 'blik' !== WC()->session->get( 'eh_pe_funding_source' ) ) {
+			return true;
+		}
+
+		$capture_status = $response['purchase_units'][0]['payments']['captures'][0]['status'] ?? '';
+		return in_array( $capture_status, array( 'COMPLETED', 'PENDING' ), true );
+	}
+
+	/** Release a failed BLIK attempt so the buyer can start checkout again. */
+	protected function eh_clear_failed_blik_checkout() {
+		$this->eh_invalidate_stale_review_session();
+		unset( WC()->session->order_awaiting_payment );
+		WC()->session->set( 'eh_pe_created_paypal_order_id', null );
+		WC()->session->set( 'eh_pe_funding_source', null );
+	}
+
 	public function finish_rest_request( $response, $order_id, $order ) {
 
+		$is_blik = 'blik' === WC()->session->get( 'eh_pe_funding_source' );
 		unset( WC()->session->pay_for_order );
+		unset( WC()->session->order_awaiting_payment );
+		unset( WC()->session->store_api_draft_order );
+		WC()->session->set( 'eh_pe_created_paypal_order_id', null );
+		WC()->session->set( 'eh_pe_funding_source', null );
 		$eh_paypal = get_option( 'woocommerce_eh_paypal_express_settings' );
 
 		$p_status = $response['status'];
@@ -2821,10 +3007,22 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 			'status'       => 'Sale',
 			'trans_id'     => $p_id,
 			'payment_type' => 'rest',
-			'capture_id'   => $response['purchase_units'][0]['payments']['captures'][0]['id'],
+			'capture_id'   => isset( $response['purchase_units'][0]['payments']['captures'][0]['id'] ) ? $response['purchase_units'][0]['payments']['captures'][0]['id'] : $p_id,
 		);
-		$p_time   = str_replace( 'T', ' ', str_replace( 'Z', ' ', $response['purchase_units'][0]['payments']['captures'][0]['create_time'] ) );
+		$p_time   = isset( $response['purchase_units'][0]['payments']['captures'][0]['create_time'] ) ? str_replace( 'T', ' ', str_replace( 'Z', ' ', $response['purchase_units'][0]['payments']['captures'][0]['create_time'] ) ) : '';
 
+		if ( $is_blik ) {
+			$capture = $response['purchase_units'][0]['payments']['captures'][0] ?? array();
+			$p_status = $capture['status'] ?? 'UNKNOWN';
+			if ( 'PENDING' === $p_status ) {
+				$order->set_transaction_id( $p_id );
+				$order->update_status( 'on-hold', __( 'BLIK capture is pending confirmation from PayPal. Verify settlement before fulfilling this order.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ) );
+				$order->save();
+				wc_clear_notices();
+				wp_safe_redirect( $this->get_return_url( $order ) );
+				return;
+			}
+		}
 		if ( strtolower( $p_status ) == 'completed' ) {
 
 			/* translators: 1: payment status, 2: payment time, 3: transaction ID */
@@ -2836,7 +3034,14 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
 		} else {
 			$order->update_status( 'failed' );
 			/* translators: 1: payment status, 2: payment time, 3: transaction ID, 4: reason */
-			$order->add_order_note( sprintf( __( 'Payment Status : %1$s [ %2$s ] <br>Transaction ID : %3$s.<br>Reason : %4$s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), $p_status, $p_time, $p_id, $p_reason ) );
+			$order->add_order_note( sprintf( __( 'Payment Status : %1$s [ %2$s ] <br>Transaction ID : %3$s.<br>Reason : %4$s', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), $p_status, $p_time, $p_id, $response['purchase_units'][0]['payments']['captures'][0]['status_details']['reason'] ?? '' ) );
+			if ( $is_blik ) {
+				$this->eh_clear_failed_blik_checkout();
+				wc_clear_notices();
+				wc_add_notice( __( 'BLIK payment could not be confirmed. Please try again or choose another payment method.', 'express-checkout-paypal-payment-gateway-for-woocommerce' ), 'error' );
+				wp_safe_redirect( wc_get_checkout_url() );
+				return;
+			}
 		} 
 		wc_clear_notices();
 		wp_safe_redirect( $this->get_return_url( $order ) );
@@ -3033,9 +3238,144 @@ class Eh_PayPal_Express_Payment extends WC_Payment_Gateway {
         }        
     }
 
+	public static function is_legacy_express_user() {
+
+        $flag = get_option( 'eh_paypal_legacy_express_user', '' );
+
+        if ( 'yes' === $flag ) {
+            return apply_filters( 'wt_paypal_show_express_checkout_settings', true );
+        }
+
+        if ( 'no' === $flag ) {
+            return apply_filters( 'wt_paypal_show_express_checkout_settings', false );
+        }
+
+        $express_settings = get_option( 'woocommerce_eh_paypal_express_settings', array() );
+        $direct_settings  = get_option( 'woocommerce_eh_paypal_direct_checkout_settings', array() );
+
+        $is_legacy = ! empty( $express_settings ) || ! empty( $direct_settings );
+
+        update_option( 'eh_paypal_legacy_express_user', $is_legacy ? 'yes' : 'no' );
+        return apply_filters( 'wt_paypal_show_express_checkout_settings', $is_legacy );
+    }
+
     public function wt_paypal_load_media(){
         wp_enqueue_media();
-    }         
+	}
+
+	/**
+	 * Keep the PayPal review order reusable after shipping changes the cart total.
+	 *
+	 * @param WC_Cart $cart Active cart whose totals were recalculated.
+	 */
+	public function eh_sync_review_order_cart_hash( $cart ) {
+		if ( 'yes' !== $this->payment_mode || $cart !== WC()->cart || ! WC()->session || ! isset( WC()->session->eh_pe_checkout ) ) {
+			return;
+		}
+
+		$order_id = WC()->session->get( 'store_api_draft_order' );
+		if ( ! $order_id ) {
+			$order_id = WC()->session->get( 'order_awaiting_payment' );
+		}
+		if ( ! $order_id ) {
+			return;
+		}
+
+		$order = wc_get_order( $order_id );
+		if ( ! $order ) {
+			return;
+		}
+
+		if ( $this->eh_get_cart_item_signature( $cart->get_cart() ) !== $this->eh_get_order_item_signature( $order ) ) {
+			$this->eh_invalidate_stale_review_session();
+			return;
+		}
+
+		$new_hash = $cart->get_cart_hash();
+		if ( $order->get_cart_hash() !== $new_hash ) {
+			$order->set_cart_hash( $new_hash );
+			$order->save();
+		}
+	}
+
+	protected function eh_get_cart_item_signature( $cart_contents ) {
+		$items = array();
+		foreach ( (array) $cart_contents as $cart_item ) {
+			$items[] = $cart_item['product_id'] . ':' . $cart_item['variation_id'] . ':' . $cart_item['quantity'];
+		}
+		sort( $items );
+		return implode( ',', $items );
+	}
+
+	protected function eh_get_order_item_signature( $order ) {
+		$items = array();
+		foreach ( $order->get_items() as $item ) {
+			$items[] = $item->get_product_id() . ':' . $item->get_variation_id() . ':' . $item->get_quantity();
+		}
+		sort( $items );
+		return implode( ',', $items );
+	}
+
+	protected function eh_invalidate_stale_review_session() {
+		unset( WC()->session->eh_pe_billing );
+		unset( WC()->session->eh_pe_checkout );
+		unset( WC()->session->store_api_draft_order );
+		unset( WC()->session->eh_disable_skip_review_option );
+		unset( WC()->session->pay_for_order );
+	}
        	
 
+}
+
+/**
+ * Validate express checkout fields without submitting or creating an order.
+ */
+class Eh_PE_Checkout_Validation extends WC_Checkout {
+
+	/**
+	 * Apply WooCommerce's field rules to the current checkout form.
+	 *
+	 * @param array $posted_data Unslashed checkout form data.
+	 * @param bool  $is_block_checkout Whether the data comes from Checkout Blocks.
+	 * @return array Normalized checkout data and validation errors.
+	 */
+	public function validate_fields( $posted_data, $is_block_checkout = false ) {
+		$original_post = $_POST;
+		$_POST         = wp_slash( $posted_data );
+
+		try {
+			$this->fields = $is_block_checkout ? $this->get_block_checkout_fields( $posted_data ) : WC()->checkout()->get_checkout_fields();
+			$data         = $this->get_posted_data();
+			if ( $is_block_checkout ) {
+				$data = array_merge( $posted_data, $data );
+			}
+			$errors       = new WP_Error();
+			$this->validate_posted_data( $data, $errors );
+		} finally {
+			$_POST = $original_post;
+		}
+
+		return array( $data, $errors );
+	}
+
+	/**
+	 * Blocks uses country locale rules rather than classic checkout field settings.
+	 * In particular, an optional Blocks phone field must not inherit a classic required rule.
+	 *
+	 * @param array $posted_data Current checkout data.
+	 * @return array Address fields in the format expected by WC_Checkout.
+	 */
+	protected function get_block_checkout_fields( $posted_data ) {
+		$locales = WC()->countries->get_country_locale();
+		$fields  = array( 'billing' => array(), 'shipping' => array(), 'account' => array(), 'order' => array() );
+		foreach ( array( 'billing', 'shipping' ) as $group ) {
+			$country = $posted_data[ $group . '_country' ] ?? '';
+			$rules   = array_replace_recursive( $locales['default'] ?? WC()->countries->get_default_address_fields(), $locales[ $country ] ?? array() );
+			foreach ( $rules as $key => $field ) {
+				$fields[ $group ][ $group . '_' . $key ] = $field;
+			}
+		}
+		$fields['billing']['billing_email'] = array( 'label' => __( 'Email address', 'woocommerce' ), 'required' => true, 'validate' => array( 'email' ) );
+		return $fields;
+	}
 }

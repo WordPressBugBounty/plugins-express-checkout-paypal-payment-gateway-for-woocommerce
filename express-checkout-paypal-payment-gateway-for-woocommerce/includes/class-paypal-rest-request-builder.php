@@ -43,9 +43,10 @@ class Eh_Rest_Request_Built {
 	public function make_request_params( array $args ) {
 		$this->currency_code = get_woocommerce_currency();
 		$eh_paypal_express_options = get_option('woocommerce_eh_paypal_express_settings');
+		$funding_source = isset( $args['funding_source'] ) && in_array( $args['funding_source'], array( 'bancontact', 'ideal', 'blik' ), true ) ? $args['funding_source'] : '';
 		$this->make_params(
 			array(
-				'intent'              => $args['intent'],
+				'intent'              => $funding_source ? 'CAPTURE' : $args['intent'],
 				'application_context' => array(
 					'brand_name'          => $args['brand_name'],
 					'locale'              => ( ( strpos( $args['locale'], '_' ) !== false ) ? str_replace( '_', '-', $args['locale'] ) : $args['locale'] ),
@@ -423,6 +424,25 @@ class Eh_Rest_Request_Built {
 			}
 		}
 
+		// The JavaScript SDK confirms iDEAL and BLIK with the buyer's PaymentFields data after this order is created.
+		if ( 'bancontact' === $funding_source ) {
+			$checkout_data = WC()->session->post_data;
+			$first_name = ! empty( $checkout_data['billing_first_name'] ) ? $checkout_data['billing_first_name'] : WC()->customer->get_billing_first_name();
+			$last_name = ! empty( $checkout_data['billing_last_name'] ) ? $checkout_data['billing_last_name'] : WC()->customer->get_billing_last_name();
+			$buyer_name = trim( wc_clean( $first_name . ' ' . $last_name ) );
+			$this->make_params(
+				array(
+					'processing_instruction' => 'ORDER_COMPLETE_ON_PAYMENT_APPROVAL',
+					'payment_source' => array(
+						$funding_source => array(
+							'country_code' => 'BE',
+							'name' => $buyer_name,
+						),
+					),
+				)
+			);
+		}
+
 		//to avoid adding 14 digit precision while json encoding
 		ini_set( 'precision', 14 );
 		ini_set( 'serialize_precision', -1 );
@@ -431,6 +451,9 @@ class Eh_Rest_Request_Built {
 			'Authorization' => 'Bearer ' . $args['access_token'],
 			'Content-Type'  => 'application/json',
 		);
+		if ( $funding_source ) {
+			$headers['PayPal-Request-Id'] = wp_generate_uuid4();
+		}
 		$this->params = apply_filters( 'wt_rest_request_params', $this->params );
 
 		if ( apply_filters( 'wt_paypal_show_sensitive_data', false ) === true ) {
@@ -823,7 +846,7 @@ class Eh_Rest_Request_Built {
 			'timeout'     => 120,
 			'redirection' => 0,
 			'httpversion' => $this->http_version,
-			'sslverify'   => false,
+			'sslverify'   => true,
 			'blocking'    => true,
 			'user-agent'  => 'EH_PAYPAL_EXPRESS_CHECKOUT',
 			'headers'     => $header,
@@ -834,23 +857,10 @@ class Eh_Rest_Request_Built {
 		return $args;
 	}
 
-	public function get_token($obj) {
-
-        $environment = (isset($_REQUEST['woocommerce_eh_paypal_express_smart_button_environment']) && !empty($_REQUEST['woocommerce_eh_paypal_express_smart_button_environment'])) ? $_REQUEST['woocommerce_eh_paypal_express_smart_button_environment'] : $obj->smart_button_environment; 
-
-        if("live" === $environment) {
-	        $client_id = ( isset($_REQUEST['woocommerce_eh_paypal_express_live_client_id'])) ? $_REQUEST['woocommerce_eh_paypal_express_live_client_id'] : $this->params['client_id'];
-	        
-	        $client_secret = ( isset($_REQUEST['woocommerce_eh_paypal_express_live_client_secret'])) ? $_REQUEST['woocommerce_eh_paypal_express_live_client_secret'] : $this->params['client_secret'] ;	
-
-        } 
-        else{
-	        $client_id = ( isset($_REQUEST['woocommerce_eh_paypal_express_sandbox_client_id'])) ? $_REQUEST['woocommerce_eh_paypal_express_sandbox_client_id'] : $this->params['client_id'];
-	        
-	        $client_secret = ( isset($_REQUEST['woocommerce_eh_paypal_express_sandbox_client_secret'])) ? $_REQUEST['woocommerce_eh_paypal_express_sandbox_client_secret'] : $this->params['client_secret'] ;	
-        }						
-       $arr_credentials = array($client_id, $client_secret);
-       Eh_PayPal_Log::log_update(json_encode($arr_credentials, JSON_PRETTY_PRINT),'Credentials', 'json');
+	public function get_token( $obj ) {
+		// The gateway supplies saved options or validated admin-save credentials.
+		$client_id     = $this->params['client_id'];
+		$client_secret = $this->params['client_secret'];
 
 		$encoded_value = base64_encode( $client_id . ':' . $client_secret );
 		$header         = array( 'Authorization' => 'Basic ' . $encoded_value );

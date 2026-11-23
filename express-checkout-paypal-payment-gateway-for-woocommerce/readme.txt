@@ -3,84 +3,165 @@ Contributors: themehigh
 Donate link: https://www.themehigh.com/product/paypal-express-checkout-gateway-for-woocommerce/
 Tags: paypal, credit card, debit card, paylater, payment gateway
 Requires at least: 5.6
-Tested up to: 7.1
+Tested up to: 7.2
 Requires PHP: 7.0
-Stable tag: 1.9.5
+Stable tag: 1.9.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Enable faster checkout with PayPal for WooCommerce. Add PayPal Express/PayPal Standard gateways that accept PayPal, Pay Later, debit & credit cards.
+Enable faster PayPal checkout for WooCommerce with Smart Buttons, Pay Later, eligible card and local payments, with WooCommerce Blocks compatibility.
+
 == Description ==
 
-Integrate PayPal payments easily in WooCommerce stores with Express & Smart Checkout, credit/debit cards, Pay Later, and local payment options.
+==🔥 Simplify PayPal Payments and Create a Faster WooCommerce Checkout ==
 
-### Introduction ###
+Integrate PayPal with WooCommerce and give customers more convenient ways to pay using **ThemeHigh’s Payment Gateway of PayPal for WooCommerce**. Add customizable PayPal Smart Buttons and enable customers to pay with PayPal, Pay Later, credit or debit cards, and supported local payment methods.
 
-Integrate PayPal with WooCommerce to accept payments through the secure PayPal payment gateway. You can add PayPal Express Checkout or PayPal Smart Checkout payment gateway to your WooCommerce store with the ThemeHigh WooCommerce PayPal payment gateway plugin.
+The plugin supports **WooCommerce Blocks**, allowing you to offer PayPal payment options on block-based product, cart, and checkout pages. Display familiar payment options, reduce unnecessary checkout steps, and create a smoother experience that can help lower cart abandonment and improve conversions.
 
-With this WooCommerce PayPal plugin, your customers can use their credit cards, debit cards, PayPal Credit, Pay Later offers (Pay in 4), or PayPal money to make an order from the cart page itself. With the WooCommerce PayPal smart button, you can also allow your customers to make payments using the preferred payment methods in their country/region auto-detected by PayPal.
+**How This PayPal Payment Gateway Plugin Makes Payments Easier?**
 
-With PayPal Express Checkout or PayPal Smart Checkout enabled you can ensure a smoother experience for your users as they never have to leave your website for making payments. PayPal for WooCommerce makes the payment process quick, easy, and convenient.
+Customers expect convenient payment choices, while store owners need a simple way to add PayPal without developing and maintaining a custom payment integration. 
 
-### Major Features of the PayPal Express Checkout Payment Gateway Plugin for WooCommerce###
+✳️ **Give customers more ways to pay**: Offer PayPal, eligible Pay Later options and supported 10+ supported local payment methods.
+✳️ **Create a faster payment experience**: Display PayPal payment buttons on the cart and checkout pages and reduce unnecessary checkout steps.
+✳️ **Match your store’s design**: Customize the payment button’s label, colour, shape, size and layout.
+✳️ **Control payment choices**: Decide which eligible PayPal payment options are displayed to customers.
+✳️ **Test payments safely**: Verify the complete payment process in Sandbox mode before accepting live transactions.
 
-🔸 Reduce clicks by enabling WooCommerce PayPal Express Checkout in your store
-🔸 Enable PayPal Smart Checkout - The payment plugin auto-detects the customer's country/device and shows available payment methods (including local payment methods) at checkout [New]
-🔸 Supports [PayPal’s Alternative Payment Method](https://developer.paypal.com/docs/checkout/apm/) that helps customers to pay with their bank accounts, wallets, and other local payment methods such as:
+### 🔥EXPLORE WHAT OUR FREE VERSION OFFERS ###
 
+ == ✅ ADD PAYPAL PAYMENTS TO CART AND CHECKOUT==
+Display PayPal payment options on your WooCommerce cart and checkout pages to create a faster and more convenient payment experience.
+
+ == ✅ OFFER MULTIPLE PAYPAL PAYMENT OPTIONS  ==
+Give customers more flexibility with eligible payment options, including:
+
+* PayPal Credit
+* Pay Later
+* Credit or debit cards through PayPal like :
+  * Mastercard
+  * Visa
+  * Discover
+  * Diners Club
+  * American Express   
 * Bancontact
 * BLIK
 * eps
 * iDEAL
 * MyBank
-* Pay upon Invoice
 * Przelewy24
+* Venmo
 
-🔸 Smart checkout button customization - customize label, color, shape, layout, size, etc. [New]
-🔸 Option to enable PayPal Standard payment gateway
-🔸 Accept PayPal Money
-🔸 Accept PayPal Credit (buy now and pay later)
-🔸 Accept credit cards and debit cards through PayPal
-🔸 Completes orders from cart and checkout page. The premium version supports making PayPal payments from the product page and mini-cart!
-🔸 Customize  the PayPal payment options visible to customers with various settings and configurations. 
-🔸 Add invoice prefix to identify store order
-🔸 Faster checkout by skipping the order review page
-🔸 Tested OK with WooCommerce  10.0.2
 
-### Importance of PayPal Checkout for your WooCommerce Store ###
-[PayPal](https://www.paypal.com/us/webapps/mpp/home) is one of the faster and more secure options for online payments. It has millions of active users globally making it one of the leading payment platforms. By integrating the PayPal payment gateway with your WooCommerce store (using the PayPal checkout plugin), you will be able to increase conversions and reduce cart abandonment at a drastic rate.
+👉 **Note**: Payment availability may vary based on the customer’s country, currency, device and PayPal eligibility. Card payments without a PayPal login require the [Pro version](https://www.themehigh.com/product/paypal-express-checkout-gateway-for-woocommerce/).
 
-Payment Gateway of PayPal for WooCommerce is one of the best WooCommerce PayPal plugins that facilitates integration with PayPal. The WooCommerce payment plugin is an easy-to-use tool that offers everything from faster checkout to recurring payment support (available in premium). 
+ == ✅ CUSTOMIZE THE PAYPAL PAYMENT BUTTON  == 
+Adjust the PayPal button to suit your store and checkout design.
 
-To learn about the installation and setup of this free WooCommerce PayPal plugin, visit the [plugin documentation](https://www.themehigh.com/docs/payment-gateway-plugin-for-paypal-woocommerce-free-setup-guide/) page.
+* Choose a button label: PayPal, Checkout, Pay or Buy Now
+* Change the button colour
+* Select a rectangular or pill shape
+* Choose a horizontal or vertical layout
+* Adjust the button size
+* Show or hide the PayPal tagline
 
-To set up PayPal Smart Button, refer to this set-up video [youtube https://www.youtube.com/watch?v=zKRREFIYmFA]
 
-##Pro version##
+== ✅ CONFIGURE THE CHECKOUT FLOW  == 
+Create a more convenient payment journey by controlling how customers move through checkout.
 
-### WooCommerce PayPal Plugin Premium Version Features ###
+* Display PayPal payment buttons on the cart and checkout pages
+* Skip the additional order-review page
+* Save PayPal-cancelled orders as pending for easier follow-up
 
- ✅  Add PayPal Express checkout option on the product page
- ✅  Add PayPal Smart checkout option on individual product page [New]
- ✅  Accepts payment using multiple Alternative Payment Methods (APM) based on country or device [New]
- ✅  Set up mini-cart for faster checkout
- ✅  Capture authorized payment later with PayPal
- ✅  Enable partial and full refunds of the order amount directly from the order admin page
- ✅  PayPal WooCommerce customization options like button style, position, etc.
- ✅  Option to enable In-Context checkout, keep customers inside your store during checkout
- ✅  Supports [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/) and [Subscriptions for WooCommerce by ThemeHigh](https://www.themehigh.com/product/subscriptions-for-woocommerce/)
- ✅  Shortcode support for the Paypal Express button
- ✅  PayPal checkout payment gateway allows users to pay with their credit card without leaving the site (Guest checkout)
- ✅  Option to set up a specific PayPal locale
- ✅  Option to set up express checkout cancel page URL
- ✅  Timely compatibility updates and bug fixes
- ✅  Premium support!
+== ✅ USE YOUR STORE LOCALE ==
 
-For the complete list of features and details regarding WooCommerce PayPal, please visit <a rel="nofollow" href="https://www.themehigh.com/product/paypal-express-checkout-gateway-for-woocommerce/">ThemeHigh PayPal Express Checkout Payment Gateway for WooCommerce</a>
+Display the PayPal checkout experience using your WooCommerce store locale.
+Need to use a different language? The [Pro version](https://www.themehigh.com/product/paypal-express-checkout-gateway-for-woocommerce/) lets you select a specific PayPal locale from the available options.
 
-= Related Plugins from ThemeHigh =
+== ✅ CONTROL ADDRESS AND ORDER INFORMATION ==
 
-[Stripe Payment Plugin for WooCommerce](https://wordpress.org/plugins/payment-gateway-stripe-and-woocommerce-integration/) - Accept payments via Stripe in your WooCommerce store. Enable Apple Pay, Google Pay, Alipay, or Stripe Checkout.
+* Choose how customer and order details are sent to PayPal.
+* Prevent PayPal from overriding the address entered in WooCommerce
+* Send the customer’s shipping address instead of the billing address
+* Add a custom invoice prefix to identify store orders in PayPal
+
+== ✅ HANDLE ORDER-TOTAL MISMATCHES ==
+Reduce payment errors caused by differences between WooCommerce and PayPal order totals. Add or remove an adjustment line when required, or send only the order subtotal to PayPal.
+
+== ✅ TEST AND TROUBLESHOOT PAYMENTS == 
+Use PayPal Sandbox mode to test the payment process before accepting live transactions. Enable debug logs to investigate payment or configuration issues.
+
+
+==🔥 UNLOCK MORE CONTROL WITH PAYPAL PRO ==
+Upgrade to Pro for advanced payment placement and checkout controls.
+ [Documentation](https://www.themehigh.com/docs/category/payment-gateway-plugin-for-paypal-woocommerce/?utm_source=paypal_free&utm_medium=referral&utm_campaign=paypal_pro_doc) | [Get Pro ](https://www.themehigh.com/docs/category/payment-gateway-plugin-for-paypal-woocommerce/?utm_source=paypal_free&utm_medium=referral&utm_campaign=paypal_upgrade_link)
+
+== ✅ DISPLAY PAYPAL BUTTONS EARLIER ==
+Place PayPal payment buttons on individual product pages and the mini-cart, giving customers faster access to payment before reaching the checkout page.
+
+== ✅ ENABLE GUEST CARD PAYMENTS ==
+Allow eligible customers to pay using a credit or debit card without signing in to or creating a PayPal account.
+
+== ✅ AUTHORIZE NOW AND CAPTURE LATER ==
+Authorize a customer’s payment during checkout and capture the funds later when the order is ready to process or fulfil.
+
+== ✅ PROCESS REFUNDS FROM WOOCOMMERCE ==
+Issue full or partial PayPal refunds directly from the WooCommerce order admin page without manually processing them through the PayPal dashboard.
+
+== ✅ ACCEPT ONLY INSTANT PAYMENTS ==
+Restrict checkout to payment methods that provide an immediate payment confirmation and prevent delayed methods such as eChecks.
+
+==  ✅ CHOOSE A SPECIFIC PAYPAL LOCALE == 
+Select a preferred locale code from a dropdown containing the languages and regions supported by PayPal, instead of relying only on the WooCommerce store locale.
+
+== ✅ CONTROL THE PAYMENT-CANCELLATION FLOW == 
+Choose where customers are sent when they cancel a PayPal payment, including a specific cancellation page or the preceding page.
+
+==  ✅ ACCEPT SUBSCRIPTION PAYMENTS == 
+Accept recurring PayPal payments and subscription renewals through integration with [Subscriptions for WooCommerce](https://woocommerce.com/products/woocommerce-subscriptions/) by ThemeHigh and [WooCommerce Subscription plugin](https://www.themehigh.com/product/subscriptions-for-woocommerce/)
+
+==  ✅ CONNECT PAYPAL WEBHOOKS == 
+Configure a PayPal webhook URL and Webhook ID to receive supported payment-event notifications and help keep WooCommerce transaction information synchronized.
+
+**To set up PayPal Smart Button, refer to this set-up video**
+
+[youtube https://www.youtube.com/watch?v=zKRREFIYmFA]
+
+[GET FULL ACCESS WITH PREMIUM NOW!](https://www.themehigh.com/docs/category/payment-gateway-plugin-for-paypal-woocommerce/?utm_source=paypal_free&utm_medium=referral&utm_campaign=paypal_upgrade_link)
+
+== Why ThemeHigh ==
+At themehigh, we specialize in providing thoughtful solutions to help you create your store in the easiest and simplest way possible, providing you with a smooth and enjoyable customization experience.
+
+🏆 2 Million+ Customers
+🏆 Quickest Turn-around Support
+🏆 Most Lightweight Plugins
+
+
+**Happy Users of Payment Gateway of PayPal for WooCommerce Plugin**
+
+> **antoinebecuwe (@antoinebecuwe)**⭐⭐⭐⭐⭐
+> The support team did everything they could to resolve the issues I was experiencing and found a solution quickly. I highly recommend them!
+
+> **ahawtin (@ahawtin)**⭐⭐⭐⭐ 
+> So trouble free to install and configure. Working successfully now on both our English and French sites. Appreciate your work on this great plug-in.
+
+> **salescrystal (@salescrystal)** ⭐⭐⭐⭐⭐
+> Easy to set up and it actually works very well indeed. Look no further for your Paypal needs.
+
+> **mirtillion (@mirtillion)** ⭐⭐⭐⭐⭐
+> The plugin does exactly that what promised. Easy to set up, easy to use. Thank you guys.
+
+> **colcel2005 (@colcel2005)** ⭐⭐⭐⭐⭐
+> Excellent complement I highly recommend it.
+It will facilitate purchases and payments to your customers and you will have better sales.
+
+== OTHER USEFUL LINKS==
+👉 [VIEW ALL FEATURES](https://www.themehigh.com/docs/category/payment-gateway-plugin-for-paypal-woocommerce/?utm_source=paypal_free&utm_medium=referral&utm_campaign=paypal_upgrade_link)
+👉 [GET DOCUMENTATION](https://www.themehigh.com/docs/category/payment-gateway-plugin-for-paypal-woocommerce/?utm_source=paypal_free&utm_medium=referral&utm_campaign=paypal_pro_doc)
+👉 [GET THEMEHIGH SUPPORT](https://www.themehigh.com/docs/support/?utm_source=paypal_free&utm_medium=referral&utm_campaign=paypal_support)
+👉 [JOIN COMMUNITY](https://www.facebook.com/groups/themehigh/)
+👉 FOLLOW US ON [Facebook](https://www.facebook.com/ThemeHigh-319611541768603/), [LinkedIn](https://www.linkedin.com/company/themehigh/), [X](https://twitter.com/themehigh/) , [YouTube](https://www.youtube.com/channel/UC-_uMXaC_21j1Y2_nGjTyvg/) & [Reddit](https://www.reddit.com/r/themehigh).
 
 == Installation ==
 
@@ -107,6 +188,9 @@ Yes. In addition to PayPal Express checkout, the plugin lets you integrate PayPa
 = Is this PayPal payment plugin's configuration complicated? =
 The plugin is very easy to configure. We have a step-by-step [tutorial on setting up this plugin](https://www.themehigh.com/docs/payment-gateway-plugin-for-paypal-woocommerce-free-setup-guide/). 
 
+= Does this PayPal payment plugin support WooCommerce Blocks? =
+Yes. The plugin supports WooCommerce Blocks, allowing you to offer PayPal payment options on block-based product, cart, and checkout pages.
+
 = Will you please help me to resolve this “Not Acceptable” mod_security generated error? =
 This is a common error that comes due to some server-related restrictions. Please visit [How to Fix the mod_security Error](https://www.themehigh.com/docs/how-to-fix-the-mod_security-error/) for more details.
 
@@ -118,23 +202,29 @@ PayPal is available in more than 200 countries/regions and supports 25 currencie
 
 == Screenshots ==
 
-1. PayPal Smart Button-Alternative Payment Method-US
-2. PayPal Smart Button-Alternative Payment Method-Netherland
-3. PayPal Smart Button-Alternative Payment Method-Germany
-4. PayPal Express button-Cart page view
-5. PayPal Express button-Checkout page view
-6. PayPal Express Payment Gateway for WooCommerce-Choose payment method
-7. PayPal Smart Button-Settings
-8. PayPal Express Button-Customization settings
-9. PayPal payment gateway-Branding settings
-10. PayPal payment gateway-Brand logo
-11. PayPal payment-advanced options
-12. PayPal Express Button-Input API Credentials
-13. PayPal Smart Button-Client ID and Secret
-14. PayPal-Order review page
+1. Enable PayPal Payments
+2. Connect a Paypal business account
+3. Paypal smart button setttings
+4. Configure branding and locale
+5. Manage advanced order settings
+6. PayPal smart buttons on cart page
+7. PayPal smart buttons on checkout page
+8. Disable funding sources
+9. Pay with Bancontact
+10. Pay with iDEAL
+11. Pay with Venmo
+12. Pay with BLIK
+13. PayPal Payment Screen
+14. Successful PayPal order in WooCommerce
 
 
 == Changelog ==
+
+= 1.9.6 =
+* [Compatibility] - WooCommerce 11.3
+* [Compatibility] - WordPress 7.2
+* [Compatibility] - Smart button support for WooCommerce blocks.
+* [Compatibility] - Added support for Bancontact, iDEAL, and BLIK payments.
 
 = 1.9.5 =
 * [Compatibility] - WooCommerce 11.0

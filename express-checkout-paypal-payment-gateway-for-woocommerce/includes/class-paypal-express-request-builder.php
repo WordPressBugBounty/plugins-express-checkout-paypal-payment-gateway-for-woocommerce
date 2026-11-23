@@ -526,7 +526,7 @@ class Eh_PE_Request_Built {
 			'timeout'     => 120,
 			'redirection' => 0,
 			'httpversion' => $this->http_version,
-			'sslverify'   => false,
+			'sslverify'   => true,
 			'blocking'    => true,
 			'user-agent'  => 'EH_PAYPAL_EXPRESS_CHECKOUT',
 			'headers'     => array(),

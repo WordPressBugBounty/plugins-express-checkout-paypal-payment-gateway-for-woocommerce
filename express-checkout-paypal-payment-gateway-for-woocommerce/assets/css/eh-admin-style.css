@@ -46,3 +46,124 @@ span.smart_button_toggle_display {
     display: inline-block;
     width: 68%;
 }
+
+#woocommerce_eh_paypal_express_disable_funding_source + .select2-container .select2-selection--multiple {
+    position: relative;
+    padding-right: 24px;
+}
+
+#woocommerce_eh_paypal_express_disable_funding_source + .select2-container .select2-selection--multiple::after {
+    content: "";
+    position: absolute;
+    top: 55%;
+    right: 10px;
+    width: 6px;
+    height: 6px;
+    border-right: 1.5px solid #50575e;
+    border-bottom: 1.5px solid #50575e;
+    transform: translateY(-110%) rotate(45deg);
+    pointer-events: none;
+}
+
+.eh-paypal-discount-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .5);
+}
+.eh-paypal-discount-popup__panel {
+    width: min(500px, calc(100vw - 32px));
+    overflow: hidden;
+    border-radius: 20px;
+    background: #fff;
+    text-align: center;
+}
+.eh-paypal-discount-popup__offer {
+    position: relative;
+    box-sizing: border-box;
+    height: 212px;
+    padding: 20px 16px 12px;
+    background: url(../img/popup-flyers.png) center top / 499px 155px no-repeat,
+        linear-gradient(90deg, #4410d8 5%, #4e10d8 18%, #6911d8 40%, #9611d9 69%, #cc12d9 100%);
+}
+.eh-paypal-discount-popup__close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+.eh-paypal-discount-popup__close:hover,
+.eh-paypal-discount-popup__close:focus {
+    box-shadow: none;
+}
+.eh-paypal-discount-popup__close img {
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+.eh-paypal-discount-popup__offer p {
+    margin: 0;
+}
+.eh-paypal-discount-popup__offer .eh-paypal-discount-popup__intro,
+.eh-paypal-discount-popup__offer .eh-paypal-discount-popup__subtitle {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 23.83px;
+}
+.eh-paypal-discount-popup__offer strong {
+    display: block;
+    margin: -8px 0;
+    color: #fff;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 80.34px;
+}
+.eh-paypal-discount-popup__offer .eh-paypal-discount-popup__expiry {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 0 8px;
+    background: #fff;
+    color: #000;
+    font-size: 15px;
+    line-height: 26.31px;
+}
+.eh-paypal-discount-popup__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+}
+.eh-paypal-discount-popup__body p {
+    max-width: 398px;
+    margin: 0 0 18px;
+    color: #000;
+    font-size: 13px;
+    line-height: 1.75;
+}
+.eh-paypal-discount-popup__claim {
+    display: flex;
+    width: 168px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background: #6e55ff;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.eh-paypal-discount-popup__claim:hover,
+.eh-paypal-discount-popup__claim:focus {
+    background: #5840e0;
+    color: #fff;
+}
